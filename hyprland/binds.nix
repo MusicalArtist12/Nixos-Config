@@ -12,11 +12,10 @@ let
 
     ;
 in {
-    wayland.windowManager.hyprland.general = {
-        "$mainMod" = "SUPER";
-    };
 
     wayland.windowManager.hyprland.settings = {
+        "$mainMod" = "SUPER";
+
         bind = [
             "$mainMod Shift, Q, killactive,"
             "$mainMod Alt, Q, exec, forcekillactive"
@@ -81,6 +80,18 @@ in {
             "$mainMod, KP_Begin, layoutmsg, orientationcenter"
             "$mainMod, KP_5, layoutmsg, orientationcenter"
             "$mainMod, KP_Enter, layoutmsg, swapwithmaster"
+        ];
+
+        bindm = [
+            "$mainMod, E, movewindow"
+            "$mainMod, R, resizewindow"
+        ];
+        bindle = [
+            ",XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+            ",XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+            ",XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+            ",XF86MonBrightnessUp, exec, brightnessctl s +5%"
+            ",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
         ];
     };
 }
