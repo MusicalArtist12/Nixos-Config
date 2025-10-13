@@ -60,4 +60,8 @@
 		})
 	];
 
+	imports = [
+		./hyprland/default.nix
+	];
+
 }

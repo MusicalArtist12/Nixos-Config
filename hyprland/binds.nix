@@ -14,7 +14,7 @@ let
 in {
     wayland.windowManager.hyprland.general = {
         "$mainMod" = "SUPER";
-    }
+    };
 
     wayland.windowManager.hyprland.settings = {
         bind = [
@@ -81,6 +81,6 @@ in {
             "$mainMod, KP_Begin, layoutmsg, orientationcenter"
             "$mainMod, KP_5, layoutmsg, orientationcenter"
             "$mainMod, KP_Enter, layoutmsg, swapwithmaster"
-        ]
-    }
+        ];
+    };
 }

@@ -29,7 +29,7 @@
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = ./home.nix;
 				}
-				./hyprland/default.nix
+
 
 			];
 		};

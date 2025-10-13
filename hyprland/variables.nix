@@ -5,5 +5,5 @@
     clipboard = "rofi -show clipboard -show-icons";
     python_term = "kitty --hold python";
     screenshot = "hyprshot -m region --clipboard-only";
-    screenshot_window = "hyprshot -m window -m active -- imv"
+    screenshot_window = "hyprshot -m window -m active -- imv";
 }
