@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... } : {
+
 	system.stateVersion = "25.05"; # no touchy - at all
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -68,17 +69,17 @@
 		clang
 		killall
 		bat
-		pokemon-colorscripts
+
 		fzf-zsh
 		fzf
 
 		unzip
 
 		brightnessctl
-
-		hyfetch
+		pciutils
+		usbutils
+		lm_sensors
 		gh
-
 	];
 	programs.zsh = {
 		enable = true;

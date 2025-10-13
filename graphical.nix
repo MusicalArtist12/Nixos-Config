@@ -52,7 +52,6 @@
 
 		libnotify
 		swaynotificationcenter
-		eww
 		syshud
 		rofi
 		networkmanagerapplet
@@ -60,7 +59,7 @@
 
 		polkit_gnome
 		pulseaudio # provides pactl
-                pamixer
+		pamixer
 
 		kitty
 		firefox
@@ -69,21 +68,6 @@
 		file-roller
 		wev
 
-		zoom
-		godot
-		vscode
-		gimp
-		blender
-
-
-
-		bitwarden-desktop
-		obsidian
-		spotify
-		(discord.override {
-			withMoonlight = true;
-			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
-		})
 	];
 
 	# spotifty networking

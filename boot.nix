@@ -1,8 +1,8 @@
 { config, lib, pkgs, modulesPath, ... }: {
 	boot = {
 		kernelPackages = pkgs.linuxPackages_latest;
-
 		loader = {
+			systemd-boot.configurationLimit = 10;
 			systemd-boot.enable = true;
 			efi.canTouchEfiVariables = true;
 		};

@@ -27,12 +27,10 @@
 				{
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
-					home-manager.users.julia = {
-						imports = [
-							./home.nix
-						];
-					};
+					home-manager.users.julia = ./home.nix;
 				}
+				./hyprland/default.nix
+
 			];
 		};
 	};
