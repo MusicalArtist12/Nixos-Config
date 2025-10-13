@@ -28,13 +28,10 @@
 			userName = "MusicalArtist12";
 			userEmail = "TheMusicalArtist12@gmail.com";
 		};
-
 	};
-
 
 	home.packages = with pkgs; [
 		pokemon-colorscripts
-		hyfetch
 		zoom
 		godot
 		vscode
@@ -48,11 +45,13 @@
 		})
 	];
 
+	# todo: vim and zsh
+
 	imports = [
-		./hyprland/default.nix
-		./gtk.nix
-		./rofi/default.nix
+		./hyprland
+		./rofi
 		./fetch.nix
+		./gtk.nix
 	];
 
 }

@@ -3,6 +3,38 @@
 		enable = true;
 	};
 
+	systemd = {
+		user.services.polkit-gnome-authentication-agent-1 = {
+				description = "polkit-gnome-authentication-agent-1";
+				wantedBy = [ "graphical-session.target" ];
+				wants = [ "graphical-session.target" ];
+				after = [ "graphical-session.target" ];
+				serviceConfig = {
+					Type = "simple";
+					ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+					Restart = "on-failure";
+					RestartSec = 1;
+					TimeoutStopSec = 10;
+	  			};
+  		};
+	};
+
+	services = {
+		pipewire = {
+			enable = true;
+			alsa.enable = true;
+			alsa.support32Bit = true;
+			pulse.enable = true;
+		};
+
+		displayManager.gdm.enable = true;
+		gnome.gnome-keyring.enable = true;
+
+		# thunar stuff
+		gvfs.enable = true;
+		tumbler.enable = true;
+	};
+
 	programs = {
 		hyprland = {
 			enable = true;
@@ -39,13 +71,13 @@
 		nwg-icon-picker
 		nwg-hello
 
+		polkit_gnome
 		hyprpolkitagent
+
 		hyprpicker
 		hyprshot
-		hyprlock
-		hypridle
-		hyprpaper
-		app2unit
+
+		app2unit # uwsm
 
 		cliphist
 		wl-clipboard
@@ -53,13 +85,13 @@
 		libnotify
 		swaynotificationcenter
 		syshud
+
 		rofi
 		networkmanagerapplet
-		pavucontrol
 
-		polkit_gnome
 		pulseaudio # provides pactl
 		pamixer
+		pavucontrol
 
 		kitty
 		firefox
@@ -67,10 +99,9 @@
 
 		file-roller
 		wev
-
 	];
 
-	# spotifty networking
+	# spotify networking
 	networking.firewall.allowedTCPPorts = [ 57621 ];
 	networking.firewall.allowedUDPPorts = [ 5353 ];
 

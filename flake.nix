@@ -19,8 +19,6 @@
 				./configuration.nix
 				./hardware-configuration.nix
 				./graphical.nix
-				./services.nix
-				./boot.nix
 				./latex.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd
 				home-manager.nixosModules.home-manager

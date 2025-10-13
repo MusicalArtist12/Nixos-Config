@@ -33,5 +33,5 @@
 		name = "Catppuccin-Mocha-Mauve-Cursors";
 		size = 8;
 	};
-	# todo: vim and zsh
+
 }

@@ -3,20 +3,6 @@
 	system.stateVersion = "25.05"; # no touchy - at all
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-	networking = {
-		hostName = "Hypatia"; # Define your hostname.
-		networkmanager = {
-			enable = true;
-			wifi.powersave = true;
-		};
-		useDHCP = lib.mkDefault true;
-	};
-
-	hardware.bluetooth = {
-		enable = true;
-		settings.General.Enable = "Source,Sink,Media,Socket";
-	};
-
 	# Set your time zone.
 	time.timeZone = "America/Los_Angeles";
 
@@ -57,13 +43,11 @@
 
 	# List packages installed in system profile. To search, run:
 	# $ nix search wget
-	environment.systemPackages = with pkgs; [
+	environment.systemPackages = (with pkgs; [
 		vim
 		wget
-		ranger
-		fastfetch
 		git
-		python314
+		python313
 		gnumake
 		cmake
 		clang
@@ -80,7 +64,20 @@
 		usbutils
 		lm_sensors
 		gh
-	];
+	]) ++ (with pkgs.python313Packages; [
+		# Deep Learning
+        scipy
+        numpy
+        matplotlib
+        pandas
+        statsmodels
+        scikit-learn
+        ipykernel
+        jupyter
+        ipython
+        notebook
+    ]);
+
 	programs.zsh = {
 		enable = true;
 		autosuggestions.enable = true;

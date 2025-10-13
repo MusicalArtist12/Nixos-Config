@@ -1,16 +1,6 @@
 { ... }:
 let
-    inherit
-        (import ./variables.nix)
-        terminal
-        fileManager
-        menu
-        screenshot
-        screenshot_window
-        clipboard
-        python_term
-
-    ;
+    programs = (import ./variables.nix);
 in {
 
     wayland.windowManager.hyprland.settings = {
@@ -61,13 +51,13 @@ in {
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
 
-            "$mainMod Shift, S, exec, [float;noanim] app2unit -- ${screenshot}"
-            "$mainMod Shift, RETURN, exec, app2unit -- ${fileManager}"
-            "$mainMod, Return, exec, app2unit -- ${terminal}"
-            "$mainMod, D, exec, app2unit -- ${menu}"
-            "$mainMod, C, exec, app2unit -- ${clipboard}"
-            "$mainMod, P, exec, app2unit -- ${python_term}"
-            ",Print, exec, ${screenshot_window}"
+            "$mainMod Shift, S, exec, [float;noanim] app2unit -- ${programs.screenshot}"
+            "$mainMod Shift, RETURN, exec, app2unit -- ${programs.fileManager}"
+            "$mainMod, Return, exec, app2unit -- ${programs.terminal}"
+            "$mainMod, D, exec, app2unit -- ${programs.menu}"
+            "$mainMod, C, exec, app2unit -- ${programs.clipboard}"
+            "$mainMod, P, exec, app2unit -- ${programs.python_term}"
+            ",Print, exec, ${programs.screenshot_window}"
 
             "$mainMod, KP_Up, layoutmsg, orientationtop"
             "$mainMod, KP_8, layoutmsg, orientationtop"
