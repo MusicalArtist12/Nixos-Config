@@ -1,0 +1,29 @@
+(defvar blk 50)
+
+(defwindow launchpad :monitor 0
+                     :stacking "overlay"
+                     :exclusive false
+                     :geometry (geometry :x "50%"
+                                         :y "50%")
+
+    (box :orientation "h"
+         :spacing 5
+      (box :class "drun")
+      (box :orientation "v"
+           :spacing 5
+        (button :width  blk
+                :height blk
+                :class "lock"
+          "󰌾")
+        (button :width  blk
+                :height blk
+                :class "log-out"
+          "󰍃")
+        (button :width  blk
+                :height blk
+                :class "shutdown"
+          "󰐥")
+        (button :width  blk
+                :height blk
+                :class "reboot"
+          "󰜉"))))

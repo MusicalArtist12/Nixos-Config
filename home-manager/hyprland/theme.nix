@@ -1,4 +1,5 @@
 {
+    # catppuccin theme ported to nix for hyprland - this may change to improve interop
     rosewater = "rgb(f5e0dc)";
     rosewaterAlpha = "f5e0dc";
     flamingo = "rgb(f2cdcd)";

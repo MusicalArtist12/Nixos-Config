@@ -1,0 +1,191 @@
+(deflisten hyprland_workspace_info :initial "{}"
+  `python ~/.config/eww/hyprland_listener.py`)
+; this loop will only update elements if the volume changes!
+
+(defpoll vol :interval "0.1s"
+  `pamixer --get-volume`)
+
+(defpoll muted :interval "0.1s"
+  `pamixer --get-mute`)
+
+(defpoll num_notif :interval "0.1s"
+  `swaync-client -c -sw`)
+
+(defpoll max_brightness :interval "1m"
+  `tail /sys/class/backlight/amdgpu_bl1/max_brightness`)
+
+(defpoll brightness :interval "0.1s"
+`tail /sys/class/backlight/amdgpu_bl1/actual_brightness`)
+
+(defpoll tte :interval "1m"
+  `
+  cut -d ":" -f2 <<< $(upower -b | grep "time to empty") | sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//'
+  `
+)
+
+(defvar audio-onscroll
+  "if [[ {} == 'down' ]]
+      then
+        pamixer -d 5
+      else
+        pamixer -i 5
+      fi
+  ")
+
+(defvar on-date-click
+  "
+    if [[ $(eww active-windows | grep calendar-overlay) != '' ]]
+    then
+      eww close calendar-overlay
+    else
+      eww open calendar-overlay
+    fi
+  ")
+
+
+(defvar default-spacing 5)
+(defvar thickness 30)
+
+(defwidget workspaces [display_name spacing orientation size]
+  (box :orientation  orientation
+        :valign       {(orientation == "vertical" || orientation == "v") ? "start" : "fill"}
+        :halign       {(orientation == "horizontal" || orientation == "h") ? "start" : "fill"}
+        :space-evenly false
+        :spacing      spacing
+    (for entry in { hyprland_workspace_info['workspaces'][display_name] }
+      (button :class   { entry == hyprland_workspace_info['active_workspace'] ? "workspace-button active" : "workspace-button" }
+              :onclick "hyprctl dispatch workspace ${entry}"
+              :width   size
+              :height  size
+        (label :text entry) ))
+    (for entry in { hyprland_workspace_info['special_workspaces']}
+      (button :class   { entry == hyprland_workspace_info['active_special'][display_name] ? "workspace-button active special" : "workspace-button special" }
+              :onclick "hyprctl dispatch togglespecialworkspace ${replace(entry, 'special:', '')}"
+              :width   size
+              :height  size
+        (label :text {matches(entry, "[sS]pecial:[dD]iscord")? "" : entry})))))
+
+(defwidget date [orientation]
+  (eventbox :onclick on-date-click
+    (box :class "date"
+        :orientation orientation
+        :space-evenly false
+        :tooltip { formattime(EWW_TIME, "%A %B %d, %Y") }
+      (label :text "")
+      (label :text { formattime(EWW_TIME, "%m") })
+      (label :text { formattime(EWW_TIME, "%d") }) )))
+
+(defwidget clock [orientation]
+  (eventbox :onclick on-date-click
+    (box :class        "clock"
+        :orientation  orientation
+        :space-evenly false
+        :tooltip { formattime(EWW_TIME, "%H:%M:%S") }
+      (label :text { formattime(EWW_TIME, "%H") })
+      (circular-progress :value     { formattime(EWW_TIME, "%M") / 60 * 100}
+                        :thickness 6
+                        :start-at  75)
+      (label :text { formattime(EWW_TIME, "%M") }))))
+
+
+(defwidget audio [orientation]
+  (eventbox :onscroll     audio-onscroll
+            :onclick      "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+            :onrightclick "app2unit org.pulseaudio.pavucontrol.desktop &"
+    (box :class        { "audio" + (muted ? " muted" : "") }
+         :orientation  orientation
+         :space-evenly false
+         :spacing      default-spacing
+      (label :text { muted ? "󰝟" : "󰕾" })
+      (circular-progress :value     vol
+                      :thickness 10
+                      :start-at  75)
+      (label :text vol) )))
+
+(defwidget backlight [orientation]
+  (box :class        { "backlight" }
+        :orientation  orientation
+        :space-evenly false
+        :spacing      default-spacing
+    (circular-progress :value     {brightness / max_brightness * 100}
+                      :thickness 10
+                      :start-at  75) ))
+
+
+(defwidget battery [orientation]
+  (box :class        { "battery" + (
+    EWW_BATTERY.BAT1.capacity > 30 || EWW_BATTERY.BAT1.status == "Charging" ? " normal" :
+    EWW_BATTERY.BAT1.capacity > 10 ? " warning" :
+    " danger"
+    ) }
+        :orientation  orientation
+        :space-evenly false
+        :spacing      default-spacing
+        :tooltip tte
+    (label :text {
+      EWW_BATTERY.BAT1.status == "Charging" ? "󰂄" :
+      EWW_BATTERY.BAT1.capacity > 90 ? "󰁹" :
+      EWW_BATTERY.BAT1.capacity > 80 ? "󰂁" :
+      EWW_BATTERY.BAT1.capacity > 70 ? "󰂀" :
+      EWW_BATTERY.BAT1.capacity > 60 ? "󰁿" :
+      EWW_BATTERY.BAT1.capacity > 50 ? "󰁾" :
+      EWW_BATTERY.BAT1.capacity > 40 ? "󰁽" :
+      EWW_BATTERY.BAT1.capacity > 30 ? "󰁼" :
+      EWW_BATTERY.BAT1.capacity > 20 ? "󰁻" :
+      EWW_BATTERY.BAT1.capacity > 10 ? "󰁺" :
+      "󰂃"
+    })
+    (circular-progress :value  { EWW_BATTERY.BAT1.capacity }
+                       :thickness 10
+                       :start-at  75)
+    (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
+
+
+(defwindow statusbar-primary :monitor    0
+                             :windowtype "dock"
+                             :wm-ignore  false
+                             :exclusive  true
+
+                             ; for some reason variables don't work in here?
+                             :geometry (geometry :x      "0%"
+                                                 :y      "0%"
+                                                 :width  { 30 + 5 }
+                                                 :height "100%"
+                                                 :anchor "center left")
+  (centerbox :orientation "vertical"
+    (workspaces :display_name "eDP-1" :spacing default-spacing :orientation "vertical" :size thickness)
+    (box)
+    (box :orientation  "vertical"
+         :valign       "end"
+         :space-evenly false
+         :spacing      default-spacing
+
+      (audio :orientation "vertical")
+      (battery :orientation "vertical")
+      (backlight :orientation "vertical")
+
+      (systray :class        "systray"
+               :orientation  "vertical"
+               :space-evenly false
+               :spacing      default-spacing
+               :icon-size    20)
+      (date :orientation "vertical")
+      (clock :orientation "vertical")
+      (eventbox :onclick      "swaync-client -sw -op"
+        (box :class "notif-center"
+             :orientation "vertical"
+             :width   thickness
+             :height  thickness
+          (label :text {num_notif})
+          (label :text "󰍜"))))))
+
+(defwindow calendar-overlay :monitor 0
+                            :geometry (geometry :anchor "bottom left"
+                                                :x 10
+                                                :y 10)
+  (box :orientation "vertical"
+       :space-evenly false
+       :spacing 10
+    (label :text { formattime(EWW_TIME, "%A %b %d, %Y") })
+    (label :text { formattime(EWW_TIME, "%H:%M:%S") })
+    (calendar)))

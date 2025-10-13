@@ -27,7 +27,7 @@
 				{
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
-					home-manager.users.julia = ./home.nix;
+					home-manager.users.julia = ./home-manager/home.nix;
 				}
 
 

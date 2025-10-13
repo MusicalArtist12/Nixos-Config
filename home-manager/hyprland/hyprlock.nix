@@ -19,30 +19,30 @@ in
                 {
                     size = "200, 50";
                     outline_thickness = 3;
-                    dots_size = 0.33; # Scale of input-field height, 0.2 - 0.8
-                    dots_spacing = 0.15; # Scale of dots' absolute size, -1.0 - 1.0
+                    dots_size = 0.33;
+                    dots_spacing = 0.15;
                     dots_center = false;
-                    dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
-                    dots_fade_time = 200; # Milliseconds until a dot fully fades in
+                    dots_rounding = -1;
+                    dots_fade_time = 200;
                     outer_color = accent;
                     inner_color = theme.crust;
                     font_color = theme.text;
-                    font_family = "Noto Sans"; # Font used for placeholder_text, fail_text and dots_text_format.
+                    font_family = "Noto Sans";
                     fade_on_empty = false;
-                    fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
-                    placeholder_text = "<i>Input password...</i>"; # Text rendered in the input box when it's empty.
+                    fade_timeout = 1000;
+                    placeholder_text = "<i>Input password...</i>";
                     hide_input = false;
-                    rounding = -1; # -1 means complete rounding (circle/oval)
+                    rounding = -1;
                     check_color = theme.yellow;
-                    fail_color = theme.red; # if authentication failed, changes outer_color and fail message color
-                    fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>"; # can be set to empty
-                    fail_timeout = 2000; # milliseconds before fail_text and fail_color disappears
-                    fail_transition = 300; # transition time in ms between normal outer_color and fail_color
+                    fail_color = theme.red;
+                    fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+                    fail_timeout = 2000;
+                    fail_transition = 300;
                     capslock_color = theme.red;
                     numlock_color = theme.red;
-                    bothlock_color = -1; # when both locks are active. -1 means don't change outer color (same for above)
-                    invert_numlock = false; # change color if numlock is off
-                    swap_font_color = false; # see below
+                    bothlock_color = -1;
+                    invert_numlock = false;
+                    swap_font_color = false;
 
                     position = "0, -20";
                     halign = "center";
@@ -56,7 +56,7 @@ in
                     color = theme.text;
                     font_size = 40;
                     font_family = "Noto Sans";
-                    rotate = 0; # degrees, counter-clockwise
+                    rotate = 0;
 
                     position = "0, 140";
                     halign = "center";
@@ -64,11 +64,11 @@ in
                 }
                 {
                     text = "$TIME";
-                    text_align = "center"; # center/right or any value for default left. multi-line text alignment inside label container
+                    text_align = "center";
                     color = theme.text;
                     font_size = 40;
                     font_family = "Noto Sans";
-                    rotate = 0; # degrees, counter-clockwise
+                    rotate = 0;
 
                     position = "0, 60";
                     halign = "center";
@@ -79,7 +79,7 @@ in
                     color = theme.text;
                     font_size = 16;
                     font_family = "Noto Sans";
-                    rotate = 0; # degrees, counter-clockwise
+                    rotate = 0;
 
                     position = "0, -80";
                     halign = "center";
