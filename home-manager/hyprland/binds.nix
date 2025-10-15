@@ -1,6 +1,6 @@
 { ... }:
 let
-    programs = (import ./variables.nix);
+    programs = (import ../programs.nix);
 in {
 
     wayland.windowManager.hyprland.settings = {

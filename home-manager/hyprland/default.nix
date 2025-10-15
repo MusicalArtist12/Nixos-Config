@@ -1,6 +1,6 @@
 { ... }:
 let
-    theme = (import ./theme.nix);
+    theme = (import ../theme.nix);
     accent = theme.mauve;
 in
 {
@@ -29,6 +29,8 @@ in
             "MOZ_ENABLE_WAYLAND, 1"
             "ADW_DISABLE_PORTAL, 1"
             "GDK_SCALE,1"
+            "GDK_BACKEND,wayland,x11,*"
+            "SDL_VIDEODRIVER,wayland"
             "XCURSOR_SIZE,32"
             "HYPRCURSOR_SIZE,32"
             "EDITOR,vim"
@@ -85,6 +87,7 @@ in
             force_default_wallpaper = false;
             disable_splash_rendering = false;
             vfr = true;
+            vrr = 1;
 
         };
 

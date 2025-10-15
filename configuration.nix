@@ -60,6 +60,7 @@
 		unzip
 
 		brightnessctl
+
 		pciutils
 		usbutils
 		lm_sensors
@@ -77,6 +78,8 @@
         ipython
         notebook
     ]);
+
+	services.upower.enable = true;
 
 	programs.zsh = {
 		enable = true;

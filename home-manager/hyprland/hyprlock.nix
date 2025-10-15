@@ -1,6 +1,6 @@
 { ... }:
 let
-    theme = (import ./theme.nix);
+    theme = (import ../theme.nix);
     accent = theme.mauve;
 in
 {

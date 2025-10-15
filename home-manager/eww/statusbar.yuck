@@ -23,6 +23,13 @@
   `
 )
 
+(defpoll current_now :interval "1s"
+  `tail /sys/class/power_supply/BAT1/current_now`)
+
+(defpoll voltage_now :interval "1s"
+  `tail /sys/class/power_supply/BAT1/voltage_now`)
+
+
 (defvar audio-onscroll
   "if [[ {} == 'down' ]]
       then
@@ -134,7 +141,8 @@
       EWW_BATTERY.BAT1.capacity > 20 ? "󰁻" :
       EWW_BATTERY.BAT1.capacity > 10 ? "󰁺" :
       "󰂃"
-    })
+    }
+      :tooltip {current_now / 1000 + " mA " + voltage_now / 1000 + " mV"} )
     (circular-progress :value  { EWW_BATTERY.BAT1.capacity }
                        :thickness 10
                        :start-at  75)

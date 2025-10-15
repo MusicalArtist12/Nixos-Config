@@ -30,6 +30,7 @@
 		};
 	};
 
+
 	home.packages = with pkgs; [
 		pokemon-colorscripts
 		zoom
@@ -40,6 +41,7 @@
 		bitwarden-desktop
 		obsidian
 		spotify
+		inkscape
 		(discord.override {
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
@@ -48,10 +50,10 @@
 	# todo: vim and zsh
 
 	imports = [
-		./hyprland
+		# ./hyprland
 		./rofi
 		./fetch.nix
 		./gtk.nix
+		./sway
 	];
-
 }

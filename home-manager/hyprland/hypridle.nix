@@ -1,9 +1,9 @@
-{ ... }: {
+{ pkgs, ... }: {
     services.hypridle = {
         enable = true;
         settings = {
             general = {
-                lock_cmd = "hyprlock";
+                lock_cmd = "${pkgs.hyprlock}/bin/hyprlock";
                 before_sleep_cmd = "loginctl lock-session";
                 ignore_dbus_inhibit = false;
                 ignore_systemd_inhibit = false;

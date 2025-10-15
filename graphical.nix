@@ -41,6 +41,12 @@
 			withUWSM = true;
 			xwayland.enable = true;
 		};
+		sway = {
+			enable = true;
+			xwayland.enable = true;
+		};
+		uwsm.enable = true;
+
 		thunar = {
 			enable = true;
 			plugins = with pkgs.xfce; [
@@ -92,6 +98,7 @@
 		pulseaudio # provides pactl
 		pamixer
 		pavucontrol
+		playerctl
 
 		kitty
 		firefox

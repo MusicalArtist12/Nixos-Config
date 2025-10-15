@@ -58,6 +58,7 @@
 			"boot.shell_on_fail"
 			"udev.log_priority=3"
 			"rd.systemd.show_status=auto"
+			"amdgpu.abmlevel=0"
 		];
 		loader.timeout = 1;
 		initrd.availableKernelModules = [
@@ -98,6 +99,11 @@
 		SuspendState=mem
 		[Sleep]
 		HibernateMode=shutdown
+	'';
+
+	services.udev.extraRules = ''
+		SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0012", ATTR{power/wakeup}="disabled", ATTR{driver/1-1.1.1.4/power/wakeup}="disabled"
+		SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0014", ATTR{power/wakeup}="disabled", ATTR{driver/1-1.1.1.4/power/wakeup}="disabled"
 	'';
 
 	powerManagement.enable = true;
