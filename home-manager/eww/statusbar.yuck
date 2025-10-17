@@ -1,6 +1,10 @@
-(deflisten hyprland_workspace_info :initial "{}"
-  `python ~/.config/eww/hyprland_listener.py`)
+; (deflisten hyprland_workspace_info :initial "{}"
+;   `python ~/.config/eww/hyprland_listener.py`)
 ; this loop will only update elements if the volume changes!
+
+(deflisten sway_workspace_info :initial "{}"
+  `bash ~/.config/eww/getWorkspace.sh`)
+
 
 (defpoll vol :interval "0.1s"
   `pamixer --get-volume`)
@@ -29,6 +33,9 @@
 (defpoll voltage_now :interval "1s"
   `tail /sys/class/power_supply/BAT1/voltage_now`)
 
+(defpoll charge_now :interval "1s"
+  `tail /sys/class/power_supply/BAT1/charge_now`)
+
 
 (defvar audio-onscroll
   "if [[ {} == 'down' ]]
@@ -50,6 +57,7 @@
   ")
 
 
+
 (defvar default-spacing 5)
 (defvar thickness 30)
 
@@ -59,18 +67,24 @@
         :halign       {(orientation == "horizontal" || orientation == "h") ? "start" : "fill"}
         :space-evenly false
         :spacing      spacing
-    (for entry in { hyprland_workspace_info['workspaces'][display_name] }
-      (button :class   { entry == hyprland_workspace_info['active_workspace'] ? "workspace-button active" : "workspace-button" }
-              :onclick "hyprctl dispatch workspace ${entry}"
+      (for entry in sway_workspace_info
+        (button :onclick `swaymsg workspace "${entry.name}"`
+              :class {entry.focused ? "workspace-button active" : "workspace-button"}
               :width   size
               :height  size
-        (label :text entry) ))
-    (for entry in { hyprland_workspace_info['special_workspaces']}
-      (button :class   { entry == hyprland_workspace_info['active_special'][display_name] ? "workspace-button active special" : "workspace-button special" }
-              :onclick "hyprctl dispatch togglespecialworkspace ${replace(entry, 'special:', '')}"
-              :width   size
-              :height  size
-        (label :text {matches(entry, "[sS]pecial:[dD]iscord")? "" : entry})))))
+        `${entry.name}`))))
+    ; (for entry in { hyprland_workspace_info['workspaces'][display_name] }
+    ;   (button :class   { entry == hyprland_workspace_info['active_workspace'] ? "workspace-button active" : "workspace-button" }
+    ;           :onclick "hyprctl dispatch workspace ${entry}"
+    ;           :width   size
+    ;           :height  size
+    ;     (label :text entry) ))
+    ; (for entry in { hyprland_workspace_info['special_workspaces']}
+    ;   (button :class   { entry == hyprland_workspace_info['active_special'][display_name] ? "workspace-button active special" : "workspace-button special" }
+    ;           :onclick "hyprctl dispatch togglespecialworkspace ${replace(entry, 'special:', '')}"
+    ;           :width   size
+    ;           :height  size
+    ;     (label :text {matches(entry, "[sS]pecial:[dD]iscord")? "" : entry})))))
 
 (defwidget date [orientation]
   (eventbox :onclick on-date-click
@@ -142,7 +156,10 @@
       EWW_BATTERY.BAT1.capacity > 10 ? "󰁺" :
       "󰂃"
     }
-      :tooltip {current_now / 1000 + " mA " + voltage_now / 1000 + " mV"} )
+      :tooltip {round(current_now / 1000000, 2) + " A " +
+                round(voltage_now / 1000000, 2) + " v " +
+                round((current_now / 1000000) * (voltage_now / 1000000), 2) + " W " +
+                round((charge_now / current_now), 2) + " Hours Left" })
     (circular-progress :value  { EWW_BATTERY.BAT1.capacity }
                        :thickness 10
                        :start-at  75)

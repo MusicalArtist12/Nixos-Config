@@ -53,6 +53,7 @@
 		clang
 		killall
 		bat
+		jq
 
 		fzf-zsh
 		fzf
@@ -65,6 +66,8 @@
 		usbutils
 		lm_sensors
 		gh
+
+		nodejs
 	]) ++ (with pkgs.python313Packages; [
 		# Deep Learning
         scipy

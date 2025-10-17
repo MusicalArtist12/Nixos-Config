@@ -35,6 +35,7 @@ in
 				"${modifier}+Shift+L" = "exec loginctl lock-session";
 				"${modifier}+Shift+S" = "exec ${programs.screenshot}";
 				"${modifier}+Shift+Return" = "exec thunar";
+
 				"XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
 				"XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
 				"XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
@@ -43,13 +44,21 @@ in
 				"XF86AudioPlay" = "exec playerctl play-pause";
 				"XF86AudioNext" = "exec playerctl next";
 				"XF86AudioPrev" = "exec playerctl previous";
+
+				"${modifier}+g" = "layout tabbed";
+				"${modifier}+e" = "layout toggle split";
 			};
 			gaps = {
 				inner = 5;
 				outer = 5;
 			};
+			window = {
+				titlebar = false;
+			};
 			output = {
 				eDP-1 = {
+					scale = "1.5";
+					scale_filter = "linear";
 					bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
 					color_profile = "icc /home/julia/.config/Framework16.icm";
 				};
@@ -70,6 +79,12 @@ in
 					indicator = theme.surface0_hex;
 				};
 			};
+			assigns = {
+				"10" = [
+					{ class = "discord"; }
+					{ class = "spotify"; }
+				];
+			};
 			up = "i";
 			down = "o";
 			left = "u";
@@ -83,6 +98,9 @@ in
 				};
 			};
 		};
-
+		extraConfig = ''
+		for_window [class="spotify"] move to workspace 10
+		for_window [class="discord"] move to workspace 10
+		'';
 	};
 }
