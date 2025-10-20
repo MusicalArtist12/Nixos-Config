@@ -1,4 +1,7 @@
 { pkgs, config, ... }:
+let
+    theme = (import ./theme.nix);
+in
 {
     gtk = {
 		enable = true;
@@ -15,6 +18,8 @@
 			package = pkgs.papirus-icon-theme;
 			name = "Papirus-Dark";
 		};
+		font.name = "Noto Sans";
+		font.size = theme.font_size;
 	};
 	# Now symlink the `~/.config/gtk-4.0/` folder declaratively:
 	xdg.configFile = {
@@ -27,11 +32,8 @@
 			color-scheme = "prefer-dark";
 		};
 	};
-    home.pointerCursor = {
-		gtk.enable = true;
-		package = pkgs.catppuccin-cursors.mochaMauve;
-		name = "Catppuccin-Mocha-Mauve-Cursors";
-		size = 8;
-	};
+
+
+
 
 }

@@ -1,5 +1,8 @@
 {
     # catppuccin theme ported to nix for hyprland - this may change to improve interop
+    font_size = 16;
+    font = "Jetbrains Mono Nerd Font";
+
     rosewater = "rgb(f5e0dc)";
     rosewater_hex = "f5e0dc";
     flamingo = "rgb(f2cdcd)";

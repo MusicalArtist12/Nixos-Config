@@ -1,10 +1,11 @@
 * {
-    font-family: "jetbrains mono";
+    font-family: "Jetbrains Mono Nerd Font";
+    font-size: 20px;
 }
 
 button {
     padding: 0px;
-    border-radius: 10px;
+    border-radius: 0.6em;
 }
 
 .statusbar-primary, .statusbar-secondary {
@@ -15,64 +16,25 @@ button {
     }
 }
 
-.launchpad {
-    background-color: transparent;
-    button {
-        background-color: #1e1e2e;
-    }
-    .lock {
-        color: #b4befe;
-        border: 2px #b4befe solid;
-    }
-    .lock:hover {
-        background-color: #b4befe;
-        color: #1e1e2e;
-    }
-    .log-out {
-        color: #74c7ec;
-        border: 2px #74c7ec solid;
-    }
-    .log-out:hover {
-        background-color: #74c7ec;
-        color: #1e1e2e;
-    }
-    .shutdown {
-        color: #f38ba8;
-        border: 2px #f38ba8 solid;
-    }
-    .shutdown:hover {
-        background-color: #f38ba8;
-        color: #1e1e2e;
-    }
-    .reboot {
-        color: #a6e3a1;
-        border: 2px #a6e3a1 solid;
-    }
-    .reboot:hover {
-        background-color: #a6e3a1;
-        color: #1e1e2e;
-    }
-}
 
 .statusbar-primary {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .statusbar-secondary {
 
-    margin-bottom: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .workspace-button, .clock, .systray, .audio, .powermenu-button, .notif-center, .date, .battery, .backlight {
     background-color: #1e1e2e;
 
-    border-radius: 10px;
+    border-radius: 0.6em;
     font-weight: normal;
-
 }
 
 .battery.danger {
@@ -85,10 +47,6 @@ button {
     color: #a6e3a1;
 }
 
-.special {
-    padding-right: 5px;
-    font-size: 12px;
-}
 
 .workspace-button:hover, .workspace-button.active {
     background-color: #cba6f7;
@@ -108,6 +66,6 @@ circular-progress {
     color: #ed8796;
 }
 
-.clock, .systray, .audio, .date, .notif-center, .battery, .backlight {
-    padding: 5px 0px;
+.workspace-button, .clock, .systray, .audio, .date, .notif-center, .battery, .backlight {
+    padding: 0.25em 0.25em;
 }

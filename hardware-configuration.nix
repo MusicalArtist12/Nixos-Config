@@ -45,10 +45,13 @@
 		loader = {
 			systemd-boot.configurationLimit = 10;
 			systemd-boot.enable = true;
+			systemd-boot.consoleMode = "0";
 			efi.canTouchEfiVariables = true;
 		};
 		plymouth = {
 			enable = true;
+			# theme = "script";
+			logo = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
 		};
 		consoleLogLevel = 3;
 		initrd.verbose = false;
@@ -60,7 +63,7 @@
 			"rd.systemd.show_status=auto"
 			"amdgpu.abmlevel=0"
 		];
-		loader.timeout = 1;
+		loader.timeout = 0;
 		initrd.availableKernelModules = [
 			"nvme"
 			"xhci_pci"
@@ -105,6 +108,8 @@
 		SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0012", ATTR{power/wakeup}="disabled", ATTR{driver/1-1.1.1.4/power/wakeup}="disabled"
 		SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0014", ATTR{power/wakeup}="disabled", ATTR{driver/1-1.1.1.4/power/wakeup}="disabled"
 	'';
+
+	hardware.keyboard.qmk.enable = true;
 
 	powerManagement.enable = true;
 }

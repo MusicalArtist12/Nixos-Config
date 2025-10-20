@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... } : {
+{ config, pkgs, inputs, catppuccin, ... } : {
 	hardware.graphics = {
 		enable = true;
 	};
@@ -26,14 +26,20 @@
 			alsa.support32Bit = true;
 			pulse.enable = true;
 		};
-
+		displayManager.gdm.debug = true;
 		displayManager.gdm.enable = true;
+		desktopManager.gnome.enable = true;
 		gnome.gnome-keyring.enable = true;
 
 		# thunar stuff
 		gvfs.enable = true;
 		tumbler.enable = true;
 	};
+
+	services.gnome.core-apps.enable = false;
+	services.gnome.core-developer-tools.enable = false;
+	services.gnome.games.enable = false;
+	environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 
 	programs = {
 		hyprland = {
@@ -46,6 +52,7 @@
 			xwayland.enable = true;
 		};
 		uwsm.enable = true;
+		gamemode.enable = true;
 
 		thunar = {
 			enable = true;
@@ -61,6 +68,16 @@
 			gamescopeSession.enable = true;
 			remotePlay.openFirewall = true;
 			localNetworkGameTransfers.openFirewall = true;
+		};
+		light.enable = true;
+
+	};
+
+	programs.uwsm.waylandCompositors = {
+		sway = {
+		prettyName = "Sway";
+		comment = "Sway compositor managed by UWSM";
+		binPath = "/run/current-system/sw/bin/sway";
 		};
 	};
 
@@ -101,11 +118,13 @@
 		playerctl
 
 		kitty
-		firefox
 		vlc
 
 		file-roller
 		wev
+
+		gdm-settings
+
 	];
 
 	# spotify networking
@@ -114,6 +133,10 @@
 
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono
+		noto-fonts
+		noto-fonts-cjk-sans
+		noto-fonts-emoji
+		font-awesome
 	];
 
 	environment.pathsToLink = [
@@ -125,6 +148,11 @@
 
 	environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-
+	catppuccin = {
+		# plymouth = {
+		# 	enable = true;
+		# 	flavor = "mocha";
+		# };
+	};
 
 }

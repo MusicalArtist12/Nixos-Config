@@ -8,11 +8,12 @@
 		};
 		nixos-hardware.url = "github:NixOs/nixos-hardware/master";
 		moonlight = {
-			url = "github:moonlight-mod/moonlight";
+			url = "github:moonlight-mod/moonlight/main";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		catppuccin.url = "github:catppuccin/nix";
 	};
-	outputs = { nixpkgs, home-manager, nixos-hardware, ... } @ inputs: {
+	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, ... } @ inputs: {
 		nixosConfigurations.Hypatia = nixpkgs.lib.nixosSystem {
 			specialArgs = { inherit inputs; };
 			modules = [
@@ -22,10 +23,17 @@
 				./latex.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd
 				home-manager.nixosModules.home-manager
+				catppuccin.nixosModules.catppuccin
 				{
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
-					home-manager.users.julia = ./home-manager/home.nix;
+					home-manager.users.julia = {
+						imports = [
+							./home-manager/home.nix
+							catppuccin.homeModules.catppuccin
+						];
+					};
+					home-manager.extraSpecialArgs = { inherit inputs; };
 				}
 
 

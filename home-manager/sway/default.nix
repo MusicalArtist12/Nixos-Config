@@ -39,14 +39,17 @@ in
 				"XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
 				"XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
 				"XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-				"XF86MonBrightnessUp" =   "exec brightnessctl s +5%";
-				"XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
+				"XF86MonBrightnessUp" =   "exec light -A 10";
+				"XF86MonBrightnessDown" = "exec light -U 10";
 				"XF86AudioPlay" = "exec playerctl play-pause";
 				"XF86AudioNext" = "exec playerctl next";
 				"XF86AudioPrev" = "exec playerctl previous";
 
+				"XF86Tools" = "exec ${programs.menuPower}";
+
 				"${modifier}+g" = "layout tabbed";
 				"${modifier}+e" = "layout toggle split";
+
 			};
 			gaps = {
 				inner = 5;
@@ -92,15 +95,17 @@ in
 			defaultWorkspace = "workspace number 1";
 			menu = programs.menu;
 			bars = [];
-			seat = {
-				"*" = {
-					xcursor_theme = "Catppuccin-Mocha-Mauve-Cursors 8";
+				seat = {
+					"*" = {
+						xcursor_theme = "catppuccin-mocha-mauve-cursors 36";
+					};
 				};
-			};
 		};
 		extraConfig = ''
 		for_window [class="spotify"] move to workspace 10
 		for_window [class="discord"] move to workspace 10
+
+		include ./outputs
 		'';
 	};
 }

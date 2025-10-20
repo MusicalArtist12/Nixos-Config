@@ -33,7 +33,6 @@
     background-color: transparent;
     text-color: @text;
     border-radius: 20px;
-    font: "jetbrains mono 12";
 }
 
 window {

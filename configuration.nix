@@ -33,7 +33,7 @@
 	users.users.julia = {
 		isNormalUser = true;
 		description = "julia";
-		extraGroups = [ "networkmanager" "wheel" "nixos" ];
+		extraGroups = [ "networkmanager" "wheel" "nixos" "video" ];
 		packages = with pkgs; [];
 		shell = pkgs.zsh;
 	};
@@ -67,6 +67,8 @@
 		lm_sensors
 		gh
 
+		qmk
+
 		nodejs
 	]) ++ (with pkgs.python313Packages; [
 		# Deep Learning
@@ -89,6 +91,7 @@
 		autosuggestions.enable = true;
 		syntaxHighlighting.enable = true;
 	};
+
 
 
 }

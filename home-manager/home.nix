@@ -1,4 +1,8 @@
-{ config, pkgs, moonlight, ... }: {
+{ config, pkgs, catppuccin, inputs, ... }:
+let
+    theme = (import ./theme.nix);
+in
+{
 	home.username = "julia";
 	home.homeDirectory = "/home/julia";
 	home.stateVersion = "25.05";
@@ -13,8 +17,8 @@
 			enable = true;
 			enableGitIntegration = true;
 			font = {
-				name = "Jetbrains Mono Nerd Font";
-				size = 12;
+				name = theme.font;
+				size = theme.font_size;
 				package = pkgs.nerd-fonts.jetbrains-mono;
 			};
 			settings = {
@@ -25,8 +29,15 @@
 		};
 		git = {
 			enable = true;
-			userName = "MusicalArtist12";
-			userEmail = "TheMusicalArtist12@gmail.com";
+			settings.user = {
+				name = "MusicalArtist12";
+				email = "TheMusicalArtist12@gmail.com";
+			};
+
+			lfs.enable = true;
+		};
+		firefox = {
+			enable = true;
 		};
 	};
 
@@ -43,6 +54,7 @@
 		spotify
 		inkscape
 		(discord.override {
+			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
 	];
@@ -56,4 +68,21 @@
 		./gtk.nix
 		./sway
 	];
+
+	catppuccin = {
+		accent = "mauve";
+		flavor = "mocha";
+		kitty.enable = true;
+		cursors.enable = true;
+		swaync.enable = true;
+		# firefox = {
+		# 	enable = true;
+		# 	force = true;
+		# };
+		swaync = {
+			font = theme.font;
+		};
+		spotify-player.enable = true;
+
+	};
 }

@@ -1,9 +1,12 @@
 { ... }:
+let
+    theme = (import ../theme.nix);
+in
 {
     programs.rofi = {
 		enable = true;
 		theme = ./theme.rasi;
-		font = "Jetbrains Mono Nerd Font 12";
+		font = "${theme.font} 16";
 		extraConfig = {
 			combi-modi ="drun,window";
 			combi-display-format = "{mode}&#09;{text}";
