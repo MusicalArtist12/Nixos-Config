@@ -64,9 +64,9 @@ in
 	imports = [
 		# ./hyprland
 		./rofi
+		./sway
 		./fetch.nix
 		./gtk.nix
-		./sway
 	];
 
 	catppuccin = {
@@ -85,4 +85,6 @@ in
 		spotify-player.enable = true;
 
 	};
+
+	# use home.file.<name> to link arbitrary file
 }

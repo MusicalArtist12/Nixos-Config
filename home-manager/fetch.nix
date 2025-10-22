@@ -1,5 +1,13 @@
 { ... }:
+let
+	logo_path = ".config/fastfetch/lixos.txt";
+in
 {
+	home.file."lixos.txt" = {
+		enable = true;
+		source = ./lixos.txt;
+		target = logo_path;
+	};
     programs = {
 		hyfetch = {
 			enable = true;
@@ -21,6 +29,16 @@
 		fastfetch = {
 			enable = true;
 			settings = {
+				logo = {
+					source = "~/${logo_path}";
+					color = {
+						"1" = "38;2;255;101;73";
+						"2" = "38;2;255;155;86";
+						"3" = "38;2;255;82;167";
+						"4" = "38;2;222;117;178";
+
+					};
+				};
 				display = {
 					separator = "";
 					color = {
@@ -51,8 +69,13 @@
 						keyColor = "red";
 					}
 					{
-						key = "╰─   ";
+						key = "├─   ";
 						type = "shell";
+						keyColor = "red";
+					}
+					{
+						key  = "╰─   ";
+						type = "wm";
 						keyColor = "red";
 					}
 					{
@@ -84,6 +107,14 @@
 						key = "├─   ";
 						type = "uptime";
 						keyColor = "blue";
+					}
+					{
+						key = "├─ 󰩟  ";
+						type = "localip";
+						keyColor = "blue";
+						showIpv4 = true;
+						showIpv6 = true;
+						showMac = true;
 					}
 					{
 						type = "battery";

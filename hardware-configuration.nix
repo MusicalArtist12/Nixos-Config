@@ -51,7 +51,8 @@
 		plymouth = {
 			enable = true;
 			# theme = "script";
-			logo = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
+			#logo = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
+			logo = ./lix-snowflake.png;
 		};
 		consoleLogLevel = 3;
 		initrd.verbose = false;

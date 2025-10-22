@@ -48,9 +48,12 @@
 		wget
 		git
 		python313
+
 		gnumake
 		cmake
+		bison
 		clang
+
 		killall
 		bat
 		jq
@@ -92,6 +95,9 @@
 		syntaxHighlighting.enable = true;
 	};
 
-
+	programs.nix-ld.enable = true;
+	programs.nix-ld.libraries = with pkgs; [
+		libcxx
+	];
 
 }
