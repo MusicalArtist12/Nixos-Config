@@ -15,6 +15,7 @@
 		};
 	};
 
+
 	swapDevices = [
 		{
 			device = "/dev/disk/by-uuid/aa9cce3b-b4c8-4b18-813f-71c9395bb49c";
@@ -118,4 +119,9 @@
 	hardware.keyboard.qmk.enable = true;
 
 	powerManagement.enable = true;
+
+	environment.systemPackages = (with pkgs; [
+		brightnessctl
+		lm_sensors
+	]);
 }
