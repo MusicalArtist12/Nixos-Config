@@ -79,7 +79,7 @@ in
 						keyColor = "red";
 					}
 					{
-						key = "╭ Framework ";
+						key = "╭ ";
 						type = "host";
 						keyColor = "cyan";
 					}

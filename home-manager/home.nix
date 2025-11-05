@@ -41,7 +41,17 @@ in
 		};
 	};
 
+	systemd.user.services = {
+		eww-daemon = {
+			Unit = {
+				Description = "Eww Daemon";
 
+			};
+			Service = {
+				ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+			};
+		};
+	};
 
 	home.packages = with pkgs; [
 		pokemon-colorscripts
@@ -63,7 +73,6 @@ in
 	# todo: vim and zsh
 
 	imports = [
-		# ./hyprland
 		./rofi
 		./sway
 		./fetch.nix

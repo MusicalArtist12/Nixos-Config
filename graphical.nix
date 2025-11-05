@@ -4,7 +4,7 @@
 	};
 
 	systemd = {
-		user.services.polkit-gnome-authentication-agent-1 = {
+		user.services.polkit-g-authentication-agent-1 = {
 				description = "polkit-gnome-authentication-agent-1";
 				wantedBy = [ "graphical-session.target" ];
 				wants = [ "graphical-session.target" ];
@@ -51,9 +51,18 @@
 			enable = true;
 			xwayland.enable = true;
 		};
-		uwsm.enable = true;
-		gamemode.enable = true;
 
+		gamemode.enable = true;
+		uwsm = {
+			waylandCompositors = {
+				sway = {
+					prettyName = "Sway";
+					comment = "Sway compositor managed by UWSM";
+					binPath = "${pkgs.sway}/bin/sway";
+				};
+			};
+			enable = true;
+		};
 		thunar = {
 			enable = true;
 			plugins = with pkgs.xfce; [
@@ -73,13 +82,6 @@
 
 	};
 
-	programs.uwsm.waylandCompositors = {
-		sway = {
-		prettyName = "Sway";
-		comment = "Sway compositor managed by UWSM";
-		binPath = "/run/current-system/sw/bin/sway";
-		};
-	};
 
 	xdg.portal = {
 		enable = true;
@@ -90,8 +92,8 @@
 	};
 
 	xdg.terminal-exec.enable = true;
-    environment.variables.XDG_TERMINAL = "${pkgs.kitty}/bin/kitty";
-    environment.variables.XDG_SYSTEM_MONITOR = "${pkgs.resources}/bin/resources";
+	environment.variables.XDG_TERMINAL = "${pkgs.kitty}/bin/kitty";
+	environment.variables.XDG_SYSTEM_MONITOR = "${pkgs.resources}/bin/resources";
 
 
 	environment.systemPackages = with pkgs; [
@@ -139,9 +141,10 @@
 	fonts.packages = with pkgs; [
 		nerd-fonts.jetbrains-mono
 		noto-fonts
+		noto-fonts-color-emoji
 		noto-fonts-cjk-sans
-		noto-fonts-emoji
 		font-awesome
+		helvetica-neue-lt-std
 	];
 
 	environment.pathsToLink = [

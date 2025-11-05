@@ -67,7 +67,6 @@
 		usbutils
 		gh
 
-		qmk
 
 		nodejs
 	]) ++ (with pkgs.python313Packages; [

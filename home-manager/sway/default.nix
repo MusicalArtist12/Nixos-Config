@@ -8,7 +8,6 @@ in
 	# hyprlock has better fingerprint support
 	imports = [
 		../hyprland/hyprlock.nix
-		# ../hyprland/hypridle.nix
 	];
 
 	services.swayidle = {
@@ -27,27 +26,11 @@ in
     wayland.windowManager.sway = {
 		enable = true;
 		wrapperFeatures.gtk = true;
-		config = rec {
-			bindswitches = {
-				"lid:on" = {
-					locked = true;
-					action = "exec systemctl sleep";
-				};
-			};
 
+		config = rec {
 			terminal = "app2unit -- kitty";
 			modifier = "Mod4";
-			startup = [
-				{command = "app2unit -- eww open statusbar-primary";}
-				{command = "app2unit -- syshud";}
-				{command = "app2unit -- discord.desktop";}
-				{command = "app2unit -- spotify.desktop";}
-				{command = "app2unit -- nm-applet";}
-				{command = "app2unit -- wl-paste --type text --watch cliphist store";}
-				{command = "app2unit -- wl-paste --type image --watch cliphist store";}
-				{command = "app2unit -- thunar --daemon";}
-				{command = "app2unit -- systemctl --user start tumblerd.service";}
-			];
+
 			keybindings = let
 				modifier = config.wayland.windowManager.sway.config.modifier;
 			in lib.mkOptionDefault {
@@ -77,14 +60,7 @@ in
 			window = {
 				titlebar = false;
 			};
-			output = {
-				eDP-1 = {
-					scale = "1.5";
-					scale_filter = "linear";
-					bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
-					color_profile = "icc /home/julia/.config/Framework16.icm";
-				};
-			};
+
 			colors = {
 				focused = {
 					background = accent;
@@ -120,11 +96,6 @@ in
 					};
 				};
 		};
-		extraConfig = ''
-		for_window [class="spotify"] move to workspace 10
-		for_window [class="discord"] move to workspace 10
 
-		include ./outputs
-		'';
 	};
 }

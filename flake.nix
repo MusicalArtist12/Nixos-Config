@@ -15,12 +15,12 @@
 	};
 	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, ... } @ inputs: {
 		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem {
-			
+
 			specialArgs = { inherit inputs; };
 			modules = [
 				./main.nix
-				./hardware-configuration.nix
 				./graphical.nix
+				./hardware-config/dionysus.nix
 				home-manager.nixosModules.home-manager
 				catppuccin.nixosModules.catppuccin
 				{
@@ -29,10 +29,11 @@
 					home-manager.users.julia = {
 						imports = [
 							./home-manager/home.nix
+							./home-manager/machines/dionysus.nix
 							catppuccin.homeModules.catppuccin
 						];
 					};
-					home-manager.extraSpecialArgs = { inherit inputs; };	
+					home-manager.extraSpecialArgs = { inherit inputs; };
 				}
 			];
 		};
@@ -40,7 +41,7 @@
 			specialArgs = { inherit inputs; };
 			modules = [
 				./main.nix
-				./nemesis-hardware.nix
+				./hardware-config/hypatia.nix
 				./graphical.nix
 				./latex.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd
@@ -52,6 +53,7 @@
 					home-manager.users.julia = {
 						imports = [
 							./home-manager/home.nix
+							./home-manager/machines/hypatia.nix
 							catppuccin.homeModules.catppuccin
 						];
 					};
