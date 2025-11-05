@@ -60,6 +60,7 @@ in
 		vscode
 		gimp
 		blender
+		godot
 		bitwarden-desktop
 		obsidian
 		spotify
