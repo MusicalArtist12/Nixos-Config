@@ -63,11 +63,8 @@
 
 		unzip
 
-		brightnessctl
-
 		pciutils
 		usbutils
-		lm_sensors
 		gh
 
 		qmk
