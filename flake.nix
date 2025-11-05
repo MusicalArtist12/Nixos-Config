@@ -28,7 +28,7 @@
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = {
 						imports = [
-							./home-manager/home.nix
+							./home-manager/julia.nix
 							./home-manager/machines/dionysus.nix
 							catppuccin.homeModules.catppuccin
 						];
@@ -52,7 +52,7 @@
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = {
 						imports = [
-							./home-manager/home.nix
+							./home-manager/julia.nix
 							./home-manager/machines/hypatia.nix
 							catppuccin.homeModules.catppuccin
 						];
