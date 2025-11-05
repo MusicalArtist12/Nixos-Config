@@ -100,4 +100,8 @@
 		libcxx
 	];
 
+
+	services.udev.extraRules = ''
+		KERNEL=="ttyACM0", MODE:="666"
+	'';
 }

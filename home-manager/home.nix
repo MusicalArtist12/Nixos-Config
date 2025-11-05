@@ -42,10 +42,11 @@ in
 	};
 
 
+
 	home.packages = with pkgs; [
 		pokemon-colorscripts
 		zoom
-		godot
+
 		vscode
 		gimp
 		blender

@@ -17,8 +17,8 @@
 		nixosConfigurations.Hypatia = nixpkgs.lib.nixosSystem {
 			specialArgs = { inherit inputs; };
 			modules = [
-				./configuration.nix
-				./hardware-configuration.nix
+				./main.nix
+				./nemesis-hardware.nix
 				./graphical.nix
 				./latex.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd

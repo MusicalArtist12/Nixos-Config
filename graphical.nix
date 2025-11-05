@@ -36,10 +36,10 @@
 		tumbler.enable = true;
 	};
 
-	services.gnome.core-apps.enable = false;
+	services.gnome.core-apps.enable = true;
 	services.gnome.core-developer-tools.enable = false;
 	services.gnome.games.enable = false;
-	environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
+	environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs xdg-desktop-portal-gnome ];
 
 	programs = {
 		hyprland = {
@@ -88,6 +88,11 @@
 	xdg.terminal-exec.settings = {
 		default = ["kitty.desktop"];
 	};
+
+	xdg.terminal-exec.enable = true;
+    environment.variables.XDG_TERMINAL = "${pkgs.kitty}/bin/kitty";
+    environment.variables.XDG_SYSTEM_MONITOR = "${pkgs.resources}/bin/resources";
+
 
 	environment.systemPackages = with pkgs; [
 		nwg-displays

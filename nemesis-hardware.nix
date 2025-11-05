@@ -58,7 +58,6 @@
 		initrd.verbose = false;
 		kernelParams = [
 			"quiet"
-			"splash"
 			"boot.shell_on_fail"
 			"udev.log_priority=3"
 			"rd.systemd.show_status=auto"
@@ -82,9 +81,12 @@
 	services.power-profiles-daemon.enable = true;
 
 	services.logind.settings.Login = {
-		HandleLidSwitch = "suspend-then-hibernate";
 		HandlePowerKey = "hibernate";
 		HandlePowerKeyLongPress = "poweroff";
+		HandleSuspendKey = "ignore";
+		HandleLidSwitch = "ignore";
+		HandleLidSwitchExternalPower = "ignore";
+		HandleLidSwitchDocked = "ignore";
 	};
 
 	systemd.services.fprintd = {
@@ -93,6 +95,7 @@
 	};
 	services.fprintd.enable = true;
 
+	services.fwupd.enable = true;
 
 	systemd.sleep.extraConfig = ''
 		AllowSuspend=yes
@@ -101,6 +104,8 @@
 		AllowSuspendThenHibernate=yes
 		HibernateDelaySec=10m
 		SuspendState=mem
+		HibernateDelaySec=1800
+		MemorySleepMode=s2idle
 		[Sleep]
 		HibernateMode=shutdown
 	'';

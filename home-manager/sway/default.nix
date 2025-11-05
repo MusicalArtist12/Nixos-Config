@@ -8,14 +8,33 @@ in
 	# hyprlock has better fingerprint support
 	imports = [
 		../hyprland/hyprlock.nix
-		../hyprland/hypridle.nix
+		# ../hyprland/hypridle.nix
 	];
+
+	services.swayidle = {
+		enable = true;
+		events = [
+			{ event = "before-sleep"; command = "${pkgs.hyprlock}/bin/hyprlock"; }
+			{ event = "lock"; command = "${pkgs.hyprlock}/bin/hyprlock"; }
+		];
+		# timeouts = [
+		# 	{ timeout = 60; command = "if pgrep hyprlock; then systemctl sleep; fi"; }
+		#
+		# ];
+	};
 
 	wayland.windowManager.sway.checkConfig = false;
     wayland.windowManager.sway = {
 		enable = true;
 		wrapperFeatures.gtk = true;
 		config = rec {
+			bindswitches = {
+				"lid:on" = {
+					locked = true;
+					action = "exec systemctl sleep";
+				};
+			};
+
 			terminal = "app2unit -- kitty";
 			modifier = "Mod4";
 			startup = [
