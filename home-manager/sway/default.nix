@@ -48,7 +48,7 @@ in
 				"XF86AudioPrev" = "exec playerctl previous";
 
 				"XF86Tools" = "exec ${programs.menuPower}";
-				"${modifier}+esc" = "exec ${programs.menuPower}";
+				"${modifier}+Escape" = "exec ${programs.menuPower}";
 
 				"${modifier}+g" = "layout tabbed";
 				"${modifier}+e" = "layout toggle split";
