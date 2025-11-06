@@ -70,6 +70,7 @@ in
 		./power
 		./hyprland/hyprpicker
 		./swaync
+		./vim
 	];
 
 	catppuccin = {
