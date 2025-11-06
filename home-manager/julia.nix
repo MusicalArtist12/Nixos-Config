@@ -48,6 +48,9 @@ in
 
 			};
 			Service = {
+				Environment = [
+					"PATH=/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+				];
 				ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
 			};
 		};
