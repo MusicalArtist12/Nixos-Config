@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Shutdown
+Comment=systemd
+Exec=systemctl poweroff
+Icon=system-shutdown
+Type=Application
+Categories=System;Session
+Path=/usr/bin

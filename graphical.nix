@@ -104,7 +104,6 @@
 		polkit_gnome
 		hyprpolkitagent
 
-		hyprpicker
 		hyprshot
 
 		app2unit # uwsm
@@ -116,7 +115,6 @@
 		swaynotificationcenter
 		syshud
 
-		rofi
 		networkmanagerapplet
 
 		pulseaudio # provides pactl
@@ -131,7 +129,7 @@
 		wev
 
 		gdm-settings
-
+		imv
 	];
 
 	# spotify networking
@@ -156,11 +154,5 @@
 
 	environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-	catppuccin = {
-		# plymouth = {
-		# 	enable = true;
-		# 	flavor = "mocha";
-		# };
-	};
 
 }

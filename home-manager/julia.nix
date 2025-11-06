@@ -1,4 +1,4 @@
-{ config, pkgs, catppuccin, inputs, ... }:
+{ config, pkgs, catppuccin, inputs, lib, ... }:
 let
     theme = (import ./theme.nix);
 in
@@ -8,11 +8,7 @@ in
 	home.stateVersion = "25.05";
 
 	programs = {
-		eww = {
-			enable = true;
-			configDir = ./eww;
-			enableZshIntegration = true;
-		};
+
 		kitty = {
 			enable = true;
 			enableGitIntegration = true;
@@ -39,22 +35,10 @@ in
 		firefox = {
 			enable = true;
 		};
+
 	};
 
-	systemd.user.services = {
-		eww-daemon = {
-			Unit = {
-				Description = "Eww Daemon";
 
-			};
-			Service = {
-				Environment = [
-					"PATH=/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
-				];
-				ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
-			};
-		};
-	};
 
 	home.packages = with pkgs; [
 		pokemon-colorscripts
@@ -79,8 +63,13 @@ in
 	imports = [
 		./rofi
 		./sway
-		./fetch.nix
+		./fetch
 		./gtk.nix
+		./zsh
+		./eww
+		./power
+		./hyprland/hyprpicker
+		./swaync
 	];
 
 	catppuccin = {
@@ -97,8 +86,8 @@ in
 			font = theme.font;
 		};
 		spotify-player.enable = true;
-
 	};
+
 
 	# use home.file.<name> to link arbitrary file
 }

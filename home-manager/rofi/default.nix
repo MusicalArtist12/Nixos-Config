@@ -5,7 +5,7 @@ in
 {
     programs.rofi = {
 		enable = true;
-		theme = ./theme.rasi;
+		theme = ./config/theme.rasi;
 		font = "${theme.font} 16";
 		extraConfig = {
 			combi-modi ="drun,window";
@@ -14,5 +14,11 @@ in
 			window-format = "{w}&#09;{t}";
 			modes = "combi,window,drun,clipboard:~/.local/bin/rofi-clipboard.sh";
 		};
+	};
+
+	home.file.rofi-clipboard = {
+		source = ./config/rofi-clipboard.sh;
+		target = ".local/bin/rofi-clipboard.sh";
+		executable = true;
 	};
 }

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sleep
+Comment=swaylock and systemd
+Exec=systemctl sleep
+Icon=applications-other
+Type=Application
+Categories=System;Session
+Path=/usr/bin

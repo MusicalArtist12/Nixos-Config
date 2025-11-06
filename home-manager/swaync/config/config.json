@@ -1,0 +1,199 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "ignore-gtk-theme": false,
+  "positionX": "left",
+  "positionY": "top",
+  "layer": "overlay",
+  "control-center-layer": "top",
+  "layer-shell": true,
+  "layer-shell-cover-screen": false,
+  "cssPriority": "user",
+  "control-center-margin-top": 5,
+  "control-center-margin-bottom": 5,
+  "control-center-margin-right": 5,
+  "control-center-margin-left": 5,
+  "notification-2fa-action": true,
+  "notification-inline-replies": false,
+  "notification-body-image-height": 100,
+  "notification-body-image-width": 200,
+  "timeout": 5,
+  "timeout-low": 5,
+  "timeout-critical": 0,
+  "fit-to-screen": true,
+  "relative-timestamps": true,
+  "control-center-width": 700,
+  "control-center-height": 600,
+  "notification-window-width": 700,
+  "keyboard-shortcuts": true,
+  "notification-grouping": true,
+  "image-visibility": "when-available",
+  "transition-time": 200,
+  "hide-on-clear": true,
+  "hide-on-action": true,
+  "text-empty": "No Notifications",
+  "script-fail-notify": true,
+  "scripts": {
+    "example-script": {
+      "exec": "echo 'Do something...'",
+      "urgency": "Normal"
+    }
+  },
+  "notification-visibility": {
+    "spotify": {
+      "app-name": "Spotify",
+      "state": "transient",
+      "urgency": "Low"
+    },
+    "volume": {
+      "app-name": "volume-notify",
+      "state": "transient",
+      "urgency": "Low"
+    }
+  },
+  "widgets": [
+    "inhibitors",
+
+    "title",
+    "dnd",
+    "notifications",
+    "mpris",
+    "buttons-grid",
+    "menubar",
+    "volume"
+  ],
+  "widget-config": {
+    "notifications": {
+      "vexpand": true
+    },
+    "volume": {
+      "show-per-app": true
+    },
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+
+    "mpris": {
+      "blacklist": [],
+      "autohide": false,
+      "show-album-art": "always",
+      "loop-carousel": true
+    },
+    "buttons-grid": {
+      "buttons-per-row": 7,
+      "actions": [
+          {
+            "label": "",
+            "command": "swaync-client -cp; app2unit firefox.desktop &>/dev/null"
+          },
+          {
+            "label": "󰓓",
+            "command": "swaync-client -cp; app2unit steam.desktop &>/dev/null"
+          },
+          {
+            "label": "",
+            "command": "swaync-client -cp; app2unit code.desktop &>/dev/null"
+          },
+          {
+            "label": "󰉋",
+            "command": "swaync-client -cp; app2unit thunar.desktop &>/dev/null"
+          },
+          {
+            "label": "Kill",
+            "command": "swaync-client -cp; hyprctl kill"
+          }
+      ]
+    },
+
+    "menubar": {
+      "menu#sink": {
+        "label": "Sinks",
+        "position": "right",
+        "actions": [
+          {
+            "label": "Headphones",
+            "type": "normal",
+            "command": "pactl set-default-sink alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo"
+          },
+          {
+            "label": "Speakers",
+            "type": "normal",
+            "command": "pactl set-default-sink alsa_output.pci-0000_03_00.1.hdmi-stereo"
+          }
+        ]
+      },
+      "menu#power": {
+        "label": "Power",
+        "position": "left",
+        "actions": [
+          {
+            "label": "Shutdown",
+            "command": "systemctl poweroff"
+          },
+          {
+            "label": "Restart",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": "Lock",
+            "command": "loginctl lock-session"
+          },
+          {
+            "label": "Exit",
+            "command": "loginctl terminate-user "
+          }
+        ]
+      },
+      "menu#workspaces": {
+        "label": "Workspaces",
+        "position": "right",
+        "actions": [
+          {
+            "label": "1",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 1"
+          },
+          {
+            "label": "2",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 2"
+          },
+          {
+            "label": "3",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 3"
+          },
+          {
+            "label": "4",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 4"
+          },
+          {
+            "label": "5",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 5"
+          },
+          {
+            "label": "6",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 6"
+          },
+          {
+            "label": "7",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 7"
+          },
+          {
+            "label": "8",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 8"
+          },
+          {
+            "label": "9",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 9"
+          },
+          {
+            "label": "10",
+            "command": "swaync-client -cp; hyprctl dispatch workspace 10"
+          }
+        ]
+      }
+    }
+  }
+}

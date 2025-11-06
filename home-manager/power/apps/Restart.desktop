@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Restart
+Comment=systemd
+Exec=systemctl reboot
+Icon=system-reboot
+Type=Application
+Categories=System;Session
+Path=/usr/bin

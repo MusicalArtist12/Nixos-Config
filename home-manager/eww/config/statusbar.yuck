@@ -164,6 +164,14 @@
                        :start-at  75)
     (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
+(defwidget swaync [orientation]
+  (eventbox :onclick      "swaync-client -sw -op"
+          (box :class "notif-center"
+              :orientation orientation
+              :width   thickness
+              :height  thickness
+            (label :text {num_notif})
+            (label :text "󰍜"))))
 
 (defwindow statusbar-primary [monitor is_laptop orientation anchor]
                              :monitor    monitor
@@ -196,13 +204,7 @@
                :icon-size    20)
       (date :orientation orientation)
       (clock :orientation orientation)
-      (eventbox :onclick      "swaync-client -sw -op"
-        (box :class "notif-center"
-             :orientation orientation
-             :width   thickness
-             :height  thickness
-          (label :text {num_notif})
-          (label :text "󰍜"))))))
+      (swaync :orientation orientation))))
 
 (defwindow calendar-overlay :monitor 0
                             :geometry (geometry :anchor "bottom left"
@@ -230,4 +232,6 @@
   (centerbox :orientation "horizontal"
     (workspaces :spacing default-spacing :orientation "horizontal" :size thickness)
     (box)
-    (box)))
+    (box :orientation orientation
+      (date :orientation orientation)
+      (clock :orientation orientation))))

@@ -67,7 +67,6 @@
 		usbutils
 		gh
 
-
 		nodejs
 	]) ++ (with pkgs.python313Packages; [
 		# Deep Learning
@@ -82,15 +81,10 @@
         ipython
         notebook
     ]);
+	environment.pathsToLink = [ "/share/zsh" ];
 
 	services.upower.enable = true;
-
-	programs.zsh = {
-		enable = true;
-		autosuggestions.enable = true;
-		syntaxHighlighting.enable = true;
-	};
-
+	programs.zsh.enable = true;
 	programs.nix-ld.enable = true;
 	programs.nix-ld.libraries = with pkgs; [
 		libcxx

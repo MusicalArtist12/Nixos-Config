@@ -1,8 +1,6 @@
 { pkgs, lib, config, ... }: {
     wayland.windowManager.sway.config.output = {
         eDP-1 = {
-            scale = "1.5";
-            scale_filter = "linear";
             bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
             color_profile = "icc /home/julia/.config/Framework16.icm";
         };

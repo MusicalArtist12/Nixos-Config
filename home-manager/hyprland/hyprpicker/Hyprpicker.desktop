@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Color Picker
+Comment=
+Exec=hyprpicker-extended.sh
+Icon=
+Type=Application
