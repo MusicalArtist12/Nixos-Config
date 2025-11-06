@@ -1,14 +1,14 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-    imports =
-        [ (modulesPath + "/installer/scan/not-detected.nix")
-        ];
+    imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
     boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-    boot.initrd.kernelModules = [ ];
+    boot.initrd.kernelModules = [ "nvidia" ];
     boot.kernelModules = [ "kvm-amd" ];
-    boot.extraModulePackages = [ ];
+    boot.extraModulePackages = [  config.boot.kernelPackages.nvidia_x11 ];
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/1e28f119-f517-456d-8d44-6dcea37acc04";
@@ -33,12 +33,12 @@
     networking = {
         hostName = "Dionysus";
         networkmanager = {
-        enable = true;
+            enable = true;
         };
         useDHCP = lib.mkDefault true;
     };
     boot = {
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages_zen;
         loader = {
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
@@ -54,14 +54,31 @@
 			"boot.shell_on_fail"
 			"udev.log_priority=3"
 			"rd.systemd.show_status=auto"
-
 		];
     };
+
+    boot.blacklistedKernelModules = [ "nouveau" ];
+
+    services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {
         modesetting.enable = true;
         open = true;
         nvidiaSettings = true;
         package = config.boot.kernelPackages.nvidiaPackages.stable;
+        forceFullCompositionPipeline = true;
+
     };
+
+    programs.coolercontrol = {
+        enable = true;
+
+    };
+    environment.systemPackages = (with pkgs; [
+        liquidctl
+        lm_sensors
+
+    ]);
+
+    services.lact.enable = true;
 }

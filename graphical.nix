@@ -50,6 +50,9 @@
 		sway = {
 			enable = true;
 			xwayland.enable = true;
+			extraOptions = [
+				"--unsupported-gpu"
+			];
 		};
 
 		gamemode.enable = true;
@@ -59,6 +62,9 @@
 					prettyName = "Sway";
 					comment = "Sway compositor managed by UWSM";
 					binPath = "${pkgs.sway}/bin/sway";
+					extraArgs = [
+						"--unsupported-gpu"
+					];
 				};
 			};
 			enable = true;

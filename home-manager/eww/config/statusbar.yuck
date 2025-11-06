@@ -90,9 +90,14 @@
     (box :class "date"
         :orientation orientation
         :space-evenly false
+        :spacing      default-spacing
+        :valign       "center"
+        :halign       "center"
         :tooltip { formattime(EWW_TIME, "%A %B %d, %Y") }
-      (label :text "")
+
+
       (label :text { formattime(EWW_TIME, "%m") })
+      (label :text { orientation == "vertical" ? "󰃭" : "/"})
       (label :text { formattime(EWW_TIME, "%d") }) )))
 
 (defwidget clock [orientation]
@@ -100,9 +105,12 @@
     (box :class        "clock"
         :orientation  orientation
         :space-evenly false
+        :spacing      default-spacing
+        :valign       "center"
+        :halign       "center"
         :tooltip { formattime(EWW_TIME, "%H:%M:%S") }
       (label :text { formattime(EWW_TIME, "%H") })
-      (circular-progress :value     { formattime(EWW_TIME, "%M") / 60 * 100}
+      (circular-progress :value    { formattime(EWW_TIME, "%M") / 60 * 100}
                         :thickness 6
                         :start-at  75)
       (label :text { formattime(EWW_TIME, "%M") }))))
@@ -190,6 +198,7 @@
     (box)
     (box :orientation  orientation
          :valign       "end"
+         :halign       "end"
          :space-evenly false
          :spacing      default-spacing
 
@@ -233,5 +242,10 @@
     (workspaces :spacing default-spacing :orientation "horizontal" :size thickness)
     (box)
     (box :orientation orientation
+         :valign       "end"
+         :halign       "end"
+         :space-evenly false
+         :spacing      default-spacing
+
       (date :orientation orientation)
       (clock :orientation orientation))))
