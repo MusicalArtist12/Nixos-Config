@@ -77,8 +77,18 @@
     environment.systemPackages = (with pkgs; [
         liquidctl
         lm_sensors
-
+        openrgb-with-all-plugins
     ]);
 
-    services.lact.enable = true;
+    services.hardware.openrgb = {
+        enable = true;
+        package = pkgs.openrgb-with-all-plugins;
+    };
+
+    programs.sway.extraOptions = [
+        "--unsupported-gpu"
+    ];
+    programs.uwsm.waylandCompositors.sway.extraArgs = [
+        "--unsupported-gpu"
+    ];
 }

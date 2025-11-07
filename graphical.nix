@@ -50,9 +50,7 @@
 		sway = {
 			enable = true;
 			xwayland.enable = true;
-			extraOptions = [
-				"--unsupported-gpu"
-			];
+
 		};
 
 		gamemode.enable = true;
@@ -62,9 +60,7 @@
 					prettyName = "Sway";
 					comment = "Sway compositor managed by UWSM";
 					binPath = "${pkgs.sway}/bin/sway";
-					extraArgs = [
-						"--unsupported-gpu"
-					];
+
 				};
 			};
 			enable = true;
@@ -135,7 +131,9 @@
 		wev
 
 		gdm-settings
-		imv
+                imv
+
+                kdePackages.filelight
 	];
 
 	# spotify networking
@@ -158,7 +156,6 @@
 	security.rtkit.enable = true;
 	security.polkit.enable = true;
 
-	environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
 
 }

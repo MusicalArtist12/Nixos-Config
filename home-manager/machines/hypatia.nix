@@ -13,11 +13,13 @@
         {command = "app2unit -- wl-paste --type text --watch cliphist store";}
         {command = "app2unit -- wl-paste --type image --watch cliphist store";}
         {command = "app2unit -- thunar --daemon";}
+
         {command = "systemctl --user start tumblerd.service";}
         {command = "systemctl --user start eww-daemon.service";}
         {command = ''eww open statusbar-primary --arg monitor=eDP-1 --arg is_laptop=true --arg orientation="vertical" --arg anchor="center left" --no-daemonize'';}
     ];
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
+        for_window [class="Spotify"] move window to workspace 10
     '';
 }

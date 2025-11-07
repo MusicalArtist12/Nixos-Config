@@ -102,8 +102,8 @@ in
 				"${modifier}+Shift+R" = "reload";
 
 				"${modifier}+e" = "layout toggle split";
-				"${modifier}+s" = "layout toggle stacking";
-				"${modifier}+w" = "layout toggle tabbed";
+				"${modifier}+s" = "layout stacking";
+				"${modifier}+w" = "layout tabbed";
 
 
 			};

@@ -17,6 +17,7 @@
         {command = "app2unit -- thunar --daemon";}
         {command = "systemctl --user start tumblerd.service";}
         {command = "systemctl --user start eww-daemon.service";}
+        {command = "app2unit -- coolercontrol";}
         {command = ''eww open statusbar-primary --arg monitor=DP-3 --arg is_laptop=false --arg orientation="vertical" --arg anchor="center left" --no-daemonize'';}
         {command = ''eww open statusbar-secondary --arg monitor=DP-2 --arg orientation="horizontal" --arg anchor="center bottom" --no-daemonize'';}
     ];
@@ -32,5 +33,7 @@
         workspace 8 output DP-2
         workspace 9 output DP-2
         workspace 10 output DP-2
+
+        for_window [class="Spotify"] move window to workspace 10
     '';
 }
