@@ -18,4 +18,14 @@
 			};
 		};
 	};
+
+	home.file.auto_statusbar = {
+        source = ./auto_statusbar.py;
+        target = ".local/bin/auto_statusbar.py";
+        executable = true;
+    };
+
+	wayland.windowManager.sway.config.startup = [
+		{command = "app2unit -- nm-applet";}
+	];
 }

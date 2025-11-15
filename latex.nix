@@ -8,6 +8,8 @@ let
             hyphenat
             changepage
             titling
+            multirow
+            # algorithmic
             lipsum;
 	});
 in

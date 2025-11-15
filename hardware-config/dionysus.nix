@@ -46,7 +46,7 @@
         plymouth = {
 			enable = true;
 			# theme = "script";
-			logo = ../lix-snowflake.png;
+			logo = ../res/lix-snowflake.png;
 		};
         initrd.verbose = false;
 		kernelParams = [

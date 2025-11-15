@@ -1,7 +1,7 @@
 {
 	description = "base flake";
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		nixpkgs.url = "github:NixOS/nixpkgs?rev=b3d51a0365f6695e7dd5cdf3e180604530ed33b4";
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";

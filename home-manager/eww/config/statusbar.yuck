@@ -226,7 +226,7 @@
     (label :text { formattime(EWW_TIME, "%H:%M:%S") })
     (calendar)))
 
-(defwindow statusbar-secondary [monitor  orientation anchor]
+(defwindow statusbar-secondary [monitor orientation anchor]
                              :monitor    monitor
                              :windowtype "dock"
                              :wm-ignore  false

@@ -90,6 +90,13 @@
 		libcxx
 	];
 
+	systemd.tmpfiles.settings."10-nixos-directory"."/etc/nixos".d = {
+		user = "root";
+		group = "nixos";
+		mode = "0775";
+	};
+
+
 
 	services.udev.extraRules = ''
 		KERNEL=="ttyACM0", MODE:="666"

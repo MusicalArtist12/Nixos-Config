@@ -21,4 +21,9 @@ in
 		target = ".local/bin/rofi-clipboard.sh";
 		executable = true;
 	};
+
+	wayland.windowManager.sway.config.startup = [
+		{command = "app2unit -- wl-paste --type text --watch cliphist store";}
+		{command = "app2unit -- wl-paste --type image --watch cliphist store";}
+	];
 }

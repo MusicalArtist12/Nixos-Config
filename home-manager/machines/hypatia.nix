@@ -6,20 +6,16 @@
         };
     };
     wayland.windowManager.sway.config.startup = [
-        {command = "app2unit -- syshud";}
-        {command = "app2unit -- discord.desktop";}
-        {command = "app2unit -- spotify.desktop";}
-        {command = "app2unit -- nm-applet";}
-        {command = "app2unit -- wl-paste --type text --watch cliphist store";}
-        {command = "app2unit -- wl-paste --type image --watch cliphist store";}
-        {command = "app2unit -- thunar --daemon";}
-
-        {command = "systemctl --user start tumblerd.service";}
-        {command = "systemctl --user start eww-daemon.service";}
-        {command = ''eww open statusbar-primary --arg monitor=eDP-1 --arg is_laptop=true --arg orientation="vertical" --arg anchor="center left" --no-daemonize'';}
+        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop"; always = true;}
     ];
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
+        bindswitch lid:on exec systemctl sleep
+
         for_window [class="Spotify"] move window to workspace 10
     '';
+
+    # services.swayidle.timeouts = [
+	#     { timeout = 60; command = "if pgrep hyprlock; then systemctl sleep; fi"; }
+	# ];
 }

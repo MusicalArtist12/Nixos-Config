@@ -16,10 +16,6 @@ in
 			{ event = "before-sleep"; command = "${pkgs.hyprlock}/bin/hyprlock"; }
 			{ event = "lock"; command = "${pkgs.hyprlock}/bin/hyprlock"; }
 		];
-		# timeouts = [
-		# 	{ timeout = 60; command = "if pgrep hyprlock; then systemctl sleep; fi"; }
-		#
-		# ];
 	};
 
 	wayland.windowManager.sway.checkConfig = false;
@@ -105,8 +101,15 @@ in
 				"${modifier}+s" = "layout stacking";
 				"${modifier}+w" = "layout tabbed";
 
-
 			};
+			startup = [
+
+				{command = "app2unit -- discord.desktop";}
+				{command = "app2unit -- spotify.desktop";}
+
+				{command = "app2unit -- thunar --daemon";}
+				{command = "systemctl --user start tumblerd.service";}
+			];
 
 			gaps = {
 				inner = 5;

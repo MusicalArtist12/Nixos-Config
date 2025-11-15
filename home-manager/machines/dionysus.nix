@@ -8,18 +8,8 @@
         };
     };
     wayland.windowManager.sway.config.startup = [
-        {command = "app2unit -- syshud";}
-        {command = "app2unit -- discord.desktop";}
-        {command = "app2unit -- spotify.desktop";}
-        {command = "app2unit -- nm-applet";}
-        {command = "app2unit -- wl-paste --type text --watch cliphist store";}
-        {command = "app2unit -- wl-paste --type image --watch cliphist store";}
-        {command = "app2unit -- thunar --daemon";}
-        {command = "systemctl --user start tumblerd.service";}
-        {command = "systemctl --user start eww-daemon.service";}
         {command = "app2unit -- coolercontrol";}
-        {command = ''eww open statusbar-primary --arg monitor=DP-3 --arg is_laptop=false --arg orientation="vertical" --arg anchor="center left" --no-daemonize'';}
-        {command = ''eww open statusbar-secondary --arg monitor=DP-2 --arg orientation="horizontal" --arg anchor="center bottom" --no-daemonize'';}
+        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py"; always = true;}
     ];
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
