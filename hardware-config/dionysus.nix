@@ -78,7 +78,9 @@
         liquidctl
         lm_sensors
         openrgb-with-all-plugins
+        lact
     ]);
+    services.lact.enable = true;
 
     services.hardware.openrgb = {
         enable = true;

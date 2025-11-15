@@ -6,7 +6,7 @@
         };
     };
     wayland.windowManager.sway.config.startup = [
-        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop"; always = true;}
+        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1"; always = true;}
     ];
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs

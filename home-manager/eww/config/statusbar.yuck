@@ -62,8 +62,6 @@
 
 (defwidget workspaces [spacing orientation size]
   (box :orientation  orientation
-        :valign       {(orientation == "vertical" || orientation == "v") ? "start" : "fill"}
-        :halign       {(orientation == "horizontal" || orientation == "h") ? "start" : "fill"}
         :space-evenly false
         :spacing      spacing
       (for entry in sway_workspace_info
@@ -72,18 +70,6 @@
               :width   size
               :height  size
         `${entry.name}`))))
-    ; (for entry in { hyprland_workspace_info['workspaces'][display_name] }
-    ;   (button :class   { entry == hyprland_workspace_info['active_workspace'] ? "workspace-button active" : "workspace-button" }
-    ;           :onclick "hyprctl dispatch workspace ${entry}"
-    ;           :width   size
-    ;           :height  size
-    ;     (label :text entry) ))
-    ; (for entry in { hyprland_workspace_info['special_workspaces']}
-    ;   (button :class   { entry == hyprland_workspace_info['active_special'][display_name] ? "workspace-button active special" : "workspace-button special" }
-    ;           :onclick "hyprctl dispatch togglespecialworkspace ${replace(entry, 'special:', '')}"
-    ;           :width   size
-    ;           :height  size
-    ;     (label :text {matches(entry, "[sS]pecial:[dD]iscord")? "" : entry})))))
 
 (defwidget date [orientation]
   (eventbox :onclick on-date-click
@@ -97,7 +83,7 @@
 
 
       (label :text { formattime(EWW_TIME, "%m") })
-      (label :text { orientation == "vertical" ? "󰃭" : "/"})
+      (label :text { orientation == "v" ? "󰃭" : "/"})
       (label :text { formattime(EWW_TIME, "%d") }) )))
 
 (defwidget clock [orientation]
@@ -190,8 +176,8 @@
                              ; for some reason variables don't work in here?
                              :geometry (geometry :x      "0%"
                                                  :y      "0%"
-                                                 :width  { 30 + 5 }
-                                                 :height "100%"
+                                                 :width  { orientation == "v" ? 30 + 5 : "100%" }
+                                                 :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation
     (workspaces :spacing default-spacing :orientation orientation :size thickness)
@@ -235,11 +221,11 @@
                              ; for some reason variables don't work in here?
                              :geometry (geometry :x      "0%"
                                                  :y      "0%"
-                                                 :width  "100%"
-                                                 :height { 30 + 5 }
+                                                 :width  { orientation == "v" ? 30 + 5 : "100%" }
+                                                 :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
-  (centerbox :orientation "horizontal"
-    (workspaces :spacing default-spacing :orientation "horizontal" :size thickness)
+  (centerbox :orientation orientation
+    (workspaces :spacing default-spacing :orientation orientation :size thickness)
     (box)
     (box :orientation orientation
          :valign       "end"

@@ -18,7 +18,7 @@ import os
 import sys
 
 
-def openStatusbarFromAllDisplays(isLaptop: bool = False):
+def openStatusbarFromAllDisplays(primaryMonitor, isLaptop: bool = False):
     os.popen("systemctl --user restart eww-daemon.service")
     displays = json.load(os.popen("/usr/bin/env swaymsg -t get_outputs | jq  -r"))
 
@@ -26,36 +26,38 @@ def openStatusbarFromAllDisplays(isLaptop: bool = False):
         return x["id"]
     displays.sort(key=sortDisplaysByID)
 
-    first = True
+
     for display in displays:
         width = int(display["rect"]["width"])
         height = int(display["rect"]["height"])
         name = display["name"]
         # print(f'{display["id"]}, {name}, {width}x{height}')
 
-        orientation = "horizontal"
+        orientation = "h"
         anchor = "center bottom"
 
-
         if width > height:
-            orientation = "vertical"
+            orientation = "v"
             anchor = "center left"
 
-        if first:
-            os.popen(f'eww open statusbar-primary --arg monitor={name} --arg is_laptop={isLaptop} --arg orientation="{orientation}" --arg anchor="{anchor}" --no-daemonize').read()
+        if name == primaryMonitor:
+            os.popen(f'eww open statusbar-primary --arg monitor={name} --arg is_laptop={"true" if isLaptop else "false"} --arg orientation="{orientation}" --arg anchor="{anchor}" --no-daemonize').read()
         else:
-            os.popen(f'eww open statusbar-secondary --arg monitor={name}  --arg orientation="{orientation}" --arg anchor="{anchor}" --no-daemonize').read()
-        if first:
-            first = False
+            os.popen(f'eww open statusbar-secondary --id {name} --arg monitor={name}  --arg orientation="{orientation}" --arg anchor="{anchor}" --no-daemonize').read()
 
 def main():
     isLaptop = False
+    primaryMonitor = ""
 
     for arg in sys.argv[1::]:
-        if arg == "--laptop":
-            isLaptop = True
+        [key, val] = arg.split("=")
 
-    openStatusbarFromAllDisplays(isLaptop)
+        if key == "--laptop":
+            isLaptop = True
+        elif key == "--primary":
+            primaryMonitor = val
+
+    openStatusbarFromAllDisplays(primaryMonitor, isLaptop)
 
 if __name__ == "__main__":
     main()

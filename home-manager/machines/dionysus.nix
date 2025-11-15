@@ -9,7 +9,7 @@
     };
     wayland.windowManager.sway.config.startup = [
         {command = "app2unit -- coolercontrol";}
-        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py"; always = true;}
+        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --primary=DP-3"; always = true;}
     ];
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
