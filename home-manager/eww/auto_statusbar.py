@@ -50,12 +50,13 @@ def main():
     primaryMonitor = ""
 
     for arg in sys.argv[1::]:
-        [key, val] = arg.split("=")
-
-        if key == "--laptop":
-            isLaptop = True
-        elif key == "--primary":
-            primaryMonitor = val
+        if '=' in arg:
+            [key, val] = arg.split("=")
+            if key == "--primary":
+                primaryMonitor = val
+        else:
+            if arg == "--laptop":
+                isLaptop = True
 
     openStatusbarFromAllDisplays(primaryMonitor, isLaptop)
 
