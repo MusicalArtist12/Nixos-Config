@@ -6,7 +6,6 @@ import sys
 def get_sinks():
     default_sink = os.popen("/usr/bin/env pactl get-default-sink").read().strip("\n")
 
-    default_index = -1
     with os.popen("/usr/bin/env pamixer --list-sinks") as stdin:
         sinks = []
         for idx, line in enumerate(stdin):
@@ -26,23 +25,42 @@ def get_sinks():
 
         sinks.sort(key = sort_by_index)
 
-        return (sinks, default_index)
+        return sinks
 
 def decrement():
-    (sinks, default_index) = get_sinks()
+    sinks = get_sinks()
 
-    default_index = (len(sinks) + default_index - 1) % len(sinks)
+    index = [i for i, item in enumerate(sinks) if item[3]][0]
 
-    os.popen(f'notify-send "switching to {sinks[default_index][2]}"').read()
-    os.popen(f"/usr/bin/env pactl set-default-sink {sinks[default_index][1]}").read()
+    index = (index + 1) % len(sinks)
+
+    os.popen(f'notify-send "switching to {sinks[index][2]}"').read()
+    os.popen(f"/usr/bin/env pactl set-default-sink {sinks[index][1]}").read()
 
 def increment():
-    (sinks, default_index) = get_sinks()
+    sinks = get_sinks()
 
-    default_index = (len(sinks) + default_index + 1) % len(sinks)
+    index = [i for i, item in enumerate(sinks) if item[3]][0]
 
-    os.popen(f'notify-send "switching to {sinks[default_index][2]}"').read()
-    os.popen(f"/usr/bin/env pactl set-default-sink {sinks[default_index][1]}").read()
+    index = (index - 1) % len(sinks)
+
+
+    os.popen(f'notify-send "switching to {sinks[index][2]}"').read()
+    os.popen(f"/usr/bin/env pactl set-default-sink {sinks[index][1]}").read()
+
+def nerdfont():
+    sinks = get_sinks()
+
+    index = [i for i, item in enumerate(sinks) if item[3]][0]
+
+    default = sinks[index][2]
+
+    if re.search(r"\(HDMI\)", default):
+        print("󰽟")
+    elif re.search(r"Headset", default):
+        print("󰋎")
+    elif re.search("Audio Controller", default):
+        print("󱡬")
 
 def main():
     for arg in sys.argv[1::]:
@@ -50,7 +68,8 @@ def main():
             increment()
         elif arg == "-p" or arg == "--prev":
             decrement()
-
+        elif arg == "--icon":
+            nerdfont()
 
 if __name__ == "__main__":
     main()

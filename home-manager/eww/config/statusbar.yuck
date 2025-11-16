@@ -5,6 +5,8 @@
 (deflisten sway_workspace_info :initial "{}"
   `bash ~/.config/eww/getWorkspace.sh`)
 
+(defpoll audio_sink_icon :interval "0.1s"
+  `exec python ~/.local/bin/sink_switcher.py --icon`)
 
 (defpoll vol :interval "0.1s"
   `pamixer --get-volume`)
@@ -109,6 +111,7 @@
          :orientation  orientation
          :space-evenly false
          :spacing      default-spacing
+      (label :text audio_sink_icon)
       (label :text { muted ? "󰝟" : "󰕾" })
       (circular-progress :value     vol
                       :thickness 10
