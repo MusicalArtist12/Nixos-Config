@@ -14,6 +14,10 @@
         device = "/dev/disk/by-uuid/1e28f119-f517-456d-8d44-6dcea37acc04";
         fsType = "ext4";
     };
+    fileSystems."/sn850x" = {
+        device = "/dev/disk/by-uuid/802eebf4-8082-4956-968b-800896602cd6";
+        fsType = "ext4";
+    };
 
     fileSystems."/boot" = {
         device = "/dev/disk/by-uuid/8F28-7235";
@@ -92,5 +96,9 @@
     ];
     programs.uwsm.waylandCompositors.sway.extraArgs = [
         "--unsupported-gpu"
+    ];
+
+    security.pam.loginLimits = [
+        { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
     ];
 }
