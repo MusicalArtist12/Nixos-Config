@@ -60,29 +60,25 @@
 
 
 (defvar default-spacing 5)
-(defvar thickness 30)
 
-(defwidget workspaces [spacing orientation size]
+(defwidget workspaces [spacing orientation]
   (box :orientation  orientation
+
         :space-evenly false
         :spacing      spacing
       (for entry in sway_workspace_info
         (button :onclick `swaymsg workspace "${entry.name}"`
               :class {entry.focused ? "workspace-button active" : "workspace-button"}
-              :width   size
-              :height  size
+
         `${entry.name}`))))
 
-(defwidget date [orientation]
+(defwidget date [spacing orientation]
   (eventbox :onclick on-date-click
     (box :class "date"
         :orientation orientation
         :space-evenly false
-        :spacing      default-spacing
-        :valign       "center"
-        :halign       "center"
+        :spacing      spacing
         :tooltip { formattime(EWW_TIME, "%A %B %d, %Y") }
-
 
       (label :text { formattime(EWW_TIME, "%m") })
       (label :text { orientation == "v" ? "󰃭" : "/"})
@@ -94,8 +90,6 @@
         :orientation  orientation
         :space-evenly false
         :spacing      default-spacing
-        :valign       "center"
-        :halign       "center"
         :tooltip { formattime(EWW_TIME, "%H:%M:%S") }
       (label :text { formattime(EWW_TIME, "%H") })
       (circular-progress :value    { formattime(EWW_TIME, "%M") / 60 * 100}
@@ -161,12 +155,10 @@
                        :start-at  75)
     (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
-(defwidget swaync [orientation]
+(defwidget swaync [orientation ]
   (eventbox :onclick      "swaync-client -sw -op"
           (box :class "notif-center"
               :orientation orientation
-              :width   thickness
-              :height  thickness
             (label :text {num_notif})
             (label :text "󰍜"))))
 
@@ -183,7 +175,7 @@
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation
-    (workspaces :spacing default-spacing :orientation orientation :size thickness)
+    (workspaces :spacing default-spacing :orientation orientation)
     (box)
     (box :orientation  orientation
          :valign       "end"
@@ -197,10 +189,11 @@
 
       (systray :class        "systray"
                :orientation  orientation
+
                :space-evenly false
                :spacing      default-spacing
                :icon-size    20)
-      (date :orientation orientation)
+      (date  :spacing default-spacing :orientation orientation)
       (clock :orientation orientation)
       (swaync :orientation orientation))))
 
@@ -228,7 +221,7 @@
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation
-    (workspaces :spacing default-spacing :orientation orientation :size thickness)
+    (workspaces :spacing default-spacing :orientation orientation)
     (box)
     (box :orientation orientation
          :valign       "end"
@@ -236,5 +229,5 @@
          :space-evenly false
          :spacing      default-spacing
 
-      (date :orientation orientation)
+      (date :orientation orientation :spacing      default-spacing)
       (clock :orientation orientation))))
