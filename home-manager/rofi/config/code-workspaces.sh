@@ -3,5 +3,5 @@
 if [ -z "$1" ]; then
     ls /home/$USERNAME/code-workspaces
 else
-    code $1
+    code /home/$USERNAME/code-workspaces/$1
 fi

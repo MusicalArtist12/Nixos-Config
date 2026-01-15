@@ -8,7 +8,7 @@ in
 		theme = ./config/theme.rasi;
 		font = "${theme.font} 16";
 		extraConfig = {
-			combi-modi ="drun,window";
+			combi-modi ="drun,window,code-workspaces";
 			combi-display-format = "{mode}&#09;{text}";
 			drun-display-format = "&#09;{name}";
 			window-format = "{w}&#09;{t}";

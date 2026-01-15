@@ -57,7 +57,7 @@ def nerdfont():
     default = sinks[index][2]
     default_alsa = sinks[index][1]
 
-    if re.search(r"\(HDMI\)", default):
+    if re.search(r"HDMI", default):
         print("󰽟")
     elif re.search(r"Headset", default):
         print("󰋎")

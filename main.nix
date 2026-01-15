@@ -48,6 +48,7 @@
 			numpy
 			regex
 			opencv-python
+			matplotlib
 		]);
 		in
 		(with pkgs; [
