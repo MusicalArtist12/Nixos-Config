@@ -6,12 +6,18 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		nixos-hardware.url = "github:NixOs/nixos-hardware/master";
+		nixos-hardware = {
+			url = "github:NixOs/nixos-hardware/master";
+			# inputs.nixpkgs.follows = "nixpkgs";
+		};
 		moonlight = {
 			url = "github:moonlight-mod/moonlight/main";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		catppuccin.url = "github:catppuccin/nix";
+		catppuccin = {
+			url = "github:catppuccin/nix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, ... } @ inputs: {
 		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem {
