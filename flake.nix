@@ -7,7 +7,7 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nixos-hardware = {
-			url = "github:NixOs/nixos-hardware/master";
+			url = "github:NixOS/nixos-hardware/master";
 			# inputs.nixpkgs.follows = "nixpkgs";
 		};
 		moonlight = {
