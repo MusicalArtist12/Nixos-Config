@@ -43,11 +43,17 @@
 
 	# List packages installed in system profile. To search, run:
 	# $ nix search wget
-	environment.systemPackages = (with pkgs; [
+	environment.systemPackages = let
+		pythonEnv = pkgs.python313.withPackages (p: with p; [
+			numpy
+			regex
+			opencv-python
+		]);
+		in
+		(with pkgs; [
 		# vim
 		wget
 		git
-		python313
 
 		gnumake
 		cmake
@@ -68,19 +74,8 @@
 		gh
 
 		nodejs
-	]) ++ (with pkgs.python313Packages; [
-		# Deep Learning
-        scipy
-        numpy
-        matplotlib
-        pandas
-        statsmodels
-        scikit-learn
-        ipykernel
-        jupyter
-        ipython
-        notebook
-    ]);
+		pythonEnv
+	]);
 	environment.pathsToLink = [ "/share/zsh" ];
 
 	services.upower.enable = true;

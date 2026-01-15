@@ -159,6 +159,11 @@ in
 					xcursor_theme = "catppuccin-mocha-mauve-cursors 36";
 				};
 			};
+			input = {
+				"5426:152:Razer_Razer_DeathAdder_Essential_Keyboard" = {
+					pointer_accel = "-0.5";
+				};
+			};
 		};
 
 	};

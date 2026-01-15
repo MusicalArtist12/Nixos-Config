@@ -12,13 +12,18 @@ in
 			combi-display-format = "{mode}&#09;{text}";
 			drun-display-format = "&#09;{name}";
 			window-format = "{w}&#09;{t}";
-			modes = "combi,window,drun,clipboard:~/.local/bin/rofi-clipboard.sh";
+			modes = "combi,window,drun,clipboard:~/.local/bin/rofi-clipboard.sh,code-workspaces:~/.local/bin/code-workspaces.sh";
 		};
 	};
 
 	home.file.rofi-clipboard = {
 		source = ./config/rofi-clipboard.sh;
 		target = ".local/bin/rofi-clipboard.sh";
+		executable = true;
+	};
+	home.file.code-workspaces = {
+		source = ./config/code-workspaces.sh;
+		target = ".local/bin/code-workspaces.sh";
 		executable = true;
 	};
 
