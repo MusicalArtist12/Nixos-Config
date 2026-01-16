@@ -24,6 +24,8 @@
         workspace 9 output DP-2
         workspace 10 output DP-2
 
+        input 1133:16511:Logitech_G502 scroll_factor 0.5
+
         for_window [class="Spotify"] move window to workspace 10
     '';
 }

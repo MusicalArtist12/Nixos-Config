@@ -10,7 +10,8 @@ let
             titling
             multirow
             # algorithmic
-            lipsum;
+            lipsum
+            ieeetran;
 	});
 in
 {

@@ -8,7 +8,7 @@
     boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     boot.initrd.kernelModules = [ "nvidia" ];
     boot.kernelModules = [ "kvm-amd" ];
-    boot.extraModulePackages = [  config.boot.kernelPackages.nvidia_x11 ];
+    boot.extraModulePackages = [  ];
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/1e28f119-f517-456d-8d44-6dcea37acc04";
@@ -42,7 +42,7 @@
         useDHCP = lib.mkDefault true;
     };
     boot = {
-        kernelPackages = pkgs.linuxPackages_zen;
+        kernelPackages = pkgs.linuxPackages;
         loader = {
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
@@ -69,7 +69,14 @@
         modesetting.enable = true;
         open = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+	    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+            version = "575.64.05";
+            sha256_64bit = "sha256-hfK1D5EiYcGRegss9+H5dDr/0Aj9wPIJ9NVWP3dNUC0=";
+            sha256_aarch64 = "sha256-GRE9VEEosbY7TL4HPFoyo0Ac5jgBHsZg9sBKJ4BLhsA=";
+            openSha256 = "sha256-mcbMVEyRxNyRrohgwWNylu45vIqF+flKHnmt47R//KU=";
+            settingsSha256 = "sha256-o2zUnYFUQjHOcCrB0w/4L6xI1hVUXLAWgG2Y26BowBE=";
+            persistencedSha256 = "sha256-2g5z7Pu8u2EiAh5givP5Q1Y4zk4Cbb06W37rf768NFU=";
+        };
         forceFullCompositionPipeline = true;
 
     };
@@ -83,8 +90,23 @@
         lm_sensors
         openrgb-with-all-plugins
         lact
+        qemu
+        prusa-slicer
+        pkg-config # need for mkDriver?
     ]);
+
+    virtualisation.libvirtd.enable = true;
+    users.users.julia.extraGroups = [ "libvirtd" ];
+    programs.virt-manager.enable = true;
+
     services.lact.enable = true;
+
+    hardware.bluetooth = {
+		enable = true;
+		settings.General.Enable = "Source,Sink,Media,Socket";
+	};
+	services.blueman.enable = true;
+
 
     services.hardware.openrgb = {
         enable = true;
@@ -98,7 +120,39 @@
         "--unsupported-gpu"
     ];
 
-    security.pam.loginLimits = [
-        { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
-    ];
+    # security.pam.loginLimits = [
+    #     { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
+    # ];
+
+    environment.sessionVariables = {
+        MAKEOPTS = "-j8";
+        MAKEFLAGS = "-j8";
+    };
+
+    nix.settings = {
+        substituters = [
+            "https://cache.nixos-cuda.org"
+        ];
+        trusted-public-keys = [
+            "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+        ];
+    };
+
+    programs.steam = let
+        patchedBwrap = pkgs.bubblewrap.overrideAttrs (o: {
+            patches = (o.patches or []) ++ [
+            ./bwrap.patch
+            ];
+        });
+    in {
+        enable = true;
+        package = pkgs.steam.override {
+            buildFHSEnv = (args: ((pkgs.buildFHSEnv.override {
+                bubblewrap = patchedBwrap;
+            }) (args // {
+                extraBwrapArgs = (args.extraBwrapArgs or []) ++ [ "--cap-add ALL" ];
+            })));
+        };
+    };
+
 }

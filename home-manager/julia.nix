@@ -52,6 +52,7 @@ in
 		obsidian
 		spotify
 		inkscape
+		foliate # ebook reader in gtk flavor
 		(discord.override {
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;

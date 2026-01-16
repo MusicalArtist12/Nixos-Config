@@ -1,7 +1,7 @@
 {
 	description = "base flake";
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		nixpkgs.url = "github:NixOS/nixpkgs?ref=5ae3b07d8d6527c42f17c876e404993199144b6a";
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +21,7 @@
 				./main.nix
 				./graphical.nix
 				./hardware-config/dionysus.nix
+				./latex.nix
 				home-manager.nixosModules.home-manager
 				catppuccin.nixosModules.catppuccin
 				{

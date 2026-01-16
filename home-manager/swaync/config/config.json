@@ -19,7 +19,7 @@
   "timeout": 5,
   "timeout-low": 5,
   "timeout-critical": 0,
-  "fit-to-screen": true,
+  "fit-to-screen": false,
   "relative-timestamps": true,
   "control-center-width": 700,
   "control-center-height": 600,
@@ -52,14 +52,10 @@
   },
   "widgets": [
     "inhibitors",
-
-    "title",
     "dnd",
-    "notifications",
+    "volume",
     "mpris",
-    "buttons-grid",
-    "menubar",
-    "volume"
+    "notifications"
   ],
   "widget-config": {
     "notifications": {
@@ -82,103 +78,6 @@
       "autohide": false,
       "show-album-art": "always",
       "loop-carousel": true
-    },
-    "buttons-grid": {
-      "buttons-per-row": 7,
-      "actions": [
-          {
-            "label": "",
-            "command": "swaync-client -cp; app2unit firefox.desktop &>/dev/null"
-          },
-          {
-            "label": "󰓓",
-            "command": "swaync-client -cp; app2unit steam.desktop &>/dev/null"
-          },
-          {
-            "label": "",
-            "command": "swaync-client -cp; app2unit code.desktop &>/dev/null"
-          },
-          {
-            "label": "󰉋",
-            "command": "swaync-client -cp; app2unit thunar.desktop &>/dev/null"
-          },
-          {
-            "label": "Kill",
-            "command": "swaync-client -cp; hyprctl kill"
-          }
-      ]
-    },
-
-    "menubar": {
-
-      "menu#power": {
-        "label": "Power",
-        "position": "left",
-        "actions": [
-          {
-            "label": "Shutdown",
-            "command": "systemctl poweroff"
-          },
-          {
-            "label": "Restart",
-            "command": "systemctl reboot"
-          },
-          {
-            "label": "Lock",
-            "command": "loginctl lock-session"
-          },
-          {
-            "label": "Exit",
-            "command": "loginctl terminate-user "
-          }
-        ]
-      },
-      "menu#workspaces": {
-        "label": "Workspaces",
-        "position": "right",
-        "actions": [
-          {
-            "label": "1",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 1"
-          },
-          {
-            "label": "2",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 2"
-          },
-          {
-            "label": "3",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 3"
-          },
-          {
-            "label": "4",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 4"
-          },
-          {
-            "label": "5",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 5"
-          },
-          {
-            "label": "6",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 6"
-          },
-          {
-            "label": "7",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 7"
-          },
-          {
-            "label": "8",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 8"
-          },
-          {
-            "label": "9",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 9"
-          },
-          {
-            "label": "10",
-            "command": "swaync-client -cp; hyprctl dispatch workspace 10"
-          }
-        ]
-      }
     }
   }
 }
