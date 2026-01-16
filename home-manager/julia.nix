@@ -5,7 +5,7 @@ in
 {
 	home.username = "julia";
 	home.homeDirectory = "/home/julia";
-	home.stateVersion = "25.05";
+	home.stateVersion = "25.05"; # no touchy
 
 	programs = {
 
