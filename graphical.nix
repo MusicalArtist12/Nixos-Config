@@ -67,7 +67,7 @@
 		};
 		thunar = {
 			enable = true;
-			plugins = with pkgs.xfce; [
+			plugins = with pkgs; [
 				thunar-archive-plugin
 				thunar-volman
 				thunar-vcs-plugin
@@ -131,9 +131,11 @@
 		wev
 
 		gdm-settings
-                imv
+		imv
 
-                kdePackages.filelight
+		kdePackages.filelight
+
+
 	];
 
 	# spotify networking

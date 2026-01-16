@@ -93,6 +93,9 @@
         qemu
         prusa-slicer
         pkg-config # need for mkDriver?
+        opencomposite
+
+        openrct2
     ]);
 
     virtualisation.libvirtd.enable = true;
@@ -137,22 +140,15 @@
             "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         ];
     };
-
-    programs.steam = let
-        patchedBwrap = pkgs.bubblewrap.overrideAttrs (o: {
-            patches = (o.patches or []) ++ [
-            ./bwrap.patch
-            ];
-        });
-    in {
+    services.monado = {
         enable = true;
-        package = pkgs.steam.override {
-            buildFHSEnv = (args: ((pkgs.buildFHSEnv.override {
-                bubblewrap = patchedBwrap;
-            }) (args // {
-                extraBwrapArgs = (args.extraBwrapArgs or []) ++ [ "--cap-add ALL" ];
-            })));
-        };
+        defaultRuntime = true; # Register as default OpenXR runtime
+    };
+
+    systemd.user.services.monado.environment = {
+        STEAMVR_LH_ENABLE = "1";
+        XRT_COMPOSITOR_COMPUTE = "1";
+        WMR_HANDTRACKING = "0";
     };
 
 }
