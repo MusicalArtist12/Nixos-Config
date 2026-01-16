@@ -78,7 +78,7 @@ in
 		accent = "mauve";
 		flavor = "mocha";
 		kitty.enable = true;
-		cursors.enable = true;
+		cursors.enable = true; # this takes forever to build...
 		swaync.enable = true;
 		# firefox = {
 		# 	enable = true;

@@ -12,10 +12,10 @@ in
 
 	services.swayidle = {
 		enable = true;
-		events = [
-			{ event = "before-sleep"; command = "${pkgs.hyprlock}/bin/hyprlock"; }
-			{ event = "lock"; command = "${pkgs.hyprlock}/bin/hyprlock"; }
-		];
+		events = {
+			"before-sleep" = "${pkgs.hyprlock}/bin/hyprlock";
+			"lock" = "${pkgs.hyprlock}/bin/hyprlock";
+		};
 	};
 
 	wayland.windowManager.sway.checkConfig = false;

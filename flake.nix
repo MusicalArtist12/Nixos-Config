@@ -30,6 +30,8 @@
 				./latex.nix
 				home-manager.nixosModules.home-manager
 				catppuccin.nixosModules.catppuccin
+				nixos-hardware.nixosModules.common-cpu-amd
+				nixos-hardware.nixosModules.common-cpu-amd-zenpower
 				{
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
@@ -54,6 +56,7 @@
 				nixos-hardware.nixosModules.framework-16-7040-amd
 				home-manager.nixosModules.home-manager
 				catppuccin.nixosModules.catppuccin
+				nixos-hardware.nixosModules.common-cpu-amd-zenpower
 				{
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
