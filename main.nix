@@ -49,6 +49,11 @@
 			regex
 			opencv-python
 			matplotlib
+			numpy
+			ipykernel
+			jupyter
+			ipython
+			notebook
 		]);
 		in
 		(with pkgs; [
