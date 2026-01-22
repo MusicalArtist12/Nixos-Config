@@ -28,6 +28,7 @@
 				./graphical.nix
 				./hardware-config/dionysus.nix
 				./latex.nix
+				./python.nix
 				home-manager.nixosModules.home-manager
 				catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd
@@ -52,6 +53,7 @@
 				./main.nix
 				./hardware-config/hypatia.nix
 				./graphical.nix
+				./python.nix
 				./latex.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd
 				home-manager.nixosModules.home-manager

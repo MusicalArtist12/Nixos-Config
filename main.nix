@@ -43,20 +43,7 @@
 
 	# List packages installed in system profile. To search, run:
 	# $ nix search wget
-	environment.systemPackages = let
-		pythonEnv = pkgs.python313.withPackages (p: with p; [
-			numpy
-			regex
-			opencv-python
-			matplotlib
-			numpy
-			ipykernel
-			jupyter
-			ipython
-			notebook
-		]);
-		in
-		(with pkgs; [
+	environment.systemPackages = (with pkgs; [
 		# vim
 		wget
 		git
@@ -80,7 +67,7 @@
 		gh
 
 		nodejs
-		pythonEnv
+
 	]);
 	environment.pathsToLink = [ "/share/zsh" ];
 
