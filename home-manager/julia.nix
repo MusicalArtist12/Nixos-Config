@@ -90,6 +90,8 @@ in
 		spotify-player.enable = true;
 	};
 
+	home.sessionPath = ["/home/julia/.local/bin"];
+
 
 	# use home.file.<name> to link arbitrary file
 }

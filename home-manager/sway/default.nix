@@ -173,4 +173,9 @@ in
         target = ".local/bin/sink_switcher.py";
         executable = true;
     };
+	home.file.swaykill = {
+        source = ./swaykill.py;
+        target = ".local/bin/swaykill";
+        executable = true;
+    };
 }
