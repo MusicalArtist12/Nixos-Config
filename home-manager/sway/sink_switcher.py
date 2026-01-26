@@ -63,7 +63,7 @@ def nerdfont():
         print("󰋎")
     elif re.search("Expansion Card", default) or (re.search(r"\(IEC958\)", default)):
         print("󱡬")
-    elif re.search("Family 17h/19h/1ah HD Audio Controller Analog Stereo", default):
+    elif re.search("Analog Stereo", default):
         print("󰓃")
     elif re.search("bluez_output", default_alsa):
         print("󰂯")

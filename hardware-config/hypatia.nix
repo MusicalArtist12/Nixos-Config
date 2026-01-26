@@ -62,9 +62,8 @@
 			"boot.shell_on_fail"
 			"udev.log_priority=3"
 			"rd.systemd.show_status=auto"
-			"amdgpu.abmlevel=0"
 		];
-		loader.timeout = 0;
+		loader.timeout = 5;
 		initrd.availableKernelModules = [
 			"nvme"
 			"xhci_pci"
@@ -111,9 +110,11 @@
 		HibernateMode=shutdown
 	'';
 
-	services.udev.extraRules = ''
-		SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0012", ATTR{power/wakeup}="disabled", ATTR{driver/1-1.1.1.4/power/wakeup}="disabled"
-		SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0014", ATTR{power/wakeup}="disabled", ATTR{driver/1-1.1.1.4/power/wakeup}="disabled"
+	services.udev.extraRules = lib.mkAfter ''
+		ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0012", ATTR{power/wakeup}="disabled"
+		ACTION=="add", SUBSYSTEM=="i2c", DRIVER=="i2c_hid_acpi", ATTR{name}=="PIXA3854:00", ATTR{power/wakeup}="disabled"
+		ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0014", ATTR{power/wakeup}="disabled"
+
 	'';
 
 	hardware.keyboard.qmk.enable = true;

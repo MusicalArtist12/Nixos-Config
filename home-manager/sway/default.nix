@@ -22,6 +22,7 @@ in
     wayland.windowManager.sway = {
 		enable = true;
 		wrapperFeatures.gtk = true;
+		systemd.enable = true;
 
 		config = rec {
 			terminal = "app2unit -- kitty";
@@ -104,6 +105,9 @@ in
 				"${modifier}+s" = "layout stacking";
 				"${modifier}+w" = "layout tabbed";
 
+				# "${modifier}+r" = "mode gaps; exec swaynag -m 'gaps mode'";
+
+
 			};
 			startup = [
 
@@ -162,6 +166,21 @@ in
 			input = {
 				"5426:152:Razer_Razer_DeathAdder_Essential_Keyboard" = {
 					pointer_accel = "-0.5";
+				};
+			};
+
+			modes = {
+				gaps = {
+
+					# Binds arrow keys to resizing commands
+					"PLUS" = "gaps outer all plus 10px";
+					"MINUS" = "gaps outer all minus 10px";
+					# "SHIFT+EQUAL" = "gaps all inner plus 10px";
+					# "SHIFT+MINUS" = "gaps all inner minus 10px";
+
+					# Exit resize mode
+					"Escape" = "mode default; exec killall swaynag";
+					"Return" = "mode default; exec killall swaynag";
 				};
 			};
 		};
