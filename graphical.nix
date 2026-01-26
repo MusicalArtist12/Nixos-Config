@@ -149,6 +149,7 @@
 		noto-fonts-cjk-sans
 		font-awesome
 		helvetica-neue-lt-std
+		departure-mono
 	];
 
 	environment.pathsToLink = [

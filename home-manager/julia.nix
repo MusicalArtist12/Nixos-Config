@@ -13,9 +13,9 @@ in
 			enable = true;
 			enableGitIntegration = true;
 			font = {
-				name = theme.font;
+				name = "Departure Mono";
 				size = theme.font_size;
-				package = pkgs.nerd-fonts.jetbrains-mono;
+				package = pkgs.departure-mono;
 			};
 			settings = {
 				confirm_os_window_close = 0;

@@ -57,7 +57,6 @@
 		bat
 		jq
 
-		fzf-zsh
 		fzf
 
 		unzip
