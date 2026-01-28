@@ -11,7 +11,7 @@
     wayland.windowManager.sway.config.input = {
         "type:keyboard" = {
             xkb_layout = "us";
-            xkb_variant = "intl";
+            xkb_variant = "altgr-intl";
         };
     };
     wayland.windowManager.sway.extraConfig = ''
