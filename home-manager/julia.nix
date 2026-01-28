@@ -13,12 +13,13 @@ in
 			enable = true;
 			enableGitIntegration = true;
 			font = {
-				name = "Departure Mono";
+				name = "CommitMonoSimple";
 				size = theme.font_size;
-				package = pkgs.departure-mono;
+				package = inputs.commit-mono-simple.packages.${pkgs.system}.commit-mono-simple;
 			};
 			settings = {
 				confirm_os_window_close = 0;
+
 			};
 			shellIntegration.enableZshIntegration = true;
 			themeFile = "Catppuccin-Mocha";
@@ -40,14 +41,13 @@ in
 
 
 
-	home.packages = with pkgs; [
+	home.packages = (with pkgs; [
 		pokemon-colorscripts
 		zoom
 
 		vscode
 		gimp
 		blender
-		godot
 		bitwarden-desktop
 		obsidian
 		spotify
@@ -57,7 +57,7 @@ in
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
-	];
+	]) ++ [inputs.nixpkgs-godot.outputs.legacyPackages.x86_64-linux.godot_4_6];
 
 	# todo: vim and zsh
 

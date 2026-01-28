@@ -18,6 +18,13 @@
 			url = "github:catppuccin/nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		nixpkgs-godot = {
+			url = "github:NixOS/nixpkgs/master";
+		};
+		commit-mono-simple = {
+			url = "path:/etc/nixos/pkg";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, ... } @ inputs: {
 		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem {

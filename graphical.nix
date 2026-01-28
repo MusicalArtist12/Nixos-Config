@@ -1,4 +1,8 @@
-{ config, pkgs, inputs, catppuccin, ... } : {
+{ config, pkgs, inputs, catppuccin, ... } :
+let
+    commit-mono-simple = (import pkg/package.nix);
+in
+{
 	hardware.graphics = {
 		enable = true;
 	};
@@ -142,7 +146,7 @@
 	networking.firewall.allowedTCPPorts = [ 57621 ];
 	networking.firewall.allowedUDPPorts = [ 5353 ];
 
-	fonts.packages = with pkgs; [
+	fonts.packages = (with pkgs; [
 		nerd-fonts.jetbrains-mono
 		noto-fonts
 		noto-fonts-color-emoji
@@ -150,7 +154,9 @@
 		font-awesome
 		helvetica-neue-lt-std
 		departure-mono
-	];
+		commit-mono
+
+	]) ++ [inputs.commit-mono-simple.packages.${pkgs.system}.commit-mono-simple];
 
 	environment.pathsToLink = [
 		"/share/wayland-sessions"
