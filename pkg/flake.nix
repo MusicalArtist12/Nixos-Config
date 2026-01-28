@@ -11,8 +11,7 @@
         ];
     in {
         packages = forAllSystems (system: {
-            commit-mono-simple = nixpkgs.legacyPackages.${system}.callPackage ./package.nix { };
-            default = self.packages.${system}.commit-mono-simple;
+            commit-mono-simple = nixpkgs.legacyPackages.${system}.callPackage ./commit-mono-simple.nix { };
         });
     };
 }

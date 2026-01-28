@@ -8,6 +8,12 @@
     wayland.windowManager.sway.config.startup = [
         {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1"; always = true;}
     ];
+    wayland.windowManager.sway.config.input = {
+        "type:keyboard" = {
+            xkb_layout = "us";
+            xkb_variant = "intl";
+        };
+    };
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
         bindswitch lid:on exec systemctl sleep

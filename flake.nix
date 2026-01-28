@@ -21,15 +21,15 @@
 		nixpkgs-godot = {
 			url = "github:NixOS/nixpkgs/master";
 		};
-		commit-mono-simple = {
+		internal-pkgs = {
 			url = "path:/etc/nixos/pkg";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, ... } @ inputs: {
-		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem {
+	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, internal-pkgs, ... } @ inputs: {
+		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem  rec {
 
-			specialArgs = { inherit inputs; };
+			specialArgs = { inherit inputs; internal-pkgs = internal-pkgs; };
 			modules = [
 				./main.nix
 				./graphical.nix
@@ -41,6 +41,7 @@
 				nixos-hardware.nixosModules.common-cpu-amd
 				nixos-hardware.nixosModules.common-cpu-amd-zenpower
 				{
+					home-manager.extraSpecialArgs = specialArgs;
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = {
@@ -50,12 +51,12 @@
 							catppuccin.homeModules.catppuccin
 						];
 					};
-					home-manager.extraSpecialArgs = { inherit inputs; };
+
 				}
 			];
 		};
-		nixosConfigurations.Hypatia = nixpkgs.lib.nixosSystem {
-			specialArgs = { inherit inputs; };
+		nixosConfigurations.Hypatia = nixpkgs.lib.nixosSystem rec {
+			specialArgs = { inherit inputs; internal-pkgs = internal-pkgs; };
 			modules = [
 				./main.nix
 				./hardware-config/hypatia.nix
@@ -67,6 +68,7 @@
 				catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd-zenpower
 				{
+					home-manager.extraSpecialArgs = specialArgs;
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = {
@@ -76,7 +78,7 @@
 							catppuccin.homeModules.catppuccin
 						];
 					};
-					home-manager.extraSpecialArgs = { inherit inputs; };
+
 				}
 
 

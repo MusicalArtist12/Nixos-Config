@@ -1,4 +1,4 @@
-{ config, pkgs, catppuccin, inputs, lib, ... }:
+{ config, pkgs, catppuccin, inputs, lib, internal-pkgs, ... }:
 let
     theme = (import ./theme.nix);
 in
@@ -15,7 +15,7 @@ in
 			font = {
 				name = "CommitMonoSimple";
 				size = theme.font_size;
-				package = inputs.commit-mono-simple.packages.${pkgs.system}.commit-mono-simple;
+				package = internal-pkgs.packages.${pkgs.system}.commit-mono-simple;
 			};
 			settings = {
 				confirm_os_window_close = 0;
