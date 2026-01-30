@@ -1,4 +1,4 @@
-{ config, pkgs, catppuccin, inputs, lib, internal-pkgs, ... }:
+{ config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
 let
     theme = (import ./theme.nix);
 in
@@ -15,7 +15,7 @@ in
 			font = {
 				name = "CommitMonoSimple";
 				size = theme.font_size;
-				package = internal-pkgs.packages.${pkgs.system}.commit-mono-simple;
+				package = inputs.internal-pkgs.packages.${pkgs.system}.commit-mono-simple;
 			};
 			settings = {
 				confirm_os_window_close = 0;
@@ -57,7 +57,7 @@ in
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
-	]) ++ [inputs.nixpkgs-godot.outputs.legacyPackages.x86_64-linux.godot_4_6];
+	]) ++ [pkgs-stable.godotPackages_4_6.godot];
 
 	# todo: vim and zsh
 

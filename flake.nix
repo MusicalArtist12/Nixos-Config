@@ -18,19 +18,25 @@
 			url = "github:catppuccin/nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		nixpkgs-godot = {
-			url = "github:NixOS/nixpkgs/master";
+		nixpkgs-stable = {
+			url = "github:NixOS/nixpkgs/nixos-25.11";
 		};
 		internal-pkgs = {
 			url = "path:/etc/nixos/pkg";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
-	outputs = { nixpkgs, home-manager, nixos-hardware, catppuccin, internal-pkgs, ... } @ inputs: {
+	outputs = { self, nixpkgs, home-manager, nixos-hardware, catppuccin,  ... } @ inputs:
+	let
+		defaults = {pkgs, ...}: {
+			_module.args.pkgs-stable = import inputs.nixpkgs-stable { inherit (pkgs.stdenv.targetPlatform) system; };
+		};
+	in {
 		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem  rec {
 
-			specialArgs = { inherit inputs; internal-pkgs = internal-pkgs; };
+			specialArgs = { inherit inputs; };
 			modules = [
+				defaults
 				./main.nix
 				./graphical.nix
 				./hardware-config/dionysus.nix
@@ -46,6 +52,7 @@
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = {
 						imports = [
+							defaults
 							./home-manager/julia.nix
 							./home-manager/machines/dionysus.nix
 							catppuccin.homeModules.catppuccin
@@ -56,8 +63,9 @@
 			];
 		};
 		nixosConfigurations.Hypatia = nixpkgs.lib.nixosSystem rec {
-			specialArgs = { inherit inputs; internal-pkgs = internal-pkgs; };
+			specialArgs = { inherit inputs; };
 			modules = [
+				defaults
 				./main.nix
 				./hardware-config/hypatia.nix
 				./graphical.nix
@@ -73,6 +81,7 @@
 					home-manager.useUserPackages = true;
 					home-manager.users.julia = {
 						imports = [
+							defaults
 							./home-manager/julia.nix
 							./home-manager/machines/hypatia.nix
 							catppuccin.homeModules.catppuccin

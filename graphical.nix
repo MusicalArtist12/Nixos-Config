@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, catppuccin, internal-pkgs, ... } :
+{ config, pkgs, inputs, catppuccin, ... } :
 let
     commit-mono-simple = (import pkg/package.nix);
 in
@@ -156,7 +156,7 @@ in
 		departure-mono
 		commit-mono
 
-	]) ++ [internal-pkgs.packages.${pkgs.system}.commit-mono-simple];
+	]) ++ [inputs.internal-pkgs.packages.${pkgs.system}.commit-mono-simple];
 
 	environment.pathsToLink = [
 		"/share/wayland-sessions"
