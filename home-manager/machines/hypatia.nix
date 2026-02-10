@@ -1,8 +1,10 @@
 { pkgs, lib, config, ... }: {
     wayland.windowManager.sway.config.output = {
         eDP-1 = {
-            bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
             color_profile = "icc /home/julia/.config/Framework16.icm";
+        };
+        "*" = {
+            bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
         };
     };
     wayland.windowManager.sway.config.startup = [
@@ -14,9 +16,9 @@
             xkb_variant = "altgr-intl";
         };
     };
+
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
-        bindswitch lid:on exec systemctl sleep
 
         for_window [class="Spotify"] move window to workspace 10
     '';

@@ -1,6 +1,6 @@
 { config, pkgs, ... } :
 let
-	pythonEnv = pkgs.python313.withPackages (p: with p; [
+	pythonEnv = pkgs.python3.withPackages (p: with p; [
 			numpy
 			regex
 			opencv-python

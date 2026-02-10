@@ -67,6 +67,7 @@
 
 		nodejs
 
+		tty-clock
 	]);
 	environment.pathsToLink = [ "/share/zsh" ];
 
@@ -75,6 +76,7 @@
 	programs.nix-ld.enable = true;
 	programs.nix-ld.libraries = with pkgs; [
 		libcxx
+		stdenv.cc.cc
 	];
 
 	systemd.tmpfiles.settings."10-nixos-directory"."/etc/nixos".d = {

@@ -13,9 +13,10 @@ in
 	services.swayidle = {
 		enable = true;
 		events = {
-			"before-sleep" = "${pkgs.hyprlock}/bin/hyprlock";
-			"lock" = "${pkgs.hyprlock}/bin/hyprlock";
+			"before-sleep" = "${pkgs.hyprlock}/bin/hyprlock --no-fade-in --immediate-render";
+			"lock" = "${pkgs.hyprlock}/bin/hyprlock --no-fade-in --immediate-render";
 		};
+		extraArgs = [];
 	};
 
 	wayland.windowManager.sway.checkConfig = false;

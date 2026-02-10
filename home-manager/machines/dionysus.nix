@@ -1,9 +1,6 @@
 { pkgs, lib, config, ... }: {
     wayland.windowManager.sway.config.output = {
-        DP-3 = {
-            bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
-        };
-        DP-2 = {
+        "*" = {
             bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
         };
     };

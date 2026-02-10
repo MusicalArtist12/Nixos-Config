@@ -81,12 +81,14 @@
 	services.power-profiles-daemon.enable = true;
 
 	services.logind.settings.Login = {
-		HandlePowerKey = "hibernate";
+		HandlePowerKey = "sleep";
 		HandlePowerKeyLongPress = "poweroff";
 		HandleSuspendKey = "ignore";
-		HandleLidSwitch = "ignore";
-		HandleLidSwitchExternalPower = "ignore";
-		HandleLidSwitchDocked = "ignore";
+		HandleLidSwitch = "sleep";
+		HandleLidSwitchExternalPower = "sleep";
+		HandleLidSwitchDocked = "sleep";
+		HoldoffTimeoutSec=0;
+		SleepOperation="suspend";
 	};
 
 	systemd.services.fprintd = {

@@ -57,7 +57,10 @@ in
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
-	]) ++ [pkgs-stable.godotPackages_4_6.godot];
+	]) ++ [
+		pkgs-stable.godotPackages_4_6.godot
+		# pkgs-stable.godotPackages_4_6.export-templates-bin
+	];
 
 	# todo: vim and zsh
 
