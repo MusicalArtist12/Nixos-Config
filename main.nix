@@ -77,6 +77,9 @@
 	programs.nix-ld.libraries = with pkgs; [
 		libcxx
 		stdenv.cc.cc
+		fontconfig
+		wayland
+		libX11
 	];
 
 	systemd.tmpfiles.settings."10-nixos-directory"."/etc/nixos".d = {

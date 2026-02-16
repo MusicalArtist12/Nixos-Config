@@ -15,7 +15,7 @@ in
 			font = {
 				name = "CommitMonoSimple";
 				size = theme.font_size;
-				package = inputs.internal-pkgs.packages.${pkgs.system}.commit-mono-simple;
+				package = inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple;
 			};
 			settings = {
 				confirm_os_window_close = 0;
@@ -53,13 +53,14 @@ in
 		spotify
 		inkscape
 		foliate # ebook reader in gtk flavor
+		musescore
 		(discord.override {
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
 	]) ++ [
 		pkgs-stable.godotPackages_4_6.godot
-		# pkgs-stable.godotPackages_4_6.export-templates-bin
+		pkgs-stable.godotPackages_4_6.export-templates-bin
 	];
 
 	# todo: vim and zsh
@@ -75,6 +76,7 @@ in
 		./hyprland/hyprpicker
 		./swaync
 		./vim
+		./niri
 	];
 
 	catppuccin = {

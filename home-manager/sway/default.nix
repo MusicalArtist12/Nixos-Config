@@ -92,6 +92,7 @@ in
 				"XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
 				"XF86MonBrightnessUp" =   "exec light -A 10";
 				"XF86MonBrightnessDown" = "exec light -U 10";
+
 				"XF86AudioPlay" = "exec playerctl play-pause";
 				"XF86AudioNext" = "exec playerctl next";
 				"XF86AudioPrev" = "exec playerctl previous";

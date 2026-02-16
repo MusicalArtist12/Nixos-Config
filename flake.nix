@@ -21,20 +21,26 @@
 		nixpkgs-stable = {
 			url = "github:NixOS/nixpkgs/nixos-25.11";
 		};
-		internal-pkgs = {
+		pkgs-internal = {
 			url = "path:/etc/nixos/pkg";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		niri-flake = {
+			url = "github:sodiboo/niri-flake/main";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
-	outputs = { self, nixpkgs, home-manager, nixos-hardware, catppuccin,  ... } @ inputs:
+	outputs = { self, nixpkgs, home-manager, nixos-hardware, catppuccin, niri-flake, ... } @ inputs:
 	let
 		defaults = {pkgs, ...}: {
 			_module.args.pkgs-stable = import inputs.nixpkgs-stable { inherit (pkgs.stdenv.targetPlatform) system; };
 		};
+
+
 	in {
 		nixosConfigurations.Dionysus = nixpkgs.lib.nixosSystem  rec {
 
-			specialArgs = { inherit inputs; };
+			specialArgs = { inherit inputs;  };
 			modules = [
 				defaults
 				./main.nix
@@ -46,6 +52,8 @@
 				catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd
 				nixos-hardware.nixosModules.common-cpu-amd-zenpower
+				niri-flake.nixosModules.niri
+				./all-pkgs-list.nix
 				{
 					home-manager.extraSpecialArgs = specialArgs;
 					home-manager.useGlobalPkgs = true;
@@ -56,6 +64,7 @@
 							./home-manager/julia.nix
 							./home-manager/machines/dionysus.nix
 							catppuccin.homeModules.catppuccin
+
 						];
 					};
 
@@ -63,7 +72,7 @@
 			];
 		};
 		nixosConfigurations.Hypatia = nixpkgs.lib.nixosSystem rec {
-			specialArgs = { inherit inputs; };
+			specialArgs = { inherit inputs;  };
 			modules = [
 				defaults
 				./main.nix

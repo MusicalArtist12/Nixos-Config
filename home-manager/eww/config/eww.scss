@@ -17,23 +17,32 @@ button {
 }
 
 
-.statusbar-primary {
+.vertical {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
+
+    * {
+        margin: 0;
+    }
 }
 
-.statusbar-secondary {
+.horizontal {
 
     margin-bottom: 10px;
     margin-left: 10px;
     margin-right: 10px;
+
+    * {
+        margin: 0;
+    }
 }
+
 
 .workspace-button, .clock, .systray, .audio, .powermenu-button, .notif-center, .date, .battery, .backlight {
     background-color: #1e1e2e;
 
-    border-radius: 0.6em;
+    border-radius: inherit;
     font-weight: normal;
 }
 
@@ -66,6 +75,19 @@ circular-progress {
     color: #ed8796;
 }
 
+.audio.large {
+    * {
+        font-size: 14px;
+    }
+
+}
+
 .workspace-button, .clock, .systray, .audio, .date, .notif-center, .battery, .backlight, .workspace-parent {
     padding: 0.25em 0.25em;
+    border: 1px solid #cba6f7;
+}
+
+.panel {
+
+    border-radius: 0.6em;
 }

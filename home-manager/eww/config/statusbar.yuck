@@ -2,8 +2,8 @@
 ;   `python ~/.config/eww/hyprland_listener.py`)
 ; this loop will only update elements if the volume changes!
 
-(deflisten sway_workspace_info :initial "{}"
-  `bash ~/.config/eww/getWorkspace.sh`)
+; (deflisten sway_workspace_info :initial "{}"
+;   `bash ~/.config/eww/getWorkspace.sh`)
 
 (defpoll audio_sink_icon :interval "0.1s"
   `exec python ~/.local/bin/sink_switcher.py --icon`)
@@ -61,19 +61,21 @@
 
 (defvar default-spacing 5)
 
-(defwidget workspaces [spacing orientation]
-  (box :orientation  orientation
+; (defwidget workspaces [spacing orientation monitor]
+;   (box :orientation  orientation
+;
+;         :space-evenly false
+;         :spacing      spacing
+;       (for entry in sway_workspace_info
+;         (button :onclick `swaymsg workspace "${entry.name}"`
+;               :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
+;               :visible {entry.output == monitor}
+;
+;         `${entry.name}`))))
 
-        :space-evenly false
-        :spacing      spacing
-      (for entry in sway_workspace_info
-        (button :onclick `swaymsg workspace "${entry.name}"`
-              :class {entry.focused ? "workspace-button active" : "workspace-button"}
-
-        `${entry.name}`))))
 
 (defwidget date [spacing orientation]
-  (eventbox :onclick on-date-click
+  (eventbox :onclick on-date-click :class "panel"
     (box :class "date"
         :orientation orientation
         :space-evenly false
@@ -85,7 +87,7 @@
       (label :text { formattime(EWW_TIME, "%d") }) )))
 
 (defwidget clock [orientation]
-  (eventbox :onclick on-date-click
+  (eventbox :onclick on-date-click :class "panel"
     (box :class        "clock"
         :orientation  orientation
         :space-evenly false
@@ -101,7 +103,8 @@
   (eventbox :onscroll     audio-onscroll
             :onclick      "pactl set-sink-mute @DEFAULT_SINK@ toggle"
             :onrightclick "app2unit org.pulseaudio.pavucontrol.desktop &"
-    (box :class        { "audio" + (muted ? " muted" : "") }
+            :class "panel"
+    (box :class        { "audio" + (muted ? " muted" : "") + (vol >= 100 ? " large" : "") }
          :orientation  orientation
          :space-evenly false
          :spacing      default-spacing
@@ -113,11 +116,12 @@
       (label :text vol) )))
 
 (defwidget backlight [orientation visible]
-  (box :class { "backlight" }
+  (box :class { "backlight panel" }
         :visible visible
         :orientation  orientation
         :space-evenly false
         :spacing      default-spacing
+
     (circular-progress :value     {brightness / max_brightness * 100}
                       :thickness 10
                       :start-at  75) ))
@@ -133,6 +137,7 @@
         :spacing      default-spacing
         :tooltip tte
         :visible visible
+        :class "panel"
     (label :text {
       EWW_BATTERY.BAT1.status == "Charging" ? "󰂄" :
       EWW_BATTERY.BAT1.capacity > 90 ? "󰁹" :
@@ -156,7 +161,7 @@
     (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
 (defwidget swaync [orientation ]
-  (eventbox :onclick      "swaync-client -sw -op"
+  (eventbox :onclick      "swaync-client -sw -op" :class "panel"
           (box :class "notif-center"
               :orientation orientation
             (label :text {num_notif})
@@ -174,8 +179,9 @@
                                                  :width  { orientation == "v" ? 30 + 5 : "100%" }
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
-  (centerbox :orientation orientation
-    (workspaces :spacing default-spacing :orientation orientation)
+  (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
+    ;(workspaces :spacing default-spacing :orientation orientation :monitor monitor)
+    (box)
     (box)
     (box :orientation  orientation
          :valign       "end"
@@ -187,7 +193,7 @@
       (battery :orientation orientation :visible is_laptop)
       (backlight :orientation orientation :visible is_laptop)
 
-      (systray :class        "systray"
+      (systray :class        "systray panel"
                :orientation  orientation
 
                :space-evenly false
@@ -220,8 +226,9 @@
                                                  :width  { orientation == "v" ? 30 + 5 : "100%" }
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
-  (centerbox :orientation orientation
-    (workspaces :spacing default-spacing :orientation orientation)
+  (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
+    ; (workspaces :spacing default-spacing :orientation orientation :monitor monitor)
+    (box)
     (box)
     (box :orientation orientation
          :valign       "end"

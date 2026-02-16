@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, catppuccin, ... } :
+{ config, pkgs, inputs, catppuccin,  ... } :
 let
     commit-mono-simple = (import pkg/package.nix);
 in
@@ -45,6 +45,11 @@ in
 	services.gnome.games.enable = false;
 	environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs xdg-desktop-portal-gnome ];
 
+
+	nixpkgs.overlays = [ inputs.niri-flake.overlays.niri ];
+	systemd.user.services.niri-flake-polkit.enable = false;
+
+
 	programs = {
 		hyprland = {
 			enable = true;
@@ -56,6 +61,11 @@ in
 			xwayland.enable = true;
 
 		};
+		niri = {
+			enable = true;
+			package = pkgs.niri-stable;
+		};
+
 
 		gamemode.enable = true;
 		uwsm = {
@@ -85,7 +95,6 @@ in
 			localNetworkGameTransfers.openFirewall = true;
 		};
 		light.enable = true;
-
 	};
 
 
@@ -156,7 +165,7 @@ in
 		departure-mono
 		commit-mono
 
-	]) ++ [inputs.internal-pkgs.packages.${pkgs.system}.commit-mono-simple];
+	]) ++ [inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple];
 
 	environment.pathsToLink = [
 		"/share/wayland-sessions"

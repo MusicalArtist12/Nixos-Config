@@ -79,8 +79,8 @@ in
 						keyColor = "red";
 					}
 					{
-						key = "╭ ";
-						type = "host";
+						key = "╭ Current Machine";
+						type = "custom";
 						keyColor = "cyan";
 					}
 					{
@@ -94,8 +94,13 @@ in
 						keyColor = "cyan";
 					}
 					{
-						key = "╰─ 󰍹  ";
+						key = "├─ 󰍹  ";
 						type = "display";
+						keyColor = "cyan";
+					}
+					{
+						key = "╰─   ";
+						type = "host";
 						keyColor = "cyan";
 					}
 					{
@@ -150,11 +155,7 @@ in
 						type = "swap";
 						keyColor = "blue";
 					}
-					"break"
-					{
-						type = "colors";
-						symbol = "block";
-					}
+
 				];
 			};
 		};
