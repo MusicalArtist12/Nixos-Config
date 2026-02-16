@@ -126,7 +126,7 @@ in
                     inactive = { color = theme.overlay0_hex; };
                     urgent = { color = theme.red_hex; };
                 };
-                empty-workspace-above-first = true;
+                # empty-workspace-above-first = true;
                 focus-ring = {
                     enable = true;
                     width = 2;
