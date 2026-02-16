@@ -5,5 +5,7 @@
 		target = ".config/swaync";
     };
 
-
+    home.packages = with pkgs; [
+        swaynotificationcenter
+    ];
 }

@@ -188,4 +188,7 @@ in
         target = ".local/bin/swaykill";
         executable = true;
     };
+	home.packages = with pkgs; [
+        syshud
+    ];
 }

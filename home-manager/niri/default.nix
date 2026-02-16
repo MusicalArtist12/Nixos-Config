@@ -14,10 +14,18 @@ in
 
         settings = {
             binds = {
-                "Mod+D".action.spawn = ["sh" "-c" programs.menu];
-                "Mod+Return".action.spawn = ["kitty"];
-                "Mod+Shift+Return".action.spawn = ["thunar"];
-
+                "Mod+D" = {
+                    action.spawn = ["sh" "-c" programs.menu];
+                    hotkey-overlay.title = "Open Rofi";
+                };
+                "Mod+Return" = {
+                    action.spawn = ["kitty"];
+                    hotkey-overlay.title = "Open Terminal";
+                };
+                "Mod+Shift+Return" = {
+                    action.spawn = ["thunar"];
+                    hotkey-overlay.title = "Open File Explorer";
+                };
 
                 "Mod+1".action.focus-workspace = 1;
                 "Mod+2".action.focus-workspace = 2;
@@ -44,7 +52,10 @@ in
                 "Mod+Shift+9".action.move-column-to-workspace = 9;
                 "Mod+Shift+0".action.move-column-to-workspace = 0;
 
-                "Mod+Escape".action.spawn = ["sh" "-c" programs.menuPower];
+                "Mod+Escape" = {
+                    action.spawn = ["sh" "-c" programs.menuPower];
+                    hotkey-overlay.title = "Open Power Menu";
+                };
                 "Mod+Shift+Slash".action.show-hotkey-overlay = [];
                 "Mod+Shift+Q".action.close-window = [];
 
@@ -79,9 +90,9 @@ in
 
                 "Mod+F".action.maximize-column = [];
 
-                "Mod+Ctrl+F".action.expand-column-to-available-width = [];
-                "Mod+Shift+F".action.fullscreen-window = [];
-                "Mod+Alt+F".action.toggle-window-floating = [];
+                "Mod+E".action.expand-column-to-available-width = []; # Expand
+                "Mod+Shift+F".action.fullscreen-window = []; # Fullscreen
+                "Mod+B".action.toggle-window-floating = []; # Balloon
 
                 "Mod+BracketLeft".action.consume-or-expel-window-left = [];
                 "Mod+BracketRight".action.consume-or-expel-window-right = [];
@@ -97,9 +108,14 @@ in
                 "XF86AudioMute".action.spawn = [ "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle" ];
                 "XF86AudioRaiseVolume".action.spawn = [ "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%" ];
                 "XF86AudioLowerVolume".action.spawn = [ "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-1%" ];
-                "Mod+XF86AudioRaiseVolume".action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -n" ];
-                "Mod+XF86AudioLowerVolume".action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -p" ];
-
+                "Mod+XF86AudioRaiseVolume" = {
+                    action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -n" ];
+                    hotkey-overlay.hidden = true;
+                };
+                "Mod+XF86AudioLowerVolume" = {
+                    action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -p" ];
+                    hotkey-overlay.hidden = true;
+                };
             };
             outputs = {
                 "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
@@ -115,6 +131,11 @@ in
             };
             input = {
                 touchpad.natural-scroll = false;
+            };
+            input = {
+                focus-follows-mouse.enable = true;
+                mouse.accel-profile = "flat";
+                keyboard.numlock = true;
             };
             layout = {
                 gaps = 10;
@@ -173,6 +194,7 @@ in
     home.packages = with pkgs; [
         xwayland-satellite # xwayland support
         swaybg
+        syshud
     ];
 
 }

@@ -128,7 +128,6 @@ in
 
 		libnotify
 		swaynotificationcenter
-		syshud
 
 		networkmanagerapplet
 
