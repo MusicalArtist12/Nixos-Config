@@ -82,6 +82,12 @@ def main():
             if key == "--wm":
                 wm = val
         else:
+            if arg == "-h":
+                print("--primary=display")
+                print("--wm=wm")
+                print("--laptop")
+                exit()
+
             if arg == "--laptop":
                 isLaptop = True
 

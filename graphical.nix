@@ -148,7 +148,7 @@ in
 
 		kdePackages.filelight
 
-
+		labwc # a very useful utility
 	];
 
 	# spotify networking

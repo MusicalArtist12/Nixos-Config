@@ -5,6 +5,9 @@
 ; (deflisten sway_workspace_info :initial "{}"
 ;   `bash ~/.config/eww/getWorkspace.sh`)
 
+(deflisten niri_workspace_info :initial "{}"
+  `bash ~/.config/eww/getWorkspaceNiri.sh`)
+
 (defpoll audio_sink_icon :interval "0.1s"
   `exec python ~/.local/bin/sink_switcher.py --icon`)
 
@@ -61,17 +64,19 @@
 
 (defvar default-spacing 5)
 
-; (defwidget workspaces [spacing orientation monitor]
-;   (box :orientation  orientation
-;
-;         :space-evenly false
-;         :spacing      spacing
-;       (for entry in sway_workspace_info
-;         (button :onclick `swaymsg workspace "${entry.name}"`
-;               :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
-;               :visible {entry.output == monitor}
-;
-;         `${entry.name}`))))
+(defwidget workspaces [spacing orientation monitor]
+  (box :orientation  orientation
+
+        :space-evenly false
+        :spacing      spacing
+      (for entry in niri_workspace_info
+        ; (button :onclick `swaymsg workspace "${entry.idx}"`
+        (button :onclick `niri msg action focus-workspace "${entry.idx}"`
+              ; :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
+              :class {entry.is_active ? "panel workspace-button active" : "panel workspace-button"}
+              :visible {entry.output == monitor}
+
+        `${entry.idx}`))))
 
 
 (defwidget date [spacing orientation]
@@ -180,8 +185,8 @@
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
-    ;(workspaces :spacing default-spacing :orientation orientation :monitor monitor)
-    (box)
+    (workspaces :spacing default-spacing :orientation orientation :monitor monitor)
+
     (box)
     (box :orientation  orientation
          :valign       "end"
@@ -227,8 +232,8 @@
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
-    ; (workspaces :spacing default-spacing :orientation orientation :monitor monitor)
-    (box)
+    (workspaces :spacing default-spacing :orientation orientation :monitor monitor)
+
     (box)
     (box :orientation orientation
          :valign       "end"
