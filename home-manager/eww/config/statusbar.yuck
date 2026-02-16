@@ -2,8 +2,8 @@
 ;   `python ~/.config/eww/hyprland_listener.py`)
 ; this loop will only update elements if the volume changes!
 
-; (deflisten sway_workspace_info :initial "{}"
-;   `bash ~/.config/eww/getWorkspace.sh`)
+(deflisten sway_workspace_info :initial "{}"
+  `bash ~/.config/eww/getWorkspace.sh`)
 
 (deflisten niri_workspace_info :initial "{}"
   `bash ~/.config/eww/getWorkspaceNiri.sh`)
@@ -64,24 +64,32 @@
 
 (defvar default-spacing 5)
 
-(defwidget workspaces [spacing orientation monitor]
+(defwidget workspaces-niri [spacing orientation monitor]
   (box :orientation  orientation
-
         :space-evenly false
         :spacing      spacing
       (for entry in niri_workspace_info
-        ; (button :onclick `swaymsg workspace "${entry.idx}"`
         (button :onclick `niri msg action focus-workspace "${entry.idx}"`
-              ; :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
               :class {entry.is_active ? "panel workspace-button active" : "panel workspace-button"}
               :visible {entry.output == monitor}
 
         `${entry.idx}`))))
 
+(defwidget workspaces-sway [spacing orientation monitor]
+  (box :orientation  orientation
+        :space-evenly false
+        :spacing      spacing
+      (for entry in niri_workspace_info
+        (button :onclick `swaymsg workspace "${entry.idx}"`
+              :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
+              :visible {entry.output == monitor}
+
+        `${entry.name}`))))
+
 
 (defwidget date [spacing orientation]
-  (eventbox :onclick on-date-click :class "panel"
-    (box :class "date"
+  (eventbox :onclick on-date-click
+    (box :class "date panel"
         :orientation orientation
         :space-evenly false
         :spacing      spacing
@@ -92,8 +100,8 @@
       (label :text { formattime(EWW_TIME, "%d") }) )))
 
 (defwidget clock [orientation]
-  (eventbox :onclick on-date-click :class "panel"
-    (box :class        "clock"
+  (eventbox :onclick on-date-click
+    (box :class        "clock panel"
         :orientation  orientation
         :space-evenly false
         :spacing      default-spacing
@@ -108,8 +116,7 @@
   (eventbox :onscroll     audio-onscroll
             :onclick      "pactl set-sink-mute @DEFAULT_SINK@ toggle"
             :onrightclick "app2unit org.pulseaudio.pavucontrol.desktop &"
-            :class "panel"
-    (box :class        { "audio" + (muted ? " muted" : "") + (vol >= 100 ? " large" : "") }
+    (box :class        { "panel audio" + (muted ? " muted" : "") + (vol >= 100 ? " large" : "") }
          :orientation  orientation
          :space-evenly false
          :spacing      default-spacing
@@ -132,7 +139,7 @@
                       :start-at  75) ))
 
 (defwidget battery [orientation visible]
-  (box :class  { "battery" + (
+  (box :class  { "panel battery " + (
     EWW_BATTERY.BAT1.capacity > 30 || EWW_BATTERY.BAT1.status == "Charging" ? " normal" :
     EWW_BATTERY.BAT1.capacity > 10 ? " warning" :
     " danger"
@@ -142,7 +149,6 @@
         :spacing      default-spacing
         :tooltip tte
         :visible visible
-        :class "panel"
     (label :text {
       EWW_BATTERY.BAT1.status == "Charging" ? "󰂄" :
       EWW_BATTERY.BAT1.capacity > 90 ? "󰁹" :
@@ -166,8 +172,8 @@
     (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
 (defwidget swaync [orientation ]
-  (eventbox :onclick      "swaync-client -sw -op" :class "panel"
-          (box :class "notif-center"
+  (eventbox :onclick      "swaync-client -sw -op"
+          (box :class "notif-center panel"
               :orientation orientation
             (label :text {num_notif})
             (label :text "󰍜"))))
@@ -185,7 +191,7 @@
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
-    (workspaces :spacing default-spacing :orientation orientation :monitor monitor)
+    (workspaces-niri :spacing default-spacing :orientation orientation :monitor monitor)
 
     (box)
     (box :orientation  orientation
@@ -232,7 +238,7 @@
                                                  :height { orientation == "h" ? 30 + 5 : "100%" }
                                                  :anchor anchor)
   (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
-    (workspaces :spacing default-spacing :orientation orientation :monitor monitor)
+    (workspaces-niri :spacing default-spacing :orientation orientation :monitor monitor)
 
     (box)
     (box :orientation orientation

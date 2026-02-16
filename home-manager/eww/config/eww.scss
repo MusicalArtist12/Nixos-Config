@@ -39,20 +39,20 @@ button {
 }
 
 
+
 .workspace-button, .clock, .systray, .audio, .powermenu-button, .notif-center, .date, .battery, .backlight {
-    background-color: #1e1e2e;
 
     border-radius: inherit;
     font-weight: normal;
 }
 
-.battery.danger {
+.panel.battery.danger {
     color: #f38ba8;
 }
-.battery.warning, .backlight {
+.panel.battery.warning, .backlight {
     color: #f9e2af;
 }
-.battery.normal {
+.panel.battery.normal {
     color: #a6e3a1;
 }
 
@@ -82,12 +82,12 @@ circular-progress {
 
 }
 
-.workspace-button, .clock, .systray, .audio, .date, .notif-center, .battery, .backlight, .workspace-parent {
-    padding: 0.25em 0.25em;
-    border: 1px solid #cba6f7;
-}
+
 
 .panel {
-
+    background-color: #1e1e2e;
+    border: 1px solid #cba6f7;
     border-radius: 0.6em;
+    padding: 0.35em 0.35em;
+
 }

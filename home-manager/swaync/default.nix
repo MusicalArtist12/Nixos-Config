@@ -5,7 +5,5 @@
 		target = ".config/swaync";
     };
 
-    wayland.windowManager.sway.config.startup = [
-		{command = "app2unit -- syshud";}
-	];
+
 }

@@ -5,6 +5,11 @@ let
     accent = theme.mauve_hex;
 in
 {
+    imports = [
+		../hyprland/hyprlock.nix
+		../swayidle
+	];
+
     programs.niri = {
 
         settings = {
@@ -103,6 +108,13 @@ in
                     width = 3440;
                     height = 1440;
                 };
+                "BOE 0x0BC9 Unknown" = {
+                    scale = 1.0;
+                    variable-refresh-rate = true;
+                };
+            };
+            input = {
+                touchpad.natural-scroll = false;
             };
             layout = {
                 gaps = 10;
@@ -117,7 +129,7 @@ in
                 empty-workspace-above-first = true;
                 focus-ring = {
                     enable = true;
-                    width = 4;
+                    width = 2;
                     active = { color = accent; };
                     inactive = null;
                     urgent = { color = theme.red_hex; };
@@ -128,16 +140,30 @@ in
                 };
             };
 
-
+            prefer-no-csd = true;
             clipboard.disable-primary = true;
             spawn-at-startup = [
                 { sh = "systemctl --user start eww-daemon.service"; }
                 # todo make this local to machines
-                { sh = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --primary=DP-3 --wm=niri"; }
+
                 { sh = "swaybg -m fill -i /home/julia/Pictures/Backgrounds/celeste.png"; }
                 { sh = "app2unit -- discord.desktop"; }
                 { sh = "app2unit -- spotify.desktop"; }
+                { sh = "app2unit -- syshud";}
 
+            ];
+
+            window-rules = [
+                {
+                    matches = [];
+                    geometry-corner-radius = {
+                        bottom-left = 10.0;
+                        bottom-right = 10.0;
+                        top-left = 10.0;
+                        top-right = 10.0;
+                    };
+                    clip-to-geometry = true;
+                }
             ];
 
 

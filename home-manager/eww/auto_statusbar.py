@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # swaymsg -t get_outputs | jq  -r
 # returns a json array of screen objects
 # lowest ID i believe means primary

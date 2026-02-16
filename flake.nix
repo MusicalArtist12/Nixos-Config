@@ -84,6 +84,7 @@
 				home-manager.nixosModules.home-manager
 				catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd-zenpower
+				niri-flake.nixosModules.niri
 				{
 					home-manager.extraSpecialArgs = specialArgs;
 					home-manager.useGlobalPkgs = true;

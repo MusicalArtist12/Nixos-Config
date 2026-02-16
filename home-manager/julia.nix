@@ -66,6 +66,8 @@ in
 	# todo: vim and zsh
 
 	imports = [
+		./tools
+
 		./rofi
 		./sway
 		./fetch

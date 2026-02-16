@@ -130,7 +130,7 @@
 
 	environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-	virtualisation.virtualbox.host.enable = true;
+	# virtualisation.virtualbox.host.enable = true;
 	users.extraGroups.vboxusers.members = [ "julia" ];
 
 	# services.mysql = {

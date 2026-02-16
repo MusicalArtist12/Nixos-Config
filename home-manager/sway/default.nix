@@ -8,16 +8,8 @@ in
 	# hyprlock has better fingerprint support
 	imports = [
 		../hyprland/hyprlock.nix
+		../swayidle
 	];
-
-	services.swayidle = {
-		enable = true;
-		events = {
-			"before-sleep" = "${pkgs.hyprlock}/bin/hyprlock --no-fade-in --immediate-render";
-			"lock" = "${pkgs.hyprlock}/bin/hyprlock --no-fade-in --immediate-render";
-		};
-		extraArgs = [];
-	};
 
 	wayland.windowManager.sway.checkConfig = false;
     wayland.windowManager.sway = {
@@ -118,6 +110,7 @@ in
 
 				{command = "app2unit -- thunar --daemon";}
 				{command = "systemctl --user start tumblerd.service";}
+				{command = "app2unit -- syshud";}
 			];
 
 			gaps = {
@@ -189,11 +182,7 @@ in
 
 	};
 
-	home.file.sink_switcher = {
-        source = ./sink_switcher.py;
-        target = ".local/bin/sink_switcher.py";
-        executable = true;
-    };
+
 	home.file.swaykill = {
         source = ./swaykill.py;
         target = ".local/bin/swaykill";

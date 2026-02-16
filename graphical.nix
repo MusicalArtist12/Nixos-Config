@@ -46,7 +46,7 @@ in
 	environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs xdg-desktop-portal-gnome ];
 
 
-	nixpkgs.overlays = [ inputs.niri-flake.overlays.niri ];
+	# nixpkgs.overlays = [ inputs.niri-flake.overlays.niri ];
 	systemd.user.services.niri-flake-polkit.enable = false;
 
 
@@ -63,7 +63,7 @@ in
 		};
 		niri = {
 			enable = true;
-			package = pkgs.niri-stable;
+			package = pkgs.niri;
 		};
 
 
