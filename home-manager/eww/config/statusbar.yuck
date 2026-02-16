@@ -71,7 +71,7 @@
       (for entry in niri_workspace_info
         (button :onclick `niri msg action focus-workspace "${entry.idx}"`
               :class {entry.is_active ? "panel workspace-button active" : "panel workspace-button"}
-              :visible {entry.output == monitor}
+              :visible {entry.output == monitor && entry.active_window_id != "null"}
 
         `${entry.idx}`))))
 
