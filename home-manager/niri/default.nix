@@ -100,10 +100,13 @@ in
                 "Mod+W".action.center-column = [];
                 "Mod+T".action.toggle-column-tabbed-display = [];
 
-                "Mod+Minus".action.set-column-width = "-10%";
-                "Mod+Equal".action.set-column-width = "+10%";
+                "Mod+Minus".action.switch-preset-column-width-back = [];
+                "Mod+Equal".action.switch-preset-column-width = [];
+
                 "Mod+Shift+Minus".action.set-window-height = "-10%";
                 "Mod+Shift+Equal".action.set-window-height = "+10%";
+
+                "Mod+Shift+S".action.spawn = [ "sh" "-c" "${programs.screenshot}" ];
 
                 "XF86AudioMute".action.spawn = [ "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle" ];
                 "XF86AudioRaiseVolume".action.spawn = [ "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%" ];
@@ -119,11 +122,16 @@ in
             };
             outputs = {
                 "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
-                "Acer Technologies XZ342CK TKNAA0013900".mode = {
-                    refresh = 144.0;
-                    width = 3440;
-                    height = 1440;
+                "Acer Technologies XZ342CK TKNAA0013900" = {
+                    mode = {
+                        refresh = 144.0;
+                        width = 3440;
+                        height = 1440;
+
+                    };
+
                 };
+
                 "BOE 0x0BC9 Unknown" = {
                     scale = 1.0;
                     variable-refresh-rate = true;
@@ -159,6 +167,15 @@ in
                     enable = true;
                     display = { color = accent; };
                 };
+
+                preset-column-widths = [
+                    { proportion = 1.0 / 4.0; }
+                    { proportion = 1.0 / 3.0; }
+                    { proportion = 1.0 / 2.0; }
+                    { proportion = 2.0 / 3.0; }
+                    { proportion = 3.0 / 4.0; }
+                    { proportion = 1.0; }
+                ];
             };
 
             prefer-no-csd = true;
