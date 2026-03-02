@@ -100,8 +100,8 @@ in
                 "Mod+W".action.center-column = [];
                 "Mod+T".action.toggle-column-tabbed-display = [];
 
-                "Mod+Minus".action.switch-preset-column-width-back = [];
-                "Mod+Equal".action.switch-preset-column-width = [];
+                "Mod+Minus".action.set-window-width = "-10%";
+                "Mod+Equal".action.set-window-width = "+10%";
 
                 "Mod+Shift+Minus".action.set-window-height = "-10%";
                 "Mod+Shift+Equal".action.set-window-height = "+10%";
@@ -141,7 +141,7 @@ in
                 touchpad.natural-scroll = false;
             };
             input = {
-                focus-follows-mouse.enable = true;
+                #focus-follows-mouse.enable = true;
                 mouse.accel-profile = "flat";
                 keyboard.numlock = true;
             };
@@ -168,14 +168,7 @@ in
                     display = { color = accent; };
                 };
 
-                preset-column-widths = [
-                    { proportion = 1.0 / 4.0; }
-                    { proportion = 1.0 / 3.0; }
-                    { proportion = 1.0 / 2.0; }
-                    { proportion = 2.0 / 3.0; }
-                    { proportion = 3.0 / 4.0; }
-                    { proportion = 1.0; }
-                ];
+
             };
 
             prefer-no-csd = true;
