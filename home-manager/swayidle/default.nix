@@ -6,5 +6,6 @@
 			"lock" = "${pkgs.hyprlock}/bin/hyprlock --no-fade-in --immediate-render";
 		};
 		extraArgs = [];
+		systemdTarget = "graphical-session.target";
 	};
 }

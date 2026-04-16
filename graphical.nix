@@ -9,17 +9,17 @@ in
 
 	systemd = {
 		user.services.polkit-g-authentication-agent-1 = {
-				description = "polkit-gnome-authentication-agent-1";
-				wantedBy = [ "graphical-session.target" ];
-				wants = [ "graphical-session.target" ];
-				after = [ "graphical-session.target" ];
-				serviceConfig = {
-					Type = "simple";
-					ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-					Restart = "on-failure";
-					RestartSec = 1;
-					TimeoutStopSec = 10;
-	  			};
+			description = "polkit-gnome-authentication-agent-1";
+			wantedBy = [ "graphical-session.target" ];
+			wants = [ "graphical-session.target" ];
+			after = [ "graphical-session.target" ];
+			serviceConfig = {
+				Type = "simple";
+				ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+				Restart = "on-failure";
+				RestartSec = 1;
+				TimeoutStopSec = 10;
+			};
   		};
 	};
 
@@ -30,14 +30,29 @@ in
 			alsa.support32Bit = true;
 			pulse.enable = true;
 		};
-		displayManager.gdm.debug = true;
-		displayManager.gdm.enable = true;
+		displayManager.gdm = {
+			debug = true;
+			enable = false;
+		};
+		greetd = {
+			enable = true;
+			settings = rec {
+				initial_session = {
+				command = "${pkgs.niri}/bin/niri-session";
+				user = "julia";
+				};
+				default_session = initial_session;
+			};
+		};
+
 		desktopManager.gnome.enable = true;
 		gnome.gnome-keyring.enable = true;
 
 		# thunar stuff
 		gvfs.enable = true;
 		tumbler.enable = true;
+
+
 	};
 
 	services.gnome.core-apps.enable = true;
@@ -97,19 +112,21 @@ in
 		light.enable = true;
 	};
 
-
-	xdg.portal = {
-		enable = true;
-		extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+	xdg = {
+		portal = {
+			enable = true;
+			extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+		};
+		terminal-exec = {
+			settings.default = ["kitty.desktop"];
+			enable = true;
+		};
 	};
-	xdg.terminal-exec.settings = {
-		default = ["kitty.desktop"];
+
+	environment.variables = {
+		XDG_TERMINAL = "${pkgs.kitty}/bin/kitty";
+		XDG_SYSTEM_MONITOR = "${pkgs.resources}/bin/resources";
 	};
-
-	xdg.terminal-exec.enable = true;
-	environment.variables.XDG_TERMINAL = "${pkgs.kitty}/bin/kitty";
-	environment.variables.XDG_SYSTEM_MONITOR = "${pkgs.resources}/bin/resources";
-
 
 	environment.systemPackages = with pkgs; [
 		nwg-displays

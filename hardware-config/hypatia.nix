@@ -137,4 +137,7 @@
 	# 	enable = true;
 	# 	package = pkgs.mariadb;
 	# };
+
+	services.printing.enable = true;
+	services.ipp-usb.enable = true;
 }

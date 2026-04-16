@@ -15,6 +15,8 @@
 					"PATH=/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
 				];
 				ExecStart = "${pkgs.eww}/bin/eww daemon --no-daemonize";
+				After = "graphical-session.target";
+				BindsTo = "graphical-session.target";
 			};
 		};
 	};

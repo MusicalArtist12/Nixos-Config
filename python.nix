@@ -10,6 +10,7 @@ let
 			jupyter
 			ipython
 			notebook
+			pygobject3 # req. for gimp plugins written in python
 		]);
 in
 {

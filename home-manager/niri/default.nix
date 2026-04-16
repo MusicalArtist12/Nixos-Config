@@ -13,6 +13,18 @@ in
     programs.niri = {
 
         settings = {
+            spawn-at-startup = [
+
+
+                { sh = "systemctl --user start eww-daemon.service"; }
+                # todo make this local to machines
+
+                { sh = "swaybg -m fill -i /home/julia/Pictures/Backgrounds/celeste.png"; }
+                { sh = "app2unit -- discord.desktop"; }
+                { sh = "app2unit -- spotify.desktop"; }
+                { sh = "app2unit -- syshud";}
+                { sh = "${pkgs.hyprlock}/bin/hyprlock --immediate-render"; } # autologin
+            ];
             binds = {
                 "Mod+D" = {
                     action.spawn = ["sh" "-c" programs.menu];
@@ -119,6 +131,9 @@ in
                     action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -p" ];
                     hotkey-overlay.hidden = true;
                 };
+
+                "XF86MonBrightnessUp".action.spawn = [ "light" "-A" "10"];
+                "XF86MonBrightnessDown".action.spawn = [ "light" "-U" "10"];
             };
             outputs = {
                 "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
@@ -139,6 +154,8 @@ in
             };
             input = {
                 touchpad.natural-scroll = false;
+                touchpad.click-method = "clickfinger";
+                touchpad.dwt = true;
             };
             input = {
                 #focus-follows-mouse.enable = true;
@@ -170,19 +187,11 @@ in
 
 
             };
+            gestures.hot-corners.enable = false; # until i can change the corner
 
             prefer-no-csd = true;
             clipboard.disable-primary = true;
-            spawn-at-startup = [
-                { sh = "systemctl --user start eww-daemon.service"; }
-                # todo make this local to machines
 
-                { sh = "swaybg -m fill -i /home/julia/Pictures/Backgrounds/celeste.png"; }
-                { sh = "app2unit -- discord.desktop"; }
-                { sh = "app2unit -- spotify.desktop"; }
-                { sh = "app2unit -- syshud";}
-
-            ];
 
             window-rules = [
                 {

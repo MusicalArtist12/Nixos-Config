@@ -37,6 +37,12 @@ in
 			enable = true;
 		};
 
+
+	};
+
+	home.file.celeste-background = {
+		source = ./celeste.png;
+		target = "Pictures/Backgrounds/celeste.png";
 	};
 
 
@@ -59,6 +65,9 @@ in
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
 		godot
+		libreoffice
+		openscad-unstable
+		prismlauncher
 	]);
 
 	# todo: vim and zsh

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Lock
 Comment=
-Exec=loginctl lock-session
+Exec=hyprlock
 Icon=system-lock-screen
 Type=Application
 Categories=System;Session
