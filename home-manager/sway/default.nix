@@ -82,8 +82,8 @@ in
 				"${modifier}+XF86AudioLowerVolume" = "exec python ~/.local/bin/sink_switcher.py -p";
 
 				"XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
-				"XF86MonBrightnessUp" =   "exec light -A 10";
-				"XF86MonBrightnessDown" = "exec light -U 10";
+				"XF86MonBrightnessUp" =   "exec brightnessctl set +10%";
+				"XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
 
 				"XF86AudioPlay" = "exec playerctl play-pause";
 				"XF86AudioNext" = "exec playerctl next";

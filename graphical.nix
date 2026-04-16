@@ -109,7 +109,7 @@ in
 			remotePlay.openFirewall = true;
 			localNetworkGameTransfers.openFirewall = true;
 		};
-		light.enable = true;
+
 	};
 
 	xdg = {
@@ -164,6 +164,7 @@ in
 
 		kdePackages.filelight
 
+		brightnessctl
 		labwc # a very useful utility
 	];
 

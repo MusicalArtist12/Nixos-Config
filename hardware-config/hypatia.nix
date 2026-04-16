@@ -99,18 +99,16 @@
 
 	services.fwupd.enable = true;
 
-	systemd.sleep.extraConfig = ''
-		AllowSuspend=yes
-		AllowHibernation=yes
-		AllowHybridSleep=yes
-		AllowSuspendThenHibernate=yes
-		HibernateDelaySec=10m
-		SuspendState=mem
-		HibernateDelaySec=1800
-		MemorySleepMode=s2idle
-		[Sleep]
-		HibernateMode=shutdown
-	'';
+	systemd.sleep.settings.Sleep = {
+		AllowSuspend="yes";
+		AllowHibernation="yes";
+		AllowHybridSleep="yes";
+		AllowSuspendThenHibernate="yes";
+		SuspendState="mem";
+		HibernateDelaySec="1800";
+		MemorySleepMode="s2idle";
+		HibernateMode="shutdown";
+	};
 
 	services.udev.extraRules = lib.mkAfter ''
 		ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0012", ATTR{power/wakeup}="disabled"
