@@ -99,6 +99,8 @@
 
 	services.fwupd.enable = true;
 
+	services.cpupower-gui.enable = true;
+
 	systemd.sleep.settings.Sleep = {
 		AllowSuspend="yes";
 		AllowHibernation="yes";

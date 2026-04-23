@@ -132,8 +132,8 @@ in
                     hotkey-overlay.hidden = true;
                 };
 
-                "XF86MonBrightnessUp".action.spawn = [ "light" "-A" "10"];
-                "XF86MonBrightnessDown".action.spawn = [ "light" "-U" "10"];
+                "XF86MonBrightnessUp".action.spawn = [ "brightnessctl" "s" "+10%"];
+                "XF86MonBrightnessDown".action.spawn = [ "brightnessctl" "s" "10%-"];
             };
             outputs = {
                 "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;

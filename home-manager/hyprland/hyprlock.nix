@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 let
     theme = (import ../theme.nix);
     accent = theme.mauve;
@@ -93,7 +93,7 @@ in
             label = [
 
                 {
-                    text = "cmd[update:1000] echo -e \"$(date +\"%H\")\"";
+                    text = "cmd[update:1000] echo -e \"$(${pkgs.coreutils}/bin/date +\"%H\")\"";
                     text_align = "center";
                     color = accent;
                     font_size = time_font_size;
@@ -103,7 +103,7 @@ in
                     position = time_loc_h;
                 }
                 {
-                    text = "cmd[update:1000] echo -e \"$(date +\"%M\")\"";
+                    text = "cmd[update:1000] echo -e \"$(${pkgs.coreutils}/bin/date +\"%M\")\"";
                     text_align = "center";
                     color = theme.text;
                     font_size = time_font_size;
@@ -113,7 +113,7 @@ in
                     position = time_loc_m;
                 }
                 {
-                    text = "cmd[update:1000] echo -e \"$(date +\"%A %B %d, %Y\")\"";
+                    text = "cmd[update:1000] echo -e \"$(${pkgs.coreutils}/bin/date +\"%A %B %d, %Y\")\"";
                     text_align = "center";
                     color = theme.text;
                     font_size = date_font_size;
@@ -123,7 +123,7 @@ in
                     position = time_loc_d;
                 }
                 {
-                    text = "cmd[update:1000] echo -e \"$(~/${battery_script})\"";
+                    text = "cmd[update:1000] echo -e \"$(/home/julia/${battery_script})\"";
                     text_align = "center";
                     color = theme.text;
                     font_size = date_font_size;
