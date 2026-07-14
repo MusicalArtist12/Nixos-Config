@@ -1,12 +1,11 @@
-; (deflisten hyprland_workspace_info :initial "{}"
-;   `python ~/.config/eww/hyprland_listener.py`)
-; this loop will only update elements if the volume changes!
+{ pkgs, lib, config, ... }: {
+    programs.eww.yuckConfig = ''
 
 (deflisten sway_workspace_info :initial "{}"
-  `bash ~/.config/eww/getWorkspace.sh`)
+  `bash ~/.local/bin/getWorkspace.sh`)
 
 (deflisten niri_workspace_info :initial "{}"
-  `bash ~/.config/eww/getWorkspaceNiri.sh`)
+  `bash ~/.local/bin/getWorkspaceNiri.sh`)
 
 (defpoll audio_sink_icon :interval "0.1s"
   `exec python ~/.local/bin/sink_switcher.py --icon`)
@@ -53,7 +52,7 @@
 
 (defvar on-date-click
   "
-    if [[ $(eww active-windows | grep calendar-overlay) != '' ]]
+    if [[ $(eww active-windows | grep calendar-overlay) != \"\" ]]
     then
       eww close calendar-overlay
     else
@@ -69,22 +68,22 @@
         :space-evenly false
         :spacing      spacing
       (for entry in niri_workspace_info
-        (button :onclick `niri msg action focus-workspace "${entry.idx}"`
+        (button :onclick `niri msg action focus-workspace "''${entry.idx}"`
               :class {entry.is_active ? "panel workspace-button active" : "panel workspace-button"}
               :visible {entry.output == monitor && (entry.active_window_id != "null" || entry.is_active)}
 
-        `${entry.idx}`))))
+        `''${entry.idx}`))))
 
 (defwidget workspaces-sway [spacing orientation monitor]
   (box :orientation  orientation
         :space-evenly false
         :spacing      spacing
       (for entry in niri_workspace_info
-        (button :onclick `swaymsg workspace "${entry.idx}"`
+        (button :onclick `swaymsg workspace "''${entry.idx}"`
               :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
               :visible {entry.output == monitor}
 
-        `${entry.name}`))))
+        `''${entry.name}`))))
 
 
 (defwidget date [spacing orientation]
@@ -249,3 +248,6 @@
 
       (date :orientation orientation :spacing      default-spacing)
       (clock :orientation orientation))))
+
+    '';
+}

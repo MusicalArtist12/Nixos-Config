@@ -1,7 +1,7 @@
 {
     # catppuccin theme ported to nix for hyprland - this may change to improve interop
     font_size = 16;
-    font = "CommitMonoSimple";
+    font = "Jetbrains Mono NF";
 
     rosewater = "rgb(f5e0dc)";
     rosewater_hex = "f5e0dc";

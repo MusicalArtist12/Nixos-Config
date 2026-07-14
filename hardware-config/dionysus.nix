@@ -5,10 +5,6 @@
         (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-    boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-    boot.initrd.kernelModules = [ "nvidia" ];
-    boot.kernelModules = [ "kvm-amd" ];
-    boot.extraModulePackages = [  ];
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/1e28f119-f517-456d-8d44-6dcea37acc04";
@@ -42,6 +38,8 @@
         useDHCP = lib.mkDefault true;
     };
     boot = {
+        kernelModules = [ "kvm-amd" "nct6687" ];
+
         kernelPackages = pkgs.linuxPackages;
         loader = {
             systemd-boot.enable = true;
@@ -52,13 +50,21 @@
 			# theme = "script";
 			logo = ../res/lix-snowflake.png;
 		};
-        initrd.verbose = false;
+        initrd = {
+            verbose = false;
+            kernelModules = [ "nvidia" ];
+            availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+        };
+
 		kernelParams = [
 			"quiet"
 			"boot.shell_on_fail"
 			"udev.log_priority=3"
 			"rd.systemd.show_status=auto"
 		];
+        extraModulePackages = with config.boot.kernelPackages; [
+            nct6687d
+        ];
     };
 
     boot.blacklistedKernelModules = [ "nouveau" ];
@@ -75,7 +81,7 @@
         #     sha256_aarch64 = "sha256-GRE9VEEosbY7TL4HPFoyo0Ac5jgBHsZg9sBKJ4BLhsA=";
         #     openSha256 = "sha256-mcbMVEyRxNyRrohgwWNylu45vIqF+flKHnmt47R//KU=";
         #     settingsSha256 = "sha256-o2zUnYFUQjHOcCrB0w/4L6xI1hVUXLAWgG2Y26BowBE=";
-        #     persistencedSha256 = "sha256-2g5z7Pu8u2EiAh5givP5Q1Y4zk4Cbb06W37rf768NFU=";
+        #     psudo udevadm control --reload-rules && sudo udevadm triggerrsistencedSha256 = "sha256-2g5z7Pu8u2EiAh5givP5Q1Y4zk4Cbb06W37rf768NFU=";
         # };
         # forceFullCompositionPipeline = true;
         powerManagement.enable = true;
@@ -180,4 +186,9 @@
         '';
         mode  = "0444";
     };
+
+
+	services.udev.extraRules = lib.mkAfter ''
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0666"
+	'';
 }

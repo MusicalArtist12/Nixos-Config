@@ -1,3 +1,6 @@
+{ pkgs, lib, config, ... }: {
+    programs.eww.scssConfig = ''
+
 * {
     font-family: "Jetbrains Mono Nerd Font";
     font-size: 20px;
@@ -37,8 +40,6 @@ button {
         margin: 0;
     }
 }
-
-
 
 .workspace-button, .clock, .systray, .audio, .powermenu-button, .notif-center, .date, .battery, .backlight {
 
@@ -90,4 +91,7 @@ circular-progress {
     border-radius: 0.6em;
     padding: 0.35em 0.35em;
 
+}
+
+    '';
 }

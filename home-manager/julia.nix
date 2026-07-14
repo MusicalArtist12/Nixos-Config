@@ -1,4 +1,5 @@
-{ config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
+# { config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
+{ config, pkgs, inputs, lib, pkgs-stable, ... }:
 let
     theme = (import ./theme.nix);
 in
@@ -13,9 +14,11 @@ in
 			enable = true;
 			enableGitIntegration = true;
 			font = {
-				name = "CommitMonoSimple";
+				name = "JetBrains Mono Nerd Font";
 				size = theme.font_size;
-				package = inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple;
+				#name = "CommitMonoSimple";
+				#size = theme.font_size;
+				# package = inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple;
 			};
 			settings = {
 				confirm_os_window_close = 0;
@@ -49,17 +52,16 @@ in
 
 	home.packages = (with pkgs; [
 		pokemon-colorscripts
-		zoom
 
 		vscode
 		gimp
 		blender
-		bitwarden-desktop
+		# bitwarden-desktop
 		obsidian
 		spotify
 		inkscape
 		foliate # ebook reader in gtk flavor
-		musescore
+		# musescore
 		(discord.override {
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
@@ -68,6 +70,8 @@ in
 		libreoffice
 		openscad-unstable
 		prismlauncher
+		olympus
+		chirp
 	]);
 
 	# todo: vim and zsh
@@ -88,21 +92,21 @@ in
 		./niri
 	];
 
-	catppuccin = {
-		accent = "mauve";
-		flavor = "mocha";
-		kitty.enable = true;
-		cursors.enable = true; # this takes forever to build...
-		swaync.enable = true;
-		# firefox = {
-		# 	enable = true;
-		# 	force = true;
-		# };
-		swaync = {
-			font = theme.font;
-		};
-		spotify-player.enable = true;
-	};
+	# catppuccin = {
+	# 	accent = "mauve";
+	# 	flavor = "mocha";
+	# 	kitty.enable = true;
+	# 	cursors.enable = true; # this takes forever to build...
+	# 	swaync.enable = true;
+	# 	# firefox = {
+	# 	# 	enable = true;
+	# 	# 	force = true;
+	# 	# };
+	# 	swaync = {
+	# 		font = theme.font;
+	# 	};
+	# 	spotify-player.enable = true;
+	# };
 
 	home.sessionPath = ["/home/julia/.local/bin"];
 

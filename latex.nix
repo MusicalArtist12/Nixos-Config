@@ -1,7 +1,8 @@
 { config, pkgs, ... } :
 let
-	tex = (pkgs.texlive.combine {
-		inherit (pkgs.texlive)
+	tex = pkgs.texliveSmall.withPackages (
+        ps: with ps; [
+
             scheme-medium
             mdwtools
             footmisc
@@ -11,8 +12,8 @@ let
             multirow
             # algorithmic
             lipsum
-            ieeetran;
-	});
+            ieeetran
+	]);
 in
 {
     environment.systemPackages = with pkgs; [

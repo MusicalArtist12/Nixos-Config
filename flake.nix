@@ -14,23 +14,26 @@
 			url = "github:moonlight-mod/moonlight/main";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		catppuccin = {
-			url = "github:catppuccin/nix";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+		# catppuccin = {
+		# 	url = "github:catppuccin/nix";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
 		nixpkgs-stable = {
 			url = "github:NixOS/nixpkgs/nixos-25.11";
 		};
-		pkgs-internal = {
-			url = "path:/etc/nixos/pkg";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+		#pkgs-internal = {
+		#	url = "path:/etc/nixos/pkg";
+		#	inputs.nixpkgs.follows = "nixpkgs";
+		#};
 		niri-flake = {
 			url = "github:sodiboo/niri-flake/main";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
 	};
-	outputs = { self, nixpkgs, home-manager, nixos-hardware, catppuccin, niri-flake, ... } @ inputs:
+
+	# outputs = { self, nixpkgs, home-manager, nixos-hardware, catppuccin, niri-flake, ... } @ inputs:
+	outputs = { self, nixpkgs, home-manager, nixos-hardware,  niri-flake, ... } @ inputs:
 	let
 		defaults = {pkgs, ...}: {
 			_module.args.pkgs-stable = import inputs.nixpkgs-stable { inherit (pkgs.stdenv.targetPlatform) system; };
@@ -49,7 +52,7 @@
 				./latex.nix
 				./python.nix
 				home-manager.nixosModules.home-manager
-				catppuccin.nixosModules.catppuccin
+				# catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd
 				nixos-hardware.nixosModules.common-cpu-amd-zenpower
 				niri-flake.nixosModules.niri
@@ -63,7 +66,7 @@
 							defaults
 							./home-manager/julia.nix
 							./home-manager/machines/dionysus.nix
-							catppuccin.homeModules.catppuccin
+							# catppuccin.homeModules.catppuccin
 
 						];
 					};
@@ -82,7 +85,7 @@
 				./latex.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd
 				home-manager.nixosModules.home-manager
-				catppuccin.nixosModules.catppuccin
+				# catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd-zenpower
 				niri-flake.nixosModules.niri
 				{
@@ -94,7 +97,7 @@
 							defaults
 							./home-manager/julia.nix
 							./home-manager/machines/hypatia.nix
-							catppuccin.homeModules.catppuccin
+							# catppuccin.homeModules.catppuccin
 						];
 					};
 

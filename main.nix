@@ -38,6 +38,10 @@
 		shell = pkgs.zsh;
 	};
 
+	nixpkgs.config.permittedInsecurePackages = [
+		"electron-39.8.10"
+	];
+
 	# Allow unfree packages
 	nixpkgs.config.allowUnfree = true;
 
@@ -91,6 +95,6 @@
 
 
 	services.udev.extraRules = ''
-		KERNEL=="ttyACM0", MODE:="666"
+KERNEL=="ttyACM0", MODE:="666"
 	'';
 }
