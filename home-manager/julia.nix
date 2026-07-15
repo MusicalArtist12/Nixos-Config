@@ -53,9 +53,7 @@ in
 	home.packages = (with pkgs; [
 		pokemon-colorscripts
 
-		vscode
-		gimp
-		blender
+
 		# bitwarden-desktop
 		obsidian
 		spotify
@@ -66,12 +64,12 @@ in
 			withMoonlight = true;
 			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
 		})
-		godot
+
 		libreoffice
-		openscad-unstable
+
 		prismlauncher
 		olympus
-		chirp
+
 	]);
 
 	# todo: vim and zsh

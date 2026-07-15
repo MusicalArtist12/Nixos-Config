@@ -33,7 +33,7 @@
 	users.users.julia = {
 		isNormalUser = true;
 		description = "julia";
-		extraGroups = [ "networkmanager" "wheel" "nixos" "video" ];
+		extraGroups = [ "networkmanager" "wheel" "nixos" "video" "plugdev" ];
 		packages = with pkgs; [];
 		shell = pkgs.zsh;
 	};
@@ -94,7 +94,5 @@
 
 
 
-	services.udev.extraRules = ''
-KERNEL=="ttyACM0", MODE:="666"
-	'';
+
 }

@@ -51,6 +51,7 @@
 				./hardware-config/dionysus.nix
 				./latex.nix
 				./python.nix
+				./hobby-electronics.nix
 				home-manager.nixosModules.home-manager
 				# catppuccin.nixosModules.catppuccin
 				nixos-hardware.nixosModules.common-cpu-amd
@@ -83,6 +84,7 @@
 				./graphical.nix
 				./python.nix
 				./latex.nix
+				./hobby-electronics.nix
 				nixos-hardware.nixosModules.framework-16-7040-amd
 				home-manager.nixosModules.home-manager
 				# catppuccin.nixosModules.catppuccin
