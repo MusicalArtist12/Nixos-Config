@@ -82,7 +82,7 @@ in
 		./rofi
 		./sway
 		./fetch
-		./gtk.nix
+
 		./zsh
 		./eww
 		./power
@@ -90,6 +90,7 @@ in
 		./swaync
 		./vim
 		./niri
+		./theming
 	];
 
 	# catppuccin = {
