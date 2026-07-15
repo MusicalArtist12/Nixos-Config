@@ -90,27 +90,12 @@ in
 		./swaync
 		./vim
 		./niri
-		./theming
+		./theming.nix
 	];
 
-	# catppuccin = {
-	# 	accent = "mauve";
-	# 	flavor = "mocha";
-	# 	kitty.enable = true;
-	# 	cursors.enable = true; # this takes forever to build...
-	# 	swaync.enable = true;
-	# 	# firefox = {
-	# 	# 	enable = true;
-	# 	# 	force = true;
-	# 	# };
-	# 	swaync = {
-	# 		font = theme.font;
-	# 	};
-	# 	spotify-player.enable = true;
-	# };
 
 	home.sessionPath = ["/home/julia/.local/bin"];
-
+	programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
 
 	# use home.file.<name> to link arbitrary file
 }
