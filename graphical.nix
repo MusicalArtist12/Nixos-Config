@@ -26,6 +26,7 @@
 			alsa.enable = true;
 			alsa.support32Bit = true;
 			pulse.enable = true;
+			jack.enable = true;
 		};
 		displayManager.gdm = {
 			debug = true;
@@ -141,7 +142,6 @@
 		wl-clipboard
 
 		libnotify
-		swaynotificationcenter
 
 		networkmanagerapplet
 

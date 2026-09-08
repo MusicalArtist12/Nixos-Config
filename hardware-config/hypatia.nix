@@ -81,7 +81,7 @@
 	services.power-profiles-daemon.enable = true;
 
 	services.logind.settings.Login = {
-		HandlePowerKey = "sleep";
+		HandlePowerKey = "poweroff";
 		HandlePowerKeyLongPress = "poweroff";
 		HandleSuspendKey = "ignore";
 		HandleLidSwitch = "sleep";

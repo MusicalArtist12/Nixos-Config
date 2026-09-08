@@ -33,7 +33,7 @@
 	users.users.julia = {
 		isNormalUser = true;
 		description = "julia";
-		extraGroups = [ "networkmanager" "wheel" "nixos" "video" "plugdev" ];
+		extraGroups = [ "networkmanager" "wheel" "nixos" "video" "plugdev" "audio" ];
 		packages = with pkgs; [];
 		shell = pkgs.zsh;
 	};
@@ -93,6 +93,9 @@
 	};
 
 
-
+  	security.pam.loginLimits = [
+		{ domain = "@audio"; type = "-"; item = "rtprio"; value = "95"; }
+		{ domain = "@audio"; type = "-"; item = "memlock"; value = "524288"; } # optional
+	];
 
 }

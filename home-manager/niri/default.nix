@@ -205,6 +205,7 @@ in
                     clip-to-geometry = true;
                 }
             ];
+            # xwayland-satellite.enable = false;
 
 
         };

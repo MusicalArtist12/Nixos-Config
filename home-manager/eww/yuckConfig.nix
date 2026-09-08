@@ -17,7 +17,7 @@
   `pamixer --get-mute`)
 
 (defpoll num_notif :interval "0.1s"
-  `swaync-client -c -sw`)
+  `/etc/profiles/per-user/julia/bin/swaync-client -c -sw`)
 
 (defpoll max_brightness :interval "1m"
   `tail /sys/class/backlight/amdgpu_bl1/max_brightness`)
@@ -171,7 +171,7 @@
     (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
 (defwidget swaync [orientation ]
-  (eventbox :onclick      "swaync-client -sw -op"
+  (eventbox :onclick      "/etc/profiles/per-user/julia/bin/swaync-client -sw -t"
           (box :class "notif-center panel"
               :orientation orientation
             (label :text {num_notif})

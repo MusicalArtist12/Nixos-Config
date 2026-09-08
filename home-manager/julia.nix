@@ -69,7 +69,9 @@ in
 
 		prismlauncher
 		olympus
-
+		supercollider
+		tmux
+		ruby
 	]);
 
 	# todo: vim and zsh

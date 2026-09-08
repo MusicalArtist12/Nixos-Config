@@ -8,4 +8,6 @@
     home.packages = with pkgs; [
         swaynotificationcenter
     ];
+
+
 }

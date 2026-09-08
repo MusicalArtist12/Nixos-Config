@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-airline/vim-airline'
-
+Plug 'supercollider/scvim'
 call plug#end()
 
 let g:multi_cursor_start_word_key      = '<C-n>'
@@ -237,6 +237,8 @@ let g:terminal_ansi_colors = [
   \ s:surface1, s:red, s:green, s:yellow, s:blue, s:pink, s:teal, s:subtext1,
   \ s:surface2, s:red, s:green, s:yellow, s:blue, s:pink, s:teal, s:subtext0
 \ ]
+
+let g:sclangTerm = "kitty -e $SHELL -ic"
         '';
     };
 }
