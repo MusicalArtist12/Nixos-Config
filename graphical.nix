@@ -162,7 +162,8 @@
 		kdePackages.filelight
 
 		brightnessctl
-		labwc # a very useful utility
+                labwc # a very useful utility
+                ani-cli
 	];
 
 	# spotify networking
