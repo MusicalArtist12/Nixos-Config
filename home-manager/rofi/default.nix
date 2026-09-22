@@ -6,8 +6,8 @@ in
     programs.rofi = {
 		enable = true;
 		theme = ./config/theme.rasi;
-		font = "${theme.font} 16";
-		extraConfig = {
+		settings = {
+			font = "${theme.font} 16";
 			combi-modi ="drun,window,code-workspaces";
 			combi-display-format = "{mode}&#09;{text}";
 			drun-display-format = "&#09;{name}";

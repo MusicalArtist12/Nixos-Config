@@ -41,6 +41,7 @@ in
 
 	# # Now symlink the `~/.config/gtk-4.0/` folder declaratively:
 	#  gtk.gtk4.theme = config.gtk.theme;
+	gtk.gtk4.theme = null;
 
 	# xdg.configFile = {
   	# 	"gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";

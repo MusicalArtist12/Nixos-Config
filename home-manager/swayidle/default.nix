@@ -6,6 +6,6 @@
 			"lock" = "${pkgs.hyprlock}/bin/hyprlock -q --no-fade-in --immediate-render";
 		};
 		extraArgs = ["-w" "-d"];
-		systemdTarget = "graphical-session.target";
+		systemdTargets = [ "graphical-session.target" ];
 	};
 }
