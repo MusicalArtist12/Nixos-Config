@@ -15,13 +15,14 @@ in
         settings = {
             spawn-at-startup = [
 
+                { sh = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
 
                 { sh = "systemctl --user start eww-daemon.service"; }
                 # todo make this local to machines
 
                 { sh = "swaybg -m fill -i /home/julia/Pictures/Backgrounds/celeste.png"; }
-                { sh = "app2unit -- discord.desktop"; }
-                { sh = "app2unit -- spotify.desktop"; }
+               # { sh = "app2unit -- discord.desktop"; }
+                #{ sh = "app2unit -- spotify.desktop"; }
                 { sh = "app2unit -- syshud";}
                 { sh = "${pkgs.hyprlock}/bin/hyprlock --immediate-render"; } # autologin
             ];

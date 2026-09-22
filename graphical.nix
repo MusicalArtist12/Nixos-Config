@@ -49,8 +49,13 @@
 		# thunar stuff
 		gvfs.enable = true;
 		tumbler.enable = true;
+	};
 
-
+	security.pam.services = {
+		greetd.enableGnomeKeyring = true;
+		greetd-password.enableGnomeKeyring = true;
+		hyprlock.enableGnomeKeyring = true;
+		login.enableGnomeKeyring = true;
 	};
 
 	services.gnome.core-apps.enable = true;
