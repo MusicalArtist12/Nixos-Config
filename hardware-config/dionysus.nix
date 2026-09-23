@@ -107,6 +107,8 @@
         piper
     ]);
 
+    services.ratbagd.enable = true;
+
     virtualisation.libvirtd.enable = true;
     users.users.julia.extraGroups = [ "libvirtd" ];
     programs.virt-manager.enable = true;
