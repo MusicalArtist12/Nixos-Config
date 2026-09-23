@@ -14,7 +14,7 @@ def get_sinks():
 
             if match is not None:
                 index = re.search(r'^([0-9]+)', line)
-                display = re.search(r'(?:")([A-Za-z0-9\-\ \(\)\/]+)(?:")$', line)
+                display = re.search(r'(?:")([A-Za-z0-9\-\ \(\)\/\[\]]+)(?:")$', line)
 
                 if match.group(1) == default_sink:
                     default_index = idx
