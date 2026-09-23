@@ -5,6 +5,9 @@
             pkgs.vimPlugins.vim-plug
         ];
         extraConfig = ''
+
+source ${pkgs.vimPlugins.vim-plug}/plug.vim
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }

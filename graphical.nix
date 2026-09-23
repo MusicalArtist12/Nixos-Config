@@ -167,8 +167,9 @@
 		kdePackages.filelight
 
 		brightnessctl
-                labwc # a very useful utility
-                ani-cli
+		labwc # a very useful utility
+		ani-cli
+		wine-wayland
 	];
 
 	# spotify networking
@@ -195,6 +196,7 @@
 	security.rtkit.enable = true;
 	security.polkit.enable = true;
 
+	programs.steam.protontricks.enable = true;
 
 
 }

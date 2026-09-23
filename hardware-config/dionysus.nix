@@ -67,7 +67,7 @@
         ];
     };
 
-    boot.blacklistedKernelModules = [ "nouveau" ];
+    boot.blacklistedKernelModules = [ "nouveau" "cdc_acm" ];
 
     services.xserver.videoDrivers = ["nvidia"];
 
@@ -104,6 +104,7 @@
         openrct2
         azahar
         deluge
+        piper
     ]);
 
     virtualisation.libvirtd.enable = true;

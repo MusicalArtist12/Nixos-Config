@@ -137,7 +137,7 @@ in
                 "XF86MonBrightnessDown".action.spawn = [ "brightnessctl" "s" "10%-"];
             };
             outputs = {
-                "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
+                # "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
                 "Acer Technologies XZ342CK TKNAA0013900" = {
                     mode = {
                         refresh = 144.0;
