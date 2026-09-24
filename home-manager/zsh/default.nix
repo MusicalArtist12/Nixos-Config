@@ -26,6 +26,8 @@
 
             ~/.local/bin/pokemon-encounter.py chikorita
 
+            alias ani-cli="ani-cli --rofi"
+            alias ani-cli-dubbed="ani-cli --rofi --dubbed"
         '';
     };
 
@@ -34,4 +36,6 @@
         target = ".local/bin/pokemon-encounter.py";
         executable = true;
     };
+
+
 }
