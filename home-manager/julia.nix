@@ -98,4 +98,7 @@ in
 	programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
 
 	# use home.file.<name> to link arbitrary file
+
+
+
 }

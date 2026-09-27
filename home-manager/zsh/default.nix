@@ -28,6 +28,8 @@
 
             alias ani-cli="ani-cli --rofi"
             alias ani-cli-dubbed="ani-cli --rofi --dubbed"
+
+            export PYTHONSTARTUP="$HOME/.config/pystartup.py"
         '';
     };
 
@@ -37,5 +39,9 @@
         executable = true;
     };
 
-
+	home.file.pystartup = {
+		source = ./pystartup.py;
+		target = ".config/pystartup.py";
+		executable = true;
+	};
 }
