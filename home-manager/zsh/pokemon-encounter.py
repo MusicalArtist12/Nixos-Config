@@ -7,9 +7,8 @@ from random import random
 import os
 import sys
 
-RATE = 4096
+RATE = 20
 
 random = int(random() * RATE)
 
-os.system("pokemon-colorscripts -n {r} {n} --no-title".format(r = "-s" if random == 0 else "", n = sys.argv[1]))
-
+os.system("pokemon-colorscripts -n {n} {r} --no-title".format(r = "-s" if random == 0 else "", n = sys.argv[1]))

@@ -72,6 +72,7 @@ in
 		supercollider
 		tmux
 		ruby
+		bitwig-studio
 	]);
 
 	# todo: vim and zsh
