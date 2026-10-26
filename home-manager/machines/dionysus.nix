@@ -1,12 +1,21 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     wayland.windowManager.sway.config.output = {
         "*" = {
             bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
         };
     };
     wayland.windowManager.sway.config.startup = [
-        {command = "app2unit -- coolercontrol";}
-        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --primary=DP-3"; always = true;}
+        { command = "app2unit -- coolercontrol"; }
+        {
+            command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --primary=DP-3";
+            always = true;
+        }
     ];
     wayland.windowManager.sway.extraConfig = ''
         include ./outputs
@@ -27,27 +36,27 @@
     '';
 
     # For Monado:
-    xdg.configFile."openxr/1/active_runtime.json".source = "${pkgs.monado}/share/openxr/1/openxr_monado.json";
-
+    xdg.configFile."openxr/1/active_runtime.json".source =
+        "${pkgs.monado}/share/openxr/1/openxr_monado.json";
 
     xdg.configFile."openvr/openvrpaths.vrpath".text = ''
-    {
-        "config" :
-        [
-            "${config.xdg.dataHome}/Steam/config"
-        ],
-        "external_drivers" : null,
-        "jsonid" : "vrpathreg",
-        "log" :
-        [
-            "${config.xdg.dataHome}/Steam/logs"
-        ],
-        "runtime" :
-        [
-            "${pkgs.opencomposite}/lib/opencomposite"
-        ],
-        "version" : 1
-    }
+        {
+            "config" :
+            [
+                "${config.xdg.dataHome}/Steam/config"
+            ],
+            "external_drivers" : null,
+            "jsonid" : "vrpathreg",
+            "log" :
+            [
+                "${config.xdg.dataHome}/Steam/logs"
+            ],
+            "runtime" :
+            [
+                "${pkgs.opencomposite}/lib/opencomposite"
+            ],
+            "version" : 1
+        }
     '';
 
     programs.niri.settings.spawn-at-startup = [

@@ -1,7 +1,8 @@
 { ... }:
 let
     programs = (import ../programs.nix);
-in {
+in
+{
 
     wayland.windowManager.hyprland.settings = {
         "$mainMod" = "SUPER";

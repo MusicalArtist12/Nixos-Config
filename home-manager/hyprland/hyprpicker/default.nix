@@ -9,8 +9,11 @@
         target = ".local/share/applications/Hyprpicker.desktop";
     };
 
-    home.packages = (with pkgs; [
-        hyprpicker
-        imagemagick
-    ]);
+    home.packages = (
+        with pkgs;
+        [
+            hyprpicker
+            imagemagick
+        ]
+    );
 }

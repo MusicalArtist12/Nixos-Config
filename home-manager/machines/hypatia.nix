@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     wayland.windowManager.sway.config.output = {
         eDP-1 = {
             color_profile = "icc /home/julia/.config/Framework16.icm";
@@ -8,7 +14,10 @@
         };
     };
     wayland.windowManager.sway.config.startup = [
-        {command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1"; always = true;}
+        {
+            command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1";
+            always = true;
+        }
     ];
     wayland.windowManager.sway.config.input = {
         "type:keyboard" = {
@@ -24,8 +33,8 @@
     '';
 
     # services.swayidle.timeouts = [
-	#     { timeout = 60; command = "if pgrep hyprlock; then systemctl sleep; fi"; }
-	# ];
+    #     { timeout = 60; command = "if pgrep hyprlock; then systemctl sleep; fi"; }
+    # ];
 
     programs.niri.settings.spawn-at-startup = [
         { sh = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1 --wm=niri"; }

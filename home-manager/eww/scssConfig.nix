@@ -1,97 +1,103 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     programs.eww.scssConfig = ''
 
-* {
-    font-family: "Jetbrains Mono Nerd Font";
-    font-size: 20px;
-}
+        * {
+            font-family: "Jetbrains Mono Nerd Font";
+            font-size: 20px;
+        }
 
-button {
-    padding: 0px;
-    border-radius: 0.6em;
-}
+        button {
+            padding: 0px;
+            border-radius: 0.6em;
+        }
 
-.statusbar-primary, .statusbar-secondary {
-    background-color: transparent;
+        .statusbar-primary, .statusbar-secondary {
+            background-color: transparent;
 
-> * {
-        background-color: inherit;
-    }
-}
-
-
-.vertical {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-
-    * {
-        margin: 0;
-    }
-}
-
-.horizontal {
-
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-    * {
-        margin: 0;
-    }
-}
-
-.workspace-button, .clock, .systray, .audio, .powermenu-button, .notif-center, .date, .battery, .backlight {
-
-    border-radius: inherit;
-    font-weight: normal;
-}
-
-.panel.battery.danger {
-    color: #f38ba8;
-}
-.panel.battery.warning, .backlight {
-    color: #f9e2af;
-}
-.panel.battery.normal {
-    color: #a6e3a1;
-}
+        > * {
+                background-color: inherit;
+            }
+        }
 
 
-.workspace-button:hover, .workspace-button.active {
-    background-color: #cba6f7;
-    color: #1e1e2e;
-    font-weight: bold;
-}
+        .vertical {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
 
-circular-progress {
-    background-color: #181825;
-}
+            * {
+                margin: 0;
+            }
+        }
 
-.audio {
-    color: #a6e3a1;
-}
+        .horizontal {
 
-.audio.muted {
-    color: #ed8796;
-}
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
 
-.audio.large {
-    * {
-        font-size: 14px;
-    }
+            * {
+                margin: 0;
+            }
+        }
 
-}
+        .workspace-button, .clock, .systray, .audio, .powermenu-button, .notif-center, .date, .battery, .backlight {
+
+            border-radius: inherit;
+            font-weight: normal;
+        }
+
+        .panel.battery.danger {
+            color: #f38ba8;
+        }
+        .panel.battery.warning, .backlight {
+            color: #f9e2af;
+        }
+        .panel.battery.normal {
+            color: #a6e3a1;
+        }
+
+
+        .workspace-button:hover, .workspace-button.active {
+            background-color: #cba6f7;
+            color: #1e1e2e;
+            font-weight: bold;
+        }
+
+        circular-progress {
+            background-color: #181825;
+        }
+
+        .audio {
+            color: #a6e3a1;
+        }
+
+        .audio.muted {
+            color: #ed8796;
+        }
+
+        .audio.large {
+            * {
+                font-size: 14px;
+            }
+
+        }
 
 
 
-.panel {
-    background-color: #1e1e2e;
-    border: 1px solid #cba6f7;
-    border-radius: 0.6em;
-    padding: 0.35em 0.35em;
+        .panel {
+            background-color: #1e1e2e;
+            border: 1px solid #cba6f7;
+            border-radius: 0.6em;
+            padding: 0.35em 0.35em;
 
-}
+        }
 
     '';
 }

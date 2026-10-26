@@ -10,14 +10,14 @@ let
     halign = "center";
     valign = "center";
 
-    time_loc_h = "-33.33%,  ${builtins.toString(300 + 100)}";
-    time_loc_m = "-33.33%,  ${builtins.toString(300 - 100 - 20)}";
-    time_loc_d = "-33.33%,  ${builtins.toString(300 - 100 - 20 - 100 - 8 - 20)}"; # center line through text
-    battery_loc = "-33.33%, ${builtins.toString(300 - 100 - 20 - 100 - 8 - 20 - 16 - 20)}"; # 16
+    time_loc_h = "-33.33%,  ${builtins.toString (300 + 100)}";
+    time_loc_m = "-33.33%,  ${builtins.toString (300 - 100 - 20)}";
+    time_loc_d = "-33.33%,  ${builtins.toString (300 - 100 - 20 - 100 - 8 - 20)}"; # center line through text
+    battery_loc = "-33.33%, ${builtins.toString (300 - 100 - 20 - 100 - 8 - 20 - 16 - 20)}"; # 16
 
-    username_loc = "-33.33%, ${builtins.toString(- 400 + 16)}";
-    input_field_loc = "-33.33%, ${builtins.toString(- 400 - 40 - 28)}"; # offset, username, space, input
-    fprint_text_loc = "-33.33%, ${builtins.toString(- 400 - 40 - 56 - 40 - 8)}"; # offset username space input space fprint
+    username_loc = "-33.33%, ${builtins.toString (-400 + 16)}";
+    input_field_loc = "-33.33%, ${builtins.toString (-400 - 40 - 28)}"; # offset, username, space, input
+    fprint_text_loc = "-33.33%, ${builtins.toString (-400 - 40 - 56 - 40 - 8)}"; # offset username space input space fprint
 
     input_field_size = "400, 50";
     time_font_size = 200;
@@ -29,11 +29,11 @@ let
 in
 {
 
-    home.file.battery_script= {
-		source = ./hyprlock_scripts/battery.sh;
-		target = battery_script;
+    home.file.battery_script = {
+        source = ./hyprlock_scripts/battery.sh;
+        target = battery_script;
         executable = true;
-	};
+    };
 
     programs.hyprlock = {
         enable = true;

@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
 let
     theme = (import ../theme.nix);
     programs = (import ../programs.nix);
@@ -6,9 +11,9 @@ let
 in
 {
     imports = [
-		../hyprland/hyprlock.nix
-		../swayidle
-	];
+        ../hyprland/hyprlock.nix
+        ../swayidle
+    ];
 
     programs.niri = {
 
@@ -21,22 +26,26 @@ in
                 # todo make this local to machines
 
                 { sh = "swaybg -m fill -i /home/julia/Pictures/Backgrounds/celeste.png"; }
-               # { sh = "app2unit -- discord.desktop"; }
+                # { sh = "app2unit -- discord.desktop"; }
                 #{ sh = "app2unit -- spotify.desktop"; }
-                { sh = "app2unit -- syshud";}
+                { sh = "app2unit -- syshud"; }
                 { sh = "${pkgs.hyprlock}/bin/hyprlock --immediate-render"; } # autologin
             ];
             binds = {
                 "Mod+D" = {
-                    action.spawn = ["sh" "-c" programs.menu];
+                    action.spawn = [
+                        "sh"
+                        "-c"
+                        programs.menu
+                    ];
                     hotkey-overlay.title = "Open Rofi";
                 };
                 "Mod+Return" = {
-                    action.spawn = ["kitty"];
+                    action.spawn = [ "kitty" ];
                     hotkey-overlay.title = "Open Terminal";
                 };
                 "Mod+Shift+Return" = {
-                    action.spawn = ["thunar"];
+                    action.spawn = [ "thunar" ];
                     hotkey-overlay.title = "Open File Explorer";
                 };
 
@@ -51,7 +60,7 @@ in
                 "Mod+9".action.focus-workspace = 9;
                 "Mod+0".action.focus-workspace = 0;
 
-                "Mod+Tab".action.focus-workspace-previous = [];
+                "Mod+Tab".action.focus-workspace-previous = [ ];
 
                 # this has less meaning since there aren't really like gaps between workspaces
                 "Mod+Shift+1".action.move-column-to-workspace = 1;
@@ -66,52 +75,56 @@ in
                 "Mod+Shift+0".action.move-column-to-workspace = 0;
 
                 "Mod+Escape" = {
-                    action.spawn = ["sh" "-c" programs.menuPower];
+                    action.spawn = [
+                        "sh"
+                        "-c"
+                        programs.menuPower
+                    ];
                     hotkey-overlay.title = "Open Power Menu";
                 };
-                "Mod+Shift+Slash".action.show-hotkey-overlay = [];
-                "Mod+Shift+Q".action.close-window = [];
+                "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
+                "Mod+Shift+Q".action.close-window = [ ];
 
-                "Mod+Left".action.focus-column-left = [];
-                "Mod+Right".action.focus-column-right = [];
+                "Mod+Left".action.focus-column-left = [ ];
+                "Mod+Right".action.focus-column-right = [ ];
 
-                "Mod+WheelScrollUp".action.focus-column-left = [];
-                "Mod+WheelScrollDown".action.focus-column-right = [];
+                "Mod+WheelScrollUp".action.focus-column-left = [ ];
+                "Mod+WheelScrollDown".action.focus-column-right = [ ];
 
-                "Mod+Up".action.focus-window-up = [];
-                "Mod+Down".action.focus-window-down = [];
+                "Mod+Up".action.focus-window-up = [ ];
+                "Mod+Down".action.focus-window-down = [ ];
 
-                "Mod+Shift+Left".action.move-column-left = [];
-                "Mod+Shift+Right".action.move-column-right = [];
-                "Mod+Shift+Up".action.move-window-up = [];
-                "Mod+Shift+Down".action.move-window-down = [];
+                "Mod+Shift+Left".action.move-column-left = [ ];
+                "Mod+Shift+Right".action.move-column-right = [ ];
+                "Mod+Shift+Up".action.move-window-up = [ ];
+                "Mod+Shift+Down".action.move-window-down = [ ];
 
-                "Mod+Ctrl+Left".action.focus-monitor-left = [];
-                "Mod+Ctrl+Right".action.focus-monitor-right = [];
-                "Mod+Ctrl+Up".action.focus-monitor-up = [];
-                "Mod+Ctrl+Down".action.focus-monitor-down = [];
+                "Mod+Ctrl+Left".action.focus-monitor-left = [ ];
+                "Mod+Ctrl+Right".action.focus-monitor-right = [ ];
+                "Mod+Ctrl+Up".action.focus-monitor-up = [ ];
+                "Mod+Ctrl+Down".action.focus-monitor-down = [ ];
 
-                "Mod+Space".action.toggle-overview = [];
-                "Mod+Shift+Page_Up".action.move-column-to-workspace-up = [];
-                "Mod+Shift+Page_Down".action.move-column-to-workspace-down = [];
+                "Mod+Space".action.toggle-overview = [ ];
+                "Mod+Shift+Page_Up".action.move-column-to-workspace-up = [ ];
+                "Mod+Shift+Page_Down".action.move-column-to-workspace-down = [ ];
 
-                "Mod+Page_Up".action.focus-workspace-up = [];
-                "Mod+Page_Down".action.focus-workspace-down = [];
+                "Mod+Page_Up".action.focus-workspace-up = [ ];
+                "Mod+Page_Down".action.focus-workspace-down = [ ];
 
-                "Mod+Shift+WheelScrollDown".action.focus-workspace-down = [];
-                "Mod+Shift+WheelScrollUp".action.focus-workspace-up = [];
+                "Mod+Shift+WheelScrollDown".action.focus-workspace-down = [ ];
+                "Mod+Shift+WheelScrollUp".action.focus-workspace-up = [ ];
 
-                "Mod+F".action.maximize-column = [];
+                "Mod+F".action.maximize-column = [ ];
 
-                "Mod+E".action.expand-column-to-available-width = []; # Expand
-                "Mod+Shift+F".action.fullscreen-window = []; # Fullscreen
-                "Mod+B".action.toggle-window-floating = []; # Balloon
+                "Mod+E".action.expand-column-to-available-width = [ ]; # Expand
+                "Mod+Shift+F".action.fullscreen-window = [ ]; # Fullscreen
+                "Mod+B".action.toggle-window-floating = [ ]; # Balloon
 
-                "Mod+BracketLeft".action.consume-or-expel-window-left = [];
-                "Mod+BracketRight".action.consume-or-expel-window-right = [];
+                "Mod+BracketLeft".action.consume-or-expel-window-left = [ ];
+                "Mod+BracketRight".action.consume-or-expel-window-right = [ ];
 
-                "Mod+W".action.center-column = [];
-                "Mod+T".action.toggle-column-tabbed-display = [];
+                "Mod+W".action.center-column = [ ];
+                "Mod+T".action.toggle-column-tabbed-display = [ ];
 
                 "Mod+Minus".action.set-window-width = "-10%";
                 "Mod+Equal".action.set-window-width = "+10%";
@@ -119,22 +132,57 @@ in
                 "Mod+Shift+Minus".action.set-window-height = "-10%";
                 "Mod+Shift+Equal".action.set-window-height = "+10%";
 
-                "Mod+Shift+S".action.spawn = [ "sh" "-c" "${programs.screenshot}" ];
+                "Mod+Shift+S".action.spawn = [
+                    "sh"
+                    "-c"
+                    "${programs.screenshot}"
+                ];
 
-                "XF86AudioMute".action.spawn = [ "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle" ];
-                "XF86AudioRaiseVolume".action.spawn = [ "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%" ];
-                "XF86AudioLowerVolume".action.spawn = [ "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-1%" ];
+                "XF86AudioMute".action.spawn = [
+                    "pactl"
+                    "set-sink-mute"
+                    "@DEFAULT_SINK@"
+                    "toggle"
+                ];
+                "XF86AudioRaiseVolume".action.spawn = [
+                    "pactl"
+                    "set-sink-volume"
+                    "@DEFAULT_SINK@"
+                    "+1%"
+                ];
+                "XF86AudioLowerVolume".action.spawn = [
+                    "pactl"
+                    "set-sink-volume"
+                    "@DEFAULT_SINK@"
+                    "-1%"
+                ];
                 "Mod+XF86AudioRaiseVolume" = {
-                    action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -n" ];
+                    action.spawn = [
+                        "sh"
+                        "-c"
+                        "python ~/.local/bin/sink_switcher.py -n"
+                    ];
                     hotkey-overlay.hidden = true;
                 };
                 "Mod+XF86AudioLowerVolume" = {
-                    action.spawn = [ "sh" "-c" "python ~/.local/bin/sink_switcher.py -p" ];
+                    action.spawn = [
+                        "sh"
+                        "-c"
+                        "python ~/.local/bin/sink_switcher.py -p"
+                    ];
                     hotkey-overlay.hidden = true;
                 };
 
-                "XF86MonBrightnessUp".action.spawn = [ "brightnessctl" "s" "+10%"];
-                "XF86MonBrightnessDown".action.spawn = [ "brightnessctl" "s" "10%-"];
+                "XF86MonBrightnessUp".action.spawn = [
+                    "brightnessctl"
+                    "s"
+                    "+10%"
+                ];
+                "XF86MonBrightnessDown".action.spawn = [
+                    "brightnessctl"
+                    "s"
+                    "10%-"
+                ];
             };
             outputs = {
                 # "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
@@ -169,23 +217,34 @@ in
                 always-center-single-column = true;
                 tab-indicator = {
                     width = 8;
-                    active = { color = accent; };
-                    inactive = { color = theme.overlay0_hex; };
-                    urgent = { color = theme.red_hex; };
+                    active = {
+                        color = accent;
+                    };
+                    inactive = {
+                        color = theme.overlay0_hex;
+                    };
+                    urgent = {
+                        color = theme.red_hex;
+                    };
                 };
                 # empty-workspace-above-first = true;
                 focus-ring = {
                     enable = true;
                     width = 2;
-                    active = { color = accent; };
+                    active = {
+                        color = accent;
+                    };
                     inactive = null;
-                    urgent = { color = theme.red_hex; };
+                    urgent = {
+                        color = theme.red_hex;
+                    };
                 };
                 insert-hint = {
                     enable = true;
-                    display = { color = accent; };
+                    display = {
+                        color = accent;
+                    };
                 };
-
 
             };
             gestures.hot-corners.enable = false; # until i can change the corner
@@ -193,10 +252,9 @@ in
             prefer-no-csd = true;
             clipboard.disable-primary = true;
 
-
             window-rules = [
                 {
-                    matches = [];
+                    matches = [ ];
                     geometry-corner-radius = {
                         bottom-left = 10.0;
                         bottom-right = 10.0;
@@ -207,7 +265,6 @@ in
                 }
             ];
             # xwayland-satellite.enable = false;
-
 
         };
     };

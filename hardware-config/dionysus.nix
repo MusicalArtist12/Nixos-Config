@@ -1,10 +1,15 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+    config,
+    lib,
+    pkgs,
+    modulesPath,
+    ...
+}:
 
 {
     imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
     ];
-
 
     fileSystems."/" = {
         device = "/dev/disk/by-uuid/1e28f119-f517-456d-8d44-6dcea37acc04";
@@ -18,14 +23,15 @@
     fileSystems."/boot" = {
         device = "/dev/disk/by-uuid/8F28-7235";
         fsType = "vfat";
-        options = [ "fmask=0077" "dmask=0077" ];
+        options = [
+            "fmask=0077"
+            "dmask=0077"
+        ];
     };
 
-    swapDevices =
-    [
+    swapDevices = [
         { device = "/dev/disk/by-uuid/0a6bc297-3f2c-491d-a230-5a4e1ddb235c"; }
     ];
-
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -38,74 +44,76 @@
         useDHCP = lib.mkDefault true;
     };
     boot = {
-        kernelModules = [ "kvm-amd" "nct6687" ];
+        kernelModules = [
+            "kvm-amd"
+            "nct6687"
+        ];
 
-        kernelPackages = pkgs.linuxPackages;
+        kernelPackages = pkgs.linuxPackages_latest;
         loader = {
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
         };
         plymouth = {
-			enable = true;
-			# theme = "script";
-			logo = ../res/lix-snowflake.png;
-		};
+            enable = true;
+            # theme = "script";
+            logo = ../res/lix-snowflake.png;
+        };
         initrd = {
             verbose = false;
             kernelModules = [ "nvidia" ];
-            availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+            availableKernelModules = [
+                "nvme"
+                "xhci_pci"
+                "ahci"
+                "usbhid"
+                "usb_storage"
+                "sd_mod"
+            ];
         };
 
-		kernelParams = [
-			"quiet"
-			"boot.shell_on_fail"
-			"udev.log_priority=3"
-			"rd.systemd.show_status=auto"
-		];
+        kernelParams = [
+            "quiet"
+            "boot.shell_on_fail"
+            "udev.log_priority=3"
+            "rd.systemd.show_status=auto"
+        ];
         extraModulePackages = with config.boot.kernelPackages; [
             nct6687d
         ];
     };
 
-    boot.blacklistedKernelModules = [ "nouveau" "cdc_acm" ];
-
-    services.xserver.videoDrivers = ["nvidia"];
-
+    boot.blacklistedKernelModules = [
+        "nouveau"
+        "cdc_acm"
+    ];
+    services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
         modesetting.enable = true;
         open = true;
         nvidiaSettings = true;
-	    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        #     version = "575.64.05";
-        #     sha256_64bit = "sha256-hfK1D5EiYcGRegss9+H5dDr/0Aj9wPIJ9NVWP3dNUC0=";
-        #     sha256_aarch64 = "sha256-GRE9VEEosbY7TL4HPFoyo0Ac5jgBHsZg9sBKJ4BLhsA=";
-        #     openSha256 = "sha256-mcbMVEyRxNyRrohgwWNylu45vIqF+flKHnmt47R//KU=";
-        #     settingsSha256 = "sha256-o2zUnYFUQjHOcCrB0w/4L6xI1hVUXLAWgG2Y26BowBE=";
-        #     psudo udevadm control --reload-rules && sudo udevadm triggerrsistencedSha256 = "sha256-2g5z7Pu8u2EiAh5givP5Q1Y4zk4Cbb06W37rf768NFU=";
-        # };
-        # forceFullCompositionPipeline = true;
         powerManagement.enable = true;
     };
-
     programs.coolercontrol = {
         enable = true;
-
     };
-    environment.systemPackages = (with pkgs; [
-        liquidctl
-        lm_sensors
-        openrgb-with-all-plugins
-        lact
-        qemu
-        prusa-slicer
-        pkg-config # need for mkDriver?
-        opencomposite
-
-        openrct2
-        azahar
-        deluge
-        piper
-    ]);
+    environment.systemPackages = (
+        with pkgs;
+        [
+            azahar
+            deluge
+            lact
+            liquidctl
+            lm_sensors
+            opencomposite
+            openrct2
+            openrgb-with-all-plugins
+            piper
+            pkg-config # need for mkDriver?
+            prusa-slicer
+            qemu
+        ]
+    );
 
     services.ratbagd.enable = true;
 
@@ -116,11 +124,10 @@
     services.lact.enable = true;
 
     hardware.bluetooth = {
-		enable = true;
-		settings.General.Enable = "Source,Sink,Media,Socket";
-	};
-	services.blueman.enable = true;
-
+        enable = true;
+        settings.General.Enable = "Source,Sink,Media,Socket";
+    };
+    services.blueman.enable = true;
 
     services.hardware.openrgb = {
         enable = true;
@@ -133,10 +140,6 @@
     programs.uwsm.waylandCompositors.sway.extraArgs = [
         "--unsupported-gpu"
     ];
-
-    # security.pam.loginLimits = [
-    #     { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
-    # ];
 
     environment.sessionVariables = {
         MAKEOPTS = "-j8";
@@ -164,34 +167,33 @@
 
     environment.etc."nvidia/nvidia-application-profiles-rc.d/50-limit-free-buffer-pool-wayland.json" = {
         text = ''
-{
-    "rules": [
-        {
-            "pattern": {
-                "feature": "procname",
-                "matches": "niri"
-            },
-            "profile": "Limit Free Buffer Pool On Wayland Compositors"
-        }
-    ],
-    "profiles": [
-        {
-            "name": "Limit Free Buffer Pool On Wayland Compositors",
-            "settings": [
-                {
-                    "key": "GLVidHeapReuseRatio",
-                    "value": 0
-                }
-            ]
-        }
-    ]
-}
+            {
+                "rules": [
+                    {
+                        "pattern": {
+                            "feature": "procname",
+                            "matches": "niri"
+                        },
+                        "profile": "Limit Free Buffer Pool On Wayland Compositors"
+                    }
+                ],
+                "profiles": [
+                    {
+                        "name": "Limit Free Buffer Pool On Wayland Compositors",
+                        "settings": [
+                            {
+                                "key": "GLVidHeapReuseRatio",
+                                "value": 0
+                            }
+                        ]
+                    }
+                ]
+            }
         '';
-        mode  = "0444";
+        mode = "0444";
     };
 
-
-	services.udev.extraRules = lib.mkAfter ''
-SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0666"
-	'';
+    services.udev.extraRules = lib.mkAfter ''
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0666"
+        	'';
 }

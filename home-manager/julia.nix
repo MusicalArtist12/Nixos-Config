@@ -1,105 +1,95 @@
 # { config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
-{ config, pkgs, inputs, lib, pkgs-stable, ... }:
+{
+    config,
+    pkgs,
+    inputs,
+    lib,
+    pkgs-stable,
+    ...
+}:
 let
     theme = (import ./theme.nix);
 in
 {
-	home.username = "julia";
-	home.homeDirectory = "/home/julia";
-	home.stateVersion = "25.05"; # no touchy
+    home.username = "julia";
+    home.homeDirectory = "/home/julia";
+    home.stateVersion = "25.05"; # no touchy
 
-	programs = {
+    programs = {
+        kitty = {
+            enable = true;
+            enableGitIntegration = true;
+            font = {
+                name = "JetBrains Mono Nerd Font";
+                size = theme.font_size;
+                #name = "CommitMonoSimple";
+                #size = theme.font_size;
+                # package = inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple;
+            };
+            settings = {
+                confirm_os_window_close = 0;
+            };
+            shellIntegration.enableZshIntegration = true;
+            themeFile = "Catppuccin-Mocha";
+        };
+        git = {
+            enable = true;
+            settings.user = {
+                name = "MusicalArtist12";
+                email = "TheMusicalArtist12@gmail.com";
+            };
+            lfs.enable = true;
+        };
+        firefox = {
+            enable = true;
+        };
+    };
 
-		kitty = {
-			enable = true;
-			enableGitIntegration = true;
-			font = {
-				name = "JetBrains Mono Nerd Font";
-				size = theme.font_size;
-				#name = "CommitMonoSimple";
-				#size = theme.font_size;
-				# package = inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple;
-			};
-			settings = {
-				confirm_os_window_close = 0;
+    home.file.celeste-background = {
+        source = ./celeste.png;
+        target = "Pictures/Backgrounds/celeste.png";
+    };
 
-			};
-			shellIntegration.enableZshIntegration = true;
-			themeFile = "Catppuccin-Mocha";
-		};
-		git = {
-			enable = true;
-			settings.user = {
-				name = "MusicalArtist12";
-				email = "TheMusicalArtist12@gmail.com";
-			};
+    home.packages =
+        let
+            moonlightDiscord = pkgs.discord.override {
+                withMoonlight = true;
+                moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
+            };
+        in
+        (with pkgs; [
+            # bitwarden-desktop
+            # musescore
+            bitwig-studio
+            foliate # ebook reader in gtk flavor
+            inkscape
+            libreoffice
+            moonlightDiscord
+            obsidian
+            olympus
+            pokemon-colorscripts
+            prismlauncher
+            ruby
+            spotify
+            supercollider
+            tmux
+        ]);
 
-			lfs.enable = true;
-		};
-		firefox = {
-			enable = true;
-		};
+    imports = [
+        ./eww
+        ./fetch
+        ./hyprland/hyprpicker
+        ./niri
+        ./power
+        ./rofi
+        ./sway
+        ./swaync
+        ./theming.nix
+        ./tools
+        ./vim
+        ./zsh
+    ];
 
-
-	};
-
-	home.file.celeste-background = {
-		source = ./celeste.png;
-		target = "Pictures/Backgrounds/celeste.png";
-	};
-
-
-
-	home.packages = (with pkgs; [
-		pokemon-colorscripts
-
-
-		# bitwarden-desktop
-		obsidian
-		spotify
-		inkscape
-		foliate # ebook reader in gtk flavor
-		# musescore
-		(discord.override {
-			withMoonlight = true;
-			moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
-		})
-
-		libreoffice
-
-		prismlauncher
-		olympus
-		supercollider
-		tmux
-		ruby
-		bitwig-studio
-	]);
-
-	# todo: vim and zsh
-
-	imports = [
-		./tools
-
-		./rofi
-		./sway
-		./fetch
-
-		./zsh
-		./eww
-		./power
-		./hyprland/hyprpicker
-		./swaync
-		./vim
-		./niri
-		./theming.nix
-	];
-
-
-	home.sessionPath = ["/home/julia/.local/bin"];
-	programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
-
-	# use home.file.<name> to link arbitrary file
-
-
-
+    home.sessionPath = [ "/home/julia/.local/bin" ];
+    programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
 }

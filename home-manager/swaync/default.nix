@@ -1,13 +1,18 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     home.file.swaync = {
         recursive = true;
-		source = ./config;
-		target = ".config/swaync";
+        source = ./config;
+        target = ".config/swaync";
     };
 
     home.packages = with pkgs; [
         swaynotificationcenter
     ];
-
 
 }

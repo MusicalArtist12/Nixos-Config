@@ -1,253 +1,259 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     programs.eww.yuckConfig = ''
 
-(deflisten sway_workspace_info :initial "{}"
-  `bash ~/.local/bin/getWorkspace.sh`)
+        (deflisten sway_workspace_info :initial "{}"
+          `bash ~/.local/bin/getWorkspace.sh`)
 
-(deflisten niri_workspace_info :initial "{}"
-  `bash ~/.local/bin/getWorkspaceNiri.sh`)
+        (deflisten niri_workspace_info :initial "{}"
+          `bash ~/.local/bin/getWorkspaceNiri.sh`)
 
-(defpoll audio_sink_icon :interval "0.1s"
-  `exec python ~/.local/bin/sink_switcher.py --icon`)
+        (defpoll audio_sink_icon :interval "0.1s"
+          `exec python ~/.local/bin/sink_switcher.py --icon`)
 
-(defpoll vol :interval "0.1s"
-  `pamixer --get-volume`)
+        (defpoll vol :interval "0.1s"
+          `pamixer --get-volume`)
 
-(defpoll muted :interval "0.1s"
-  `pamixer --get-mute`)
+        (defpoll muted :interval "0.1s"
+          `pamixer --get-mute`)
 
-(defpoll num_notif :interval "0.1s"
-  `/etc/profiles/per-user/julia/bin/swaync-client -c -sw`)
+        (defpoll num_notif :interval "0.1s"
+          `/etc/profiles/per-user/julia/bin/swaync-client -c -sw`)
 
-(defpoll max_brightness :interval "1m"
-  `tail /sys/class/backlight/amdgpu_bl1/max_brightness`)
+        (defpoll max_brightness :interval "1m"
+          `tail /sys/class/backlight/amdgpu_bl1/max_brightness`)
 
-(defpoll brightness :interval "0.1s"
-`tail /sys/class/backlight/amdgpu_bl1/actual_brightness`)
+        (defpoll brightness :interval "0.1s"
+        `tail /sys/class/backlight/amdgpu_bl1/actual_brightness`)
 
-(defpoll tte :interval "1m"
-  `
-  cut -d ":" -f2 <<< $(upower -b | grep "time to empty") | sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//'
-  `
-)
+        (defpoll tte :interval "1m"
+          `
+          cut -d ":" -f2 <<< $(upower -b | grep "time to empty") | sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//'
+          `
+        )
 
-(defpoll current_now :interval "1s"
-  `tail /sys/class/power_supply/BAT1/current_now`)
+        (defpoll current_now :interval "1s"
+          `tail /sys/class/power_supply/BAT1/current_now`)
 
-(defpoll voltage_now :interval "1s"
-  `tail /sys/class/power_supply/BAT1/voltage_now`)
+        (defpoll voltage_now :interval "1s"
+          `tail /sys/class/power_supply/BAT1/voltage_now`)
 
-(defpoll charge_now :interval "1s"
-  `tail /sys/class/power_supply/BAT1/charge_now`)
-
-
-(defvar audio-onscroll
-  "if [[ {} == 'down' ]]
-      then
-        pamixer -d 5
-      else
-        pamixer -i 5
-      fi
-  ")
-
-(defvar on-date-click
-  "
-    if [[ $(eww active-windows | grep calendar-overlay) != \"\" ]]
-    then
-      eww close calendar-overlay
-    else
-      eww open calendar-overlay
-    fi
-  ")
+        (defpoll charge_now :interval "1s"
+          `tail /sys/class/power_supply/BAT1/charge_now`)
 
 
-(defvar default-spacing 5)
+        (defvar audio-onscroll
+          "if [[ {} == 'down' ]]
+              then
+                pamixer -d 5
+              else
+                pamixer -i 5
+              fi
+          ")
 
-(defwidget workspaces-niri [spacing orientation monitor]
-  (box :orientation  orientation
-        :space-evenly false
-        :spacing      spacing
-      (for entry in niri_workspace_info
-        (button :onclick `niri msg action focus-workspace "''${entry.idx}"`
-              :class {entry.is_active ? "panel workspace-button active" : "panel workspace-button"}
-              :visible {entry.output == monitor && (entry.active_window_id != "null" || entry.is_active)}
-
-        `''${entry.idx}`))))
-
-(defwidget workspaces-sway [spacing orientation monitor]
-  (box :orientation  orientation
-        :space-evenly false
-        :spacing      spacing
-      (for entry in niri_workspace_info
-        (button :onclick `swaymsg workspace "''${entry.idx}"`
-              :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
-              :visible {entry.output == monitor}
-
-        `''${entry.name}`))))
+        (defvar on-date-click
+          "
+            if [[ $(eww active-windows | grep calendar-overlay) != \"\" ]]
+            then
+              eww close calendar-overlay
+            else
+              eww open calendar-overlay
+            fi
+          ")
 
 
-(defwidget date [spacing orientation]
-  (eventbox :onclick on-date-click
-    (box :class "date panel"
-        :orientation orientation
-        :space-evenly false
-        :spacing      spacing
-        :tooltip { formattime(EWW_TIME, "%A %B %d, %Y") }
+        (defvar default-spacing 5)
 
-      (label :text { formattime(EWW_TIME, "%m") })
-      (label :text { orientation == "v" ? "󰃭" : "/"})
-      (label :text { formattime(EWW_TIME, "%d") }) )))
+        (defwidget workspaces-niri [spacing orientation monitor]
+          (box :orientation  orientation
+                :space-evenly false
+                :spacing      spacing
+              (for entry in niri_workspace_info
+                (button :onclick `niri msg action focus-workspace "''${entry.idx}"`
+                      :class {entry.is_active ? "panel workspace-button active" : "panel workspace-button"}
+                      :visible {entry.output == monitor && (entry.active_window_id != "null" || entry.is_active)}
 
-(defwidget clock [orientation]
-  (eventbox :onclick on-date-click
-    (box :class        "clock panel"
-        :orientation  orientation
-        :space-evenly false
-        :spacing      default-spacing
-        :tooltip { formattime(EWW_TIME, "%H:%M:%S") }
-      (label :text { formattime(EWW_TIME, "%H") })
-      (circular-progress :value    { formattime(EWW_TIME, "%M") / 60 * 100}
-                        :thickness 6
-                        :start-at  75)
-      (label :text { formattime(EWW_TIME, "%M") }))))
+                `''${entry.idx}`))))
 
-(defwidget audio [orientation]
-  (eventbox :onscroll     audio-onscroll
-            :onclick      "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-            :onrightclick "app2unit org.pulseaudio.pavucontrol.desktop &"
-    (box :class        { "panel audio" + (muted ? " muted" : "") + (vol >= 100 ? " large" : "") }
-         :orientation  orientation
-         :space-evenly false
-         :spacing      default-spacing
-      (label :text audio_sink_icon)
-      (label :text { muted ? "󰝟" : "󰕾" })
-      (circular-progress :value     vol
-                      :thickness 10
-                      :start-at  75)
-      (label :text vol) )))
+        (defwidget workspaces-sway [spacing orientation monitor]
+          (box :orientation  orientation
+                :space-evenly false
+                :spacing      spacing
+              (for entry in niri_workspace_info
+                (button :onclick `swaymsg workspace "''${entry.idx}"`
+                      :class {entry.focused ? "panel workspace-button active" : "panel workspace-button"}
+                      :visible {entry.output == monitor}
 
-(defwidget backlight [orientation visible]
-  (box :class { "backlight panel" }
-        :visible visible
-        :orientation  orientation
-        :space-evenly false
-        :spacing      default-spacing
+                `''${entry.name}`))))
 
-    (circular-progress :value     {brightness / max_brightness * 100}
-                      :thickness 10
-                      :start-at  75) ))
 
-(defwidget battery [orientation visible]
-  (box :class  { "panel battery " + (
-    EWW_BATTERY.BAT1.capacity > 30 || EWW_BATTERY.BAT1.status == "Charging" ? " normal" :
-    EWW_BATTERY.BAT1.capacity > 10 ? " warning" :
-    " danger"
-    ) }
-        :orientation  orientation
-        :space-evenly false
-        :spacing      default-spacing
-        :tooltip tte
-        :visible visible
-    (label :text {
-      EWW_BATTERY.BAT1.status == "Charging" ? "󰂄" :
-      EWW_BATTERY.BAT1.capacity > 90 ? "󰁹" :
-      EWW_BATTERY.BAT1.capacity > 80 ? "󰂁" :
-      EWW_BATTERY.BAT1.capacity > 70 ? "󰂀" :
-      EWW_BATTERY.BAT1.capacity > 60 ? "󰁿" :
-      EWW_BATTERY.BAT1.capacity > 50 ? "󰁾" :
-      EWW_BATTERY.BAT1.capacity > 40 ? "󰁽" :
-      EWW_BATTERY.BAT1.capacity > 30 ? "󰁼" :
-      EWW_BATTERY.BAT1.capacity > 20 ? "󰁻" :
-      EWW_BATTERY.BAT1.capacity > 10 ? "󰁺" :
-      "󰂃"
-    }
-      :tooltip {round(current_now / 1000000, 2) + " A " +
-                round(voltage_now / 1000000, 2) + " v " +
-                round((current_now / 1000000) * (voltage_now / 1000000), 2) + " W " +
-                round((charge_now / current_now), 2) + " Hours Left" })
-    (circular-progress :value  { EWW_BATTERY.BAT1.capacity }
-                       :thickness 10
-                       :start-at  75)
-    (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
+        (defwidget date [spacing orientation]
+          (eventbox :onclick on-date-click
+            (box :class "date panel"
+                :orientation orientation
+                :space-evenly false
+                :spacing      spacing
+                :tooltip { formattime(EWW_TIME, "%A %B %d, %Y") }
 
-(defwidget swaync [orientation ]
-  (eventbox :onclick      "/etc/profiles/per-user/julia/bin/swaync-client -sw -t"
-          (box :class "notif-center panel"
-              :orientation orientation
-            (label :text {num_notif})
-            (label :text "󰍜"))))
+              (label :text { formattime(EWW_TIME, "%m") })
+              (label :text { orientation == "v" ? "󰃭" : "/"})
+              (label :text { formattime(EWW_TIME, "%d") }) )))
 
-(defwindow statusbar-primary [monitor is_laptop orientation anchor]
-                             :monitor    monitor
-                             :windowtype "dock"
-                             :wm-ignore  false
-                             :exclusive  true
+        (defwidget clock [orientation]
+          (eventbox :onclick on-date-click
+            (box :class        "clock panel"
+                :orientation  orientation
+                :space-evenly false
+                :spacing      default-spacing
+                :tooltip { formattime(EWW_TIME, "%H:%M:%S") }
+              (label :text { formattime(EWW_TIME, "%H") })
+              (circular-progress :value    { formattime(EWW_TIME, "%M") / 60 * 100}
+                                :thickness 6
+                                :start-at  75)
+              (label :text { formattime(EWW_TIME, "%M") }))))
 
-                             ; for some reason variables don't work in here?
-                             :geometry (geometry :x      "0%"
-                                                 :y      "0%"
-                                                 :width  { orientation == "v" ? 30 + 5 : "100%" }
-                                                 :height { orientation == "h" ? 30 + 5 : "100%" }
-                                                 :anchor anchor)
-  (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
-    (workspaces-niri :spacing default-spacing :orientation orientation :monitor monitor)
+        (defwidget audio [orientation]
+          (eventbox :onscroll     audio-onscroll
+                    :onclick      "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+                    :onrightclick "app2unit org.pulseaudio.pavucontrol.desktop &"
+            (box :class        { "panel audio" + (muted ? " muted" : "") + (vol >= 100 ? " large" : "") }
+                 :orientation  orientation
+                 :space-evenly false
+                 :spacing      default-spacing
+              (label :text audio_sink_icon)
+              (label :text { muted ? "󰝟" : "󰕾" })
+              (circular-progress :value     vol
+                              :thickness 10
+                              :start-at  75)
+              (label :text vol) )))
 
-    (box)
-    (box :orientation  orientation
-         :valign       "end"
-         :halign       "end"
-         :space-evenly false
-         :spacing      default-spacing
+        (defwidget backlight [orientation visible]
+          (box :class { "backlight panel" }
+                :visible visible
+                :orientation  orientation
+                :space-evenly false
+                :spacing      default-spacing
 
-      (audio :orientation orientation)
-      (battery :orientation orientation :visible is_laptop)
-      (backlight :orientation orientation :visible is_laptop)
+            (circular-progress :value     {brightness / max_brightness * 100}
+                              :thickness 10
+                              :start-at  75) ))
 
-      (systray :class        "systray panel"
-               :orientation  orientation
+        (defwidget battery [orientation visible]
+          (box :class  { "panel battery " + (
+            EWW_BATTERY.BAT1.capacity > 30 || EWW_BATTERY.BAT1.status == "Charging" ? " normal" :
+            EWW_BATTERY.BAT1.capacity > 10 ? " warning" :
+            " danger"
+            ) }
+                :orientation  orientation
+                :space-evenly false
+                :spacing      default-spacing
+                :tooltip tte
+                :visible visible
+            (label :text {
+              EWW_BATTERY.BAT1.status == "Charging" ? "󰂄" :
+              EWW_BATTERY.BAT1.capacity > 90 ? "󰁹" :
+              EWW_BATTERY.BAT1.capacity > 80 ? "󰂁" :
+              EWW_BATTERY.BAT1.capacity > 70 ? "󰂀" :
+              EWW_BATTERY.BAT1.capacity > 60 ? "󰁿" :
+              EWW_BATTERY.BAT1.capacity > 50 ? "󰁾" :
+              EWW_BATTERY.BAT1.capacity > 40 ? "󰁽" :
+              EWW_BATTERY.BAT1.capacity > 30 ? "󰁼" :
+              EWW_BATTERY.BAT1.capacity > 20 ? "󰁻" :
+              EWW_BATTERY.BAT1.capacity > 10 ? "󰁺" :
+              "󰂃"
+            }
+              :tooltip {round(current_now / 1000000, 2) + " A " +
+                        round(voltage_now / 1000000, 2) + " v " +
+                        round((current_now / 1000000) * (voltage_now / 1000000), 2) + " W " +
+                        round((charge_now / current_now), 2) + " Hours Left" })
+            (circular-progress :value  { EWW_BATTERY.BAT1.capacity }
+                               :thickness 10
+                               :start-at  75)
+            (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
+        (defwidget swaync [orientation ]
+          (eventbox :onclick      "/etc/profiles/per-user/julia/bin/swaync-client -sw -t"
+                  (box :class "notif-center panel"
+                      :orientation orientation
+                    (label :text {num_notif})
+                    (label :text "󰍜"))))
+
+        (defwindow statusbar-primary [monitor is_laptop orientation anchor]
+                                     :monitor    monitor
+                                     :windowtype "dock"
+                                     :wm-ignore  false
+                                     :exclusive  true
+
+                                     ; for some reason variables don't work in here?
+                                     :geometry (geometry :x      "0%"
+                                                         :y      "0%"
+                                                         :width  { orientation == "v" ? 30 + 5 : "100%" }
+                                                         :height { orientation == "h" ? 30 + 5 : "100%" }
+                                                         :anchor anchor)
+          (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
+            (workspaces-niri :spacing default-spacing :orientation orientation :monitor monitor)
+
+            (box)
+            (box :orientation  orientation
+                 :valign       "end"
+                 :halign       "end"
+                 :space-evenly false
+                 :spacing      default-spacing
+
+              (audio :orientation orientation)
+              (battery :orientation orientation :visible is_laptop)
+              (backlight :orientation orientation :visible is_laptop)
+
+              (systray :class        "systray panel"
+                       :orientation  orientation
+
+                       :space-evenly false
+                       :spacing      default-spacing
+                       :icon-size    20)
+              (date  :spacing default-spacing :orientation orientation)
+              (clock :orientation orientation)
+              (swaync :orientation orientation))))
+
+        (defwindow calendar-overlay :monitor 0
+                                    :geometry (geometry :anchor "bottom left"
+                                                        :x 10
+                                                        :y 10)
+          (box :orientation "vertical"
                :space-evenly false
-               :spacing      default-spacing
-               :icon-size    20)
-      (date  :spacing default-spacing :orientation orientation)
-      (clock :orientation orientation)
-      (swaync :orientation orientation))))
+               :spacing 10
+            (label :text { formattime(EWW_TIME, "%A %b %d, %Y") })
+            (label :text { formattime(EWW_TIME, "%H:%M:%S") })
+            (calendar)))
 
-(defwindow calendar-overlay :monitor 0
-                            :geometry (geometry :anchor "bottom left"
-                                                :x 10
-                                                :y 10)
-  (box :orientation "vertical"
-       :space-evenly false
-       :spacing 10
-    (label :text { formattime(EWW_TIME, "%A %b %d, %Y") })
-    (label :text { formattime(EWW_TIME, "%H:%M:%S") })
-    (calendar)))
+        (defwindow statusbar-secondary [monitor orientation anchor]
+                                     :monitor    monitor
+                                     :windowtype "dock"
+                                     :wm-ignore  false
+                                     :exclusive  true
 
-(defwindow statusbar-secondary [monitor orientation anchor]
-                             :monitor    monitor
-                             :windowtype "dock"
-                             :wm-ignore  false
-                             :exclusive  true
+                                     ; for some reason variables don't work in here?
+                                     :geometry (geometry :x      "0%"
+                                                         :y      "0%"
+                                                         :width  { orientation == "v" ? 30 + 5 : "100%" }
+                                                         :height { orientation == "h" ? 30 + 5 : "100%" }
+                                                         :anchor anchor)
+          (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
+            (workspaces-niri :spacing default-spacing :orientation orientation :monitor monitor)
 
-                             ; for some reason variables don't work in here?
-                             :geometry (geometry :x      "0%"
-                                                 :y      "0%"
-                                                 :width  { orientation == "v" ? 30 + 5 : "100%" }
-                                                 :height { orientation == "h" ? 30 + 5 : "100%" }
-                                                 :anchor anchor)
-  (centerbox :orientation orientation :class {orientation == "v" ? "vertical" : "horizontal" }
-    (workspaces-niri :spacing default-spacing :orientation orientation :monitor monitor)
+            (box)
+            (box :orientation orientation
+                 :valign       "end"
+                 :halign       "end"
+                 :space-evenly false
+                 :spacing      default-spacing
 
-    (box)
-    (box :orientation orientation
-         :valign       "end"
-         :halign       "end"
-         :space-evenly false
-         :spacing      default-spacing
-
-      (date :orientation orientation :spacing      default-spacing)
-      (clock :orientation orientation))))
+              (date :orientation orientation :spacing      default-spacing)
+              (clock :orientation orientation))))
 
     '';
 }

@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     programs.zsh = {
         enable = true;
         enableCompletion = true;
@@ -39,9 +45,9 @@
         executable = true;
     };
 
-	home.file.pystartup = {
-		source = ./pystartup.py;
-		target = ".config/pystartup.py";
-		executable = true;
-	};
+    home.file.pystartup = {
+        source = ./pystartup.py;
+        target = ".config/pystartup.py";
+        executable = true;
+    };
 }

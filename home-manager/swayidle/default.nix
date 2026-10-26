@@ -1,11 +1,20 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     services.swayidle = {
-		enable = true;
-		events = {
-			"before-sleep" = "${pkgs.hyprlock}/bin/hyprlock -q --no-fade-in --immediate-render";
-			"lock" = "${pkgs.hyprlock}/bin/hyprlock -q --no-fade-in --immediate-render";
-		};
-		extraArgs = ["-w" "-d"];
-		systemdTargets = [ "graphical-session.target" ];
-	};
+        enable = true;
+        events = {
+            "before-sleep" = "${pkgs.hyprlock}/bin/hyprlock -q --no-fade-in --immediate-render";
+            "lock" = "${pkgs.hyprlock}/bin/hyprlock -q --no-fade-in --immediate-render";
+        };
+        extraArgs = [
+            "-w"
+            "-d"
+        ];
+        systemdTargets = [ "graphical-session.target" ];
+    };
 }

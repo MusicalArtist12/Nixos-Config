@@ -1,19 +1,19 @@
-{ config, pkgs, ... } :
+{ config, pkgs, ... }:
 let
-	tex = pkgs.texliveSmall.withPackages (
+    tex = pkgs.texliveSmall.withPackages (
         ps: with ps; [
-
-            scheme-medium
-            mdwtools
+            # algorithmic
+            changepage
             footmisc
             hyphenat
-            changepage
-            titling
-            multirow
-            # algorithmic
-            lipsum
             ieeetran
-	]);
+            lipsum
+            mdwtools
+            multirow
+            scheme-medium
+            titling
+        ]
+    );
 in
 {
     environment.systemPackages = with pkgs; [

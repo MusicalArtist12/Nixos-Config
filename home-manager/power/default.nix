@@ -1,10 +1,16 @@
-{ pkgs, lib, config, ... }: {
+{
+    pkgs,
+    lib,
+    config,
+    ...
+}:
+{
     home.file = {
-		system-power = {
-			recursive = true;
-			source = ./apps;
-			target = ".local/share/applications/system";
-		};
-	};
+        system-power = {
+            recursive = true;
+            source = ./apps;
+            target = ".local/share/applications/system";
+        };
+    };
 
 }
