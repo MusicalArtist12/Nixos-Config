@@ -32,10 +32,6 @@
         for_window [class="Spotify"] move window to workspace 10
     '';
 
-    # services.swayidle.timeouts = [
-    #     { timeout = 60; command = "if pgrep hyprlock; then systemctl sleep; fi"; }
-    # ];
-
     programs.niri.settings.spawn-at-startup = [
         { sh = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1 --wm=niri"; }
     ];

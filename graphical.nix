@@ -175,20 +175,16 @@
     networking.firewall.allowedTCPPorts = [ 57621 ];
     networking.firewall.allowedUDPPorts = [ 5353 ];
 
-    fonts.packages = (
-        with pkgs;
-        [
-            commit-mono
-            departure-mono
-            font-awesome
-            helvetica-neue-lt-std
-            nerd-fonts.jetbrains-mono
-            noto-fonts
-            noto-fonts-cjk-sans
-            noto-fonts-color-emoji
-        ]
-    );
-    #]) ++ [inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple];
+    fonts.packages = with pkgs; [
+        commit-mono
+        departure-mono
+        font-awesome
+        helvetica-neue-lt-std
+        nerd-fonts.jetbrains-mono
+        noto-fonts
+        noto-fonts-cjk-sans
+        noto-fonts-color-emoji
+    ];
 
     environment.pathsToLink = [
         "/share/wayland-sessions"

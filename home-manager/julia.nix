@@ -22,9 +22,6 @@ in
             font = {
                 name = "JetBrains Mono Nerd Font";
                 size = theme.font_size;
-                #name = "CommitMonoSimple";
-                #size = theme.font_size;
-                # package = inputs.pkgs-internal.packages.${pkgs.system}.commit-mono-simple;
             };
             settings = {
                 confirm_os_window_close = 0;
@@ -57,7 +54,7 @@ in
                 moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
             };
         in
-        (with pkgs; [
+        with pkgs; [
             # bitwarden-desktop
             # musescore
             bitwig-studio
@@ -73,7 +70,7 @@ in
             spotify
             supercollider
             tmux
-        ]);
+        ];
 
     imports = [
         ./eww

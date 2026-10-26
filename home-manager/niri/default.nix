@@ -19,15 +19,9 @@ in
 
         settings = {
             spawn-at-startup = [
-
                 { sh = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
-
                 { sh = "systemctl --user start eww-daemon.service"; }
-                # todo make this local to machines
-
                 { sh = "swaybg -m fill -i /home/julia/Pictures/Backgrounds/celeste.png"; }
-                # { sh = "app2unit -- discord.desktop"; }
-                #{ sh = "app2unit -- spotify.desktop"; }
                 { sh = "app2unit -- syshud"; }
                 { sh = "${pkgs.hyprlock}/bin/hyprlock --immediate-render"; } # autologin
             ];
@@ -185,17 +179,13 @@ in
                 ];
             };
             outputs = {
-                # "Dell Inc. DELL U2415 CFV9N82N140S".transform.rotation = 90;
                 "Acer Technologies XZ342CK TKNAA0013900" = {
                     mode = {
                         refresh = 144.0;
                         width = 3440;
                         height = 1440;
-
                     };
-
                 };
-
                 "BOE 0x0BC9 Unknown" = {
                     scale = 1.0;
                     variable-refresh-rate = true;
@@ -248,10 +238,8 @@ in
 
             };
             gestures.hot-corners.enable = false; # until i can change the corner
-
             prefer-no-csd = true;
             clipboard.disable-primary = true;
-
             window-rules = [
                 {
                     matches = [ ];
@@ -264,8 +252,6 @@ in
                     clip-to-geometry = true;
                 }
             ];
-            # xwayland-satellite.enable = false;
-
         };
     };
 

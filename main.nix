@@ -61,27 +61,25 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
-    environment.systemPackages = (
-        with pkgs;
-        [
-            bat
-            bison
-            clang
-            cmake
-            fzf
-            gh
-            git
-            gnumake
-            jq
-            killall
-            nodejs
-            pciutils
-            tty-clock
-            unzip
-            usbutils
-            wget
-        ]
-    );
+    environment.systemPackages = with pkgs; [
+        bat
+        bison
+        clang
+        cmake
+        fzf
+        gh
+        git
+        gnumake
+        jq
+        killall
+        nodejs
+        pciutils
+        tty-clock
+        unzip
+        usbutils
+        wget
+    ];
+
     environment.pathsToLink = [ "/share/zsh" ];
 
     services.upower.enable = true;
