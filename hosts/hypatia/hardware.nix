@@ -74,8 +74,7 @@
             "usbhid"
             "sd_mod"
         ];
-        initrd.kernelModules = [
-        ];
+        initrd.kernelModules = [ ];
         kernelModules = [ "kvm-amd" ];
         extraModulePackages = [ ];
     };

@@ -20,7 +20,6 @@
             url = "github:sodiboo/niri-flake/main";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
     };
 
     outputs =
@@ -31,7 +30,6 @@
             nixos-hardware,
             niri-flake,
             nixpkgs-stable,
-            ...
         }@inputs:
         let
             baseSystem =
@@ -66,7 +64,6 @@
                         ./modules/main.nix
                         ./modules/admin.nix
                         ./modules/dev.nix
-                        ./modules/hardware-config/common.nix
                         home-manager.nixosModules.home-manager
                         homeManagerModule
                         niri-flake.nixosModules.niri
@@ -77,22 +74,22 @@
         {
             nixosConfigurations.Dionysus = baseSystem {
                 extraSystemModules = [
-                    ./modules/hardware-config/dionysus.nix
+                    ./hosts/dionysus/hardware.nix
                     nixos-hardware.nixosModules.common-cpu-amd
                     nixos-hardware.nixosModules.common-cpu-amd-zenpower
                 ];
                 extraHomeModules = [
-                    ./home-manager/machines/dionysus.nix
+                    ./hosts/dionysus/home-manager.nix
                 ];
             };
             nixosConfigurations.Hypatia = baseSystem {
                 extraSystemModules = [
-                    ./modules/hardware-config/hypatia.nix
+                    ./hosts/hypatia/hardware.nix
                     nixos-hardware.nixosModules.framework-16-7040-amd
                     nixos-hardware.nixosModules.common-cpu-amd-zenpower
                 ];
                 extraHomeModules = [
-                    ./home-manager/machines/hypatia.nix
+                    ./hosts/hypatia/home-manager.nix
                 ];
             };
         };

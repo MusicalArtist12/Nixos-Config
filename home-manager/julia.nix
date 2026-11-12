@@ -28,11 +28,9 @@ let
         foliate # ebook reader in gtk flavor
         libreoffice
         obsidian
-
     ];
     environment_apps = with pkgs; [
         pokemon-colorscripts
-        mako
         hyprshot
     ];
     app_groups = music_apps ++ maker_apps ++ office_apps ++ environment_apps;
@@ -95,6 +93,7 @@ in
         ./tools
         ./vim
         ./zsh
+        ./mako
     ];
 
     home.sessionPath = [ "/home/julia/.local/bin" ];
