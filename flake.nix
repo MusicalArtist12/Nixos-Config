@@ -42,12 +42,13 @@
                 nixpkgs.lib.nixosSystem {
                     specialArgs = { inherit inputs; };
                     modules = [
+                        ./modules/admin.nix
                         ./modules/all-pkgs-list.nix
+                        ./modules/dev.nix
+                        ./modules/gaming.nix
                         ./modules/graphical.nix
                         ./modules/hobby-electronics.nix
                         ./modules/locale.nix
-                        ./modules/admin.nix
-                        ./modules/dev.nix
                         home-manager.nixosModules.home-manager
                         homeManagerModule
                         niri-flake.nixosModules.niri
