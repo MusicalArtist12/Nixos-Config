@@ -7,6 +7,7 @@ in
     imports = [
         ../hyprlock
         ../swayidle
+        ./keybinds.nix
     ];
 
     programs.niri.settings = {
