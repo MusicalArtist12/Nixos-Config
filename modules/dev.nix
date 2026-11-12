@@ -42,6 +42,7 @@ let
 
         godot
     ];
+    app_groups = c_dev ++ game_dev;
 in
 {
     environment.systemPackages = (
@@ -60,9 +61,7 @@ in
 
             pythonEnv
             tex
-            c_dev
-            game_dev
-        ]
+        ] ++ app_groups
     );
 
     programs.nix-ld.enable = true;

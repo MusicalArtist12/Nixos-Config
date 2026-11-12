@@ -27,14 +27,10 @@ let
         wine-wayland
         labwc # a very useful utility
     ];
+    app_groups = wm_apps ++ sys_admin_apps ++ audio_stuff ++ compat_tools;
 in
 {
     environment.systemPackages = with pkgs; [
-        wm_apps
-        sys_admin_apps
-        audio_stuff
-        compat_tools
-        multimedia_tools
 
         deluge # torrent client
         file-roller
@@ -42,7 +38,7 @@ in
         nwg-icon-picker
         vlc
         imv # image viewer
-    ];
+    ] ++ app_groups;
 
     programs = {
         niri = {

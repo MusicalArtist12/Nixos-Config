@@ -35,6 +35,7 @@ let
         mako
         hyprshot
     ];
+    app_groups = music_apps ++ maker_apps ++ office_apps ++ environment_apps;
 in
 {
     home.username = "julia";
@@ -81,12 +82,7 @@ in
 
         moonlightDiscord
         spotify
-
-        music_apps
-        maker_apps
-        office_apps
-        environment_apps
-    ];
+    ] ++ app_groups;
 
     imports = [
         ./eww

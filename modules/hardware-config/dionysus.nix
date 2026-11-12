@@ -124,12 +124,6 @@
         package = pkgs.openrgb-with-all-plugins;
     };
 
-    programs.sway.extraOptions = [
-        "--unsupported-gpu"
-    ];
-    programs.uwsm.waylandCompositors.sway.extraArgs = [
-        "--unsupported-gpu"
-    ];
 
     environment.sessionVariables = {
         MAKEOPTS = "-j8";
