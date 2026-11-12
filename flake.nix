@@ -13,33 +13,17 @@
             url = "github:moonlight-mod/moonlight/main";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nixpkgs-stable = {
-            url = "github:NixOS/nixpkgs/nixos-25.11";
-        };
         niri-flake = {
             url = "github:sodiboo/niri-flake/main";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs =
-        {
-            self,
-            nixpkgs,
-            home-manager,
-            nixos-hardware,
-            niri-flake,
-            nixpkgs-stable,
-        }@inputs:
+    outputs = { self, nixpkgs, home-manager, nixos-hardware, niri-flake, }@inputs:
         let
-            baseSystem =
-                { extraSystemModules, extraHomeModules }:
+            baseSystem = { extraSystemModules, extraHomeModules }:
                 let
-                    defaults = { pkgs, ... }: {
-                        _module.args.pkgs-stable = import nixpkgs-stable {
-                            inherit (pkgs.stdenv.targetPlatform) system;
-                        };
-                    };
+                    defaults = { pkgs, ... }: { };
                     homeManagerModule = {
                         home-manager = {
                             extraSpecialArgs = { inherit inputs; };

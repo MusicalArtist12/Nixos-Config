@@ -1,4 +1,4 @@
-# { config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
+
 { pkgs, ... }:
 let
     theme = (import ./theme.nix);
