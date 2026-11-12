@@ -19,7 +19,7 @@
         };
     };
 
-    outputs = { self, nixpkgs, home-manager, nixos-hardware, niri-flake, }@inputs:
+    outputs = { self, nixpkgs, home-manager, nixos-hardware, niri-flake, moonlight }@inputs:
         let
             baseSystem = { extraSystemModules, extraHomeModules }:
                 let
