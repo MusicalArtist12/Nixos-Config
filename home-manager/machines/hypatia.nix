@@ -1,36 +1,7 @@
 {
-    pkgs,
-    lib,
-    config,
     ...
 }:
 {
-    wayland.windowManager.sway.config.output = {
-        eDP-1 = {
-            color_profile = "icc /home/julia/.config/Framework16.icm";
-        };
-        "*" = {
-            bg = "/home/julia/Pictures/Backgrounds/celeste.png fill";
-        };
-    };
-    wayland.windowManager.sway.config.startup = [
-        {
-            command = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1";
-            always = true;
-        }
-    ];
-    wayland.windowManager.sway.config.input = {
-        "type:keyboard" = {
-            xkb_layout = "us";
-            xkb_variant = "altgr-intl";
-        };
-    };
-
-    wayland.windowManager.sway.extraConfig = ''
-        include ./outputs
-
-        for_window [class="Spotify"] move window to workspace 10
-    '';
 
     programs.niri.settings.spawn-at-startup = [
         { sh = "/usr/bin/env python ~/.local/bin/auto_statusbar.py --laptop --primary=eDP-1 --wm=niri"; }

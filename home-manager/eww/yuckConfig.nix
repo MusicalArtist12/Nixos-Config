@@ -1,7 +1,4 @@
 {
-    pkgs,
-    lib,
-    config,
     ...
 }:
 {
@@ -21,9 +18,6 @@
 
         (defpoll muted :interval "0.1s"
           `pamixer --get-mute`)
-
-        (defpoll num_notif :interval "0.1s"
-          `/etc/profiles/per-user/julia/bin/swaync-client -c -sw`)
 
         (defpoll max_brightness :interval "1m"
           `tail /sys/class/backlight/amdgpu_bl1/max_brightness`)
@@ -176,12 +170,6 @@
                                :start-at  75)
             (label :text { EWW_BATTERY.BAT1.capacity ?: "??"})))
 
-        (defwidget swaync [orientation ]
-          (eventbox :onclick      "/etc/profiles/per-user/julia/bin/swaync-client -sw -t"
-                  (box :class "notif-center panel"
-                      :orientation orientation
-                    (label :text {num_notif})
-                    (label :text "󰍜"))))
 
         (defwindow statusbar-primary [monitor is_laptop orientation anchor]
                                      :monitor    monitor
@@ -217,7 +205,8 @@
                        :icon-size    20)
               (date  :spacing default-spacing :orientation orientation)
               (clock :orientation orientation)
-              (swaync :orientation orientation))))
+
+              )))
 
         (defwindow calendar-overlay :monitor 0
                                     :geometry (geometry :anchor "bottom left"

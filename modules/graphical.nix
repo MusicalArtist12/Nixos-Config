@@ -1,11 +1,69 @@
 {
-    config,
     pkgs,
-    inputs,
-    catppuccin,
     ...
 }:
+let
+    wm_apps = with pkgs; [
+        app2unit # uwsm
+        hyprpolkitagent
+        libnotify
+        networkmanagerapplet
+        polkit_gnome
+        playerctl # cli util & library to control media players
+        cliphist
+        wl-clipboard
+    ];
+    sys_admin_apps = with pkgs; [
+        brightnessctl
+        kdePackages.filelight
+        wev
+    ];
+    audio_stuff = with pkgs; [
+        pamixer
+        pavucontrol
+        pulseaudio # provides pactl
+    ];
+    compat_tools = with pkgs; [
+        wine-wayland
+        labwc # a very useful utility
+    ];
+in
 {
+    environment.systemPackages = with pkgs; [
+        wm_apps
+        sys_admin_apps
+        audio_stuff
+        compat_tools
+        multimedia_tools
+
+        deluge # torrent client
+        file-roller
+        kitty
+        nwg-icon-picker
+        vlc
+        imv # image viewer
+    ];
+
+    programs = {
+        niri = {
+            enable = true;
+            package = pkgs.niri;
+        };
+        uwsm = {
+            enable = true;
+        };
+        thunar = {
+            enable = true;
+            plugins = with pkgs; [
+                thunar-archive-plugin
+                thunar-volman
+                thunar-vcs-plugin
+                thunar-media-tags-plugin
+            ];
+        };
+
+    };
+
     hardware.graphics = {
         enable = true;
     };
@@ -32,12 +90,8 @@
             alsa.enable = true;
             alsa.support32Bit = true;
             pulse.enable = true;
-            jack.enable = true;
         };
-        displayManager.gdm = {
-            debug = true;
-            enable = false;
-        };
+
         greetd = {
             enable = true;
             settings = rec {
@@ -76,56 +130,6 @@
     # nixpkgs.overlays = [ inputs.niri-flake.overlays.niri ];
     systemd.user.services.niri-flake-polkit.enable = false;
 
-    programs = {
-        hyprland = {
-            enable = true;
-            withUWSM = true;
-            xwayland.enable = true;
-        };
-        sway = {
-            enable = true;
-            xwayland.enable = true;
-
-        };
-        niri = {
-            enable = true;
-            package = pkgs.niri;
-        };
-
-        gamemode.enable = true;
-        uwsm = {
-            waylandCompositors = {
-                sway = {
-                    prettyName = "Sway";
-                    comment = "Sway compositor managed by UWSM";
-                    binPath = "${pkgs.sway}/bin/sway";
-
-                };
-            };
-            enable = true;
-        };
-        thunar = {
-            enable = true;
-            plugins = with pkgs; [
-                thunar-archive-plugin
-                thunar-volman
-                thunar-vcs-plugin
-                thunar-media-tags-plugin
-            ];
-        };
-        steam = {
-            enable = true;
-            gamescopeSession.enable = true;
-            remotePlay.openFirewall = true;
-            localNetworkGameTransfers.openFirewall = true;
-            protontricks.enable = true;
-            extraCompatPackages = with pkgs; [
-                proton-ge-bin
-            ];
-        };
-
-    };
-
     xdg = {
         portal = {
             enable = true;
@@ -141,35 +145,6 @@
         XDG_TERMINAL = "${pkgs.kitty}/bin/kitty";
         XDG_SYSTEM_MONITOR = "${pkgs.resources}/bin/resources";
     };
-
-    environment.systemPackages = with pkgs; [
-        ani-cli
-        app2unit # uwsm
-        brightnessctl
-        cliphist
-        file-roller
-        gdm-settings
-        hyprpolkitagent
-        hyprshot
-        imv
-        kdePackages.filelight
-        kitty
-        labwc # a very useful utility
-        libnotify
-        networkmanagerapplet
-        nwg-displays
-        nwg-hello
-        nwg-icon-picker
-        pamixer
-        pavucontrol
-        playerctl
-        polkit_gnome
-        pulseaudio # provides pactl
-        vlc
-        wev
-        wine-wayland
-        wl-clipboard
-    ];
 
     # spotify networking
     networking.firewall.allowedTCPPorts = [ 57621 ];

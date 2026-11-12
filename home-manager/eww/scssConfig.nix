@@ -1,7 +1,5 @@
+# TODO: this can be converted to use theme.nix
 {
-    pkgs,
-    lib,
-    config,
     ...
 }:
 {

@@ -1,7 +1,5 @@
 {
     pkgs,
-    lib,
-    config,
     ...
 }:
 let
@@ -11,12 +9,11 @@ let
 in
 {
     imports = [
-        ../hyprland/hyprlock.nix
+        ../hyprlock
         ../swayidle
     ];
 
     programs.niri = {
-
         settings = {
             spawn-at-startup = [
                 { sh = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
@@ -195,12 +192,10 @@ in
                 touchpad.natural-scroll = false;
                 touchpad.click-method = "clickfinger";
                 touchpad.dwt = true;
-            };
-            input = {
-                #focus-follows-mouse.enable = true;
                 mouse.accel-profile = "flat";
                 keyboard.numlock = true;
             };
+
             layout = {
                 gaps = 10;
                 # center-focused-column = "on-overflow";
@@ -237,9 +232,11 @@ in
                 };
 
             };
+
             gestures.hot-corners.enable = false; # until i can change the corner
             prefer-no-csd = true;
             clipboard.disable-primary = true;
+
             window-rules = [
                 {
                     matches = [ ];
@@ -250,6 +247,26 @@ in
                         top-right = 10.0;
                     };
                     clip-to-geometry = true;
+                }
+                {
+                    matches = [
+                        {
+                            title = "^notificationtoasts_\d+_desktop$";
+                            app-id = "steam";
+                        }
+                    ];
+                    default-floating-position = {
+                        x = 10;
+                        y = 10;
+                        relative-to = "bottom-right";
+                    };
+                    open-floating = true;
+                    open-focused = false;
+                }
+                {
+                    matches = [ { app-id = "steam"; } ];
+                    excludes = [ { title = "^[Ss]team$"; } ];
+                    open-floating = true;
                 }
             ];
         };

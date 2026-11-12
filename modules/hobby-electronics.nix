@@ -1,7 +1,5 @@
 {
-    config,
     pkgs,
-    lib,
     ...
 }:
 {
@@ -18,19 +16,12 @@
         # STM32 radios (MD-UV380, MD-9600, DM-1701)
         SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="df11", MODE="0666", GROUP="plugdev"
 
-        	'';
+    '';
 
     environment.systemPackages = (
         with pkgs;
         [
-            #sdrangel
-            #sdrpp
             chirp
-            vscode
-            gimp
-            blender
-            godot
-            openscad-unstable
         ]
     );
 

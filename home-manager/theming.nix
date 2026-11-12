@@ -1,10 +1,6 @@
 # { config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
 {
-    config,
     pkgs,
-    inputs,
-    lib,
-    pkgs-stable,
     ...
 }:
 let

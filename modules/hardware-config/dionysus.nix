@@ -54,13 +54,9 @@
             systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
         };
-        plymouth = {
-            enable = true;
-            # theme = "script";
-            logo = ../res/lix-snowflake.png;
-        };
+
         initrd = {
-            verbose = false;
+            # verbose = false;
             kernelModules = [ "nvidia" ];
             availableKernelModules = [
                 "nvme"
@@ -100,18 +96,12 @@
     environment.systemPackages = (
         with pkgs;
         [
-            azahar
-            deluge
             lact
             liquidctl
             lm_sensors
             opencomposite
-            openrct2
             openrgb-with-all-plugins
-            piper
             pkg-config # need for mkDriver?
-            prusa-slicer
-            qemu
         ]
     );
 

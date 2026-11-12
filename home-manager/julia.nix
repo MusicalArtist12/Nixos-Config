@@ -3,12 +3,38 @@
     config,
     pkgs,
     inputs,
-    lib,
-    pkgs-stable,
+
     ...
 }:
 let
     theme = (import ./theme.nix);
+
+    music_apps = with pkgs; [
+        supercollider
+        bitwig-studio
+        musescore
+    ];
+    maker_apps = with pkgs; [
+        inkscape
+        gimp
+        blender
+        prusa-slicer
+    ];
+    moonlightDiscord = pkgs.discord.override {
+        withMoonlight = true;
+        moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
+    };
+    office_apps = with pkgs; [
+        foliate # ebook reader in gtk flavor
+        libreoffice
+        obsidian
+
+    ];
+    environment_apps = with pkgs; [
+        pokemon-colorscripts
+        mako
+        hyprshot
+    ];
 in
 {
     home.username = "julia";
@@ -47,40 +73,28 @@ in
         target = "Pictures/Backgrounds/celeste.png";
     };
 
-    home.packages =
-        let
-            moonlightDiscord = pkgs.discord.override {
-                withMoonlight = true;
-                moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
-            };
-        in
-        with pkgs; [
-            # bitwarden-desktop
-            # musescore
-            bitwig-studio
-            foliate # ebook reader in gtk flavor
-            inkscape
-            libreoffice
-            moonlightDiscord
-            obsidian
-            olympus
-            pokemon-colorscripts
-            prismlauncher
-            ruby
-            spotify
-            supercollider
-            tmux
-        ];
+    home.packages = with pkgs; [
+        ani-cli
+        piper
+        qemu
+        tmux
+
+        moonlightDiscord
+        spotify
+
+        music_apps
+        maker_apps
+        office_apps
+        environment_apps
+    ];
 
     imports = [
         ./eww
         ./fetch
-        ./hyprland/hyprpicker
+        ./hyprpicker
         ./niri
         ./power
         ./rofi
-        ./sway
-        ./swaync
         ./theming.nix
         ./tools
         ./vim

@@ -57,14 +57,8 @@
             systemd-boot.consoleMode = "0";
             efi.canTouchEfiVariables = true;
         };
-        plymouth = {
-            enable = true;
-            # theme = "script";
-            #logo = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
-            logo = ../res/lix-snowflake.png;
-        };
         consoleLogLevel = 3;
-        initrd.verbose = false;
+
         kernelParams = [
             "quiet"
             "boot.shell_on_fail"

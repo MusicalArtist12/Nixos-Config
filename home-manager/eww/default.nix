@@ -1,7 +1,5 @@
 {
     pkgs,
-    lib,
-    config,
     ...
 }:
 {
@@ -46,8 +44,4 @@
             };
         };
     };
-
-    wayland.windowManager.sway.config.startup = [
-        { command = "app2unit -- nm-applet"; }
-    ];
 }

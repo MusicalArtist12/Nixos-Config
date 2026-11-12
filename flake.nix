@@ -16,10 +16,6 @@
         nixpkgs-stable = {
             url = "github:NixOS/nixpkgs/nixos-25.11";
         };
-        #pkgs-internal = {
-        #	url = "path:/etc/nixos/pkg";
-        #	inputs.nixpkgs.follows = "nixpkgs";
-        #};
         niri-flake = {
             url = "github:sodiboo/niri-flake/main";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +30,7 @@
             home-manager,
             nixos-hardware,
             niri-flake,
+            nixpkgs-stable,
             ...
         }@inputs:
         let
@@ -41,7 +38,7 @@
                 { extraSystemModules, extraHomeModules }:
                 let
                     defaults = { pkgs, ... }: {
-                        _module.args.pkgs-stable = import inputs.nixpkgs-stable {
+                        _module.args.pkgs-stable = import nixpkgs-stable {
                             inherit (pkgs.stdenv.targetPlatform) system;
                         };
                     };
@@ -60,15 +57,16 @@
                         };
                     };
                 in
-                nixpkgs.lib.nixosSystem rec {
-
+                nixpkgs.lib.nixosSystem {
+                    specialArgs = { inherit inputs; };
                     modules = [
-                        ./all-pkgs-list.nix
-                        ./graphical.nix
-                        ./hobby-electronics.nix
-                        ./latex.nix
-                        ./main.nix
-                        ./python.nix
+                        ./modules/all-pkgs-list.nix
+                        ./modules/graphical.nix
+                        ./modules/hobby-electronics.nix
+                        ./modules/main.nix
+                        ./modules/admin.nix
+                        ./modules/dev.nix
+                        ./modules/hardware-config/common.nix
                         home-manager.nixosModules.home-manager
                         homeManagerModule
                         niri-flake.nixosModules.niri
@@ -79,7 +77,7 @@
         {
             nixosConfigurations.Dionysus = baseSystem {
                 extraSystemModules = [
-                    ./hardware-config/dionysus.nix
+                    ./modules/hardware-config/dionysus.nix
                     nixos-hardware.nixosModules.common-cpu-amd
                     nixos-hardware.nixosModules.common-cpu-amd-zenpower
                 ];
@@ -89,7 +87,7 @@
             };
             nixosConfigurations.Hypatia = baseSystem {
                 extraSystemModules = [
-                    ./hardware-config/hypatia.nix
+                    ./modules/hardware-config/hypatia.nix
                     nixos-hardware.nixosModules.framework-16-7040-amd
                     nixos-hardware.nixosModules.common-cpu-amd-zenpower
                 ];
