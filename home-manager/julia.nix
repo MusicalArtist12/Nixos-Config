@@ -3,31 +3,38 @@
 let
     theme = (import ./theme.nix);
 
-    music_apps = with pkgs; [
+    music-apps = with pkgs; [
         supercollider
         bitwig-studio
         musescore
     ];
-    maker_apps = with pkgs; [
+    maker-apps = with pkgs; [
         inkscape
         gimp
         blender
         prusa-slicer
     ];
-    moonlightDiscord = pkgs.discord.override {
+    discord-with-moonlight = pkgs.discord.override {
         withMoonlight = true;
         moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
     };
-    office_apps = with pkgs; [
+    office-apps = with pkgs; [
         foliate # ebook reader in gtk flavor
         libreoffice
         obsidian
     ];
-    environment_apps = with pkgs; [
+    environment-apps = with pkgs; [
         pokemon-colorscripts
         hyprshot
     ];
-    app_groups = music_apps ++ maker_apps ++ office_apps ++ environment_apps;
+    misc-apps = with pkgs; [
+        ani-cli
+        piper
+        qemu
+        tmux
+        discord-with-moonlight
+        spotify
+    ];
 in
 {
     home.username = "julia";
@@ -66,15 +73,13 @@ in
         target = "Pictures/Backgrounds/celeste.png";
     };
 
-    home.packages = with pkgs; [
-        ani-cli
-        piper
-        qemu
-        tmux
-
-        moonlightDiscord
-        spotify
-    ] ++ app_groups;
+    home.packages = builtins.concatLists [
+        misc-apps
+        music-apps
+        maker-apps
+        office-apps
+        environment-apps
+    ];
 
     imports = [
         ./eww

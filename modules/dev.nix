@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-    pythonEnv = pkgs.python3.withPackages (
+    python-with-packages = pkgs.python3.withPackages (
         p: with p; [
             ipykernel
             ipython
@@ -14,7 +14,7 @@ let
             regex
         ]
     );
-    tex = pkgs.texliveSmall.withPackages (
+    latex-with-packages = pkgs.texliveSmall.withPackages (
         ps: with ps; [
             # algorithmic
             changepage
@@ -29,37 +29,37 @@ let
         ]
     );
 
-    c_dev = with pkgs; [
+    c-dev = with pkgs; [
         bison
         clang
         cmake
         gnumake
     ];
-    game_dev = with pkgs; [
-
+    game-dev = with pkgs; [
         godot
     ];
-    app_groups = c_dev ++ game_dev;
+    dev-general = with pkgs; [
+        gh
+        git
+        jq # json parsing
+        nodejs
+        wget
+        vscode
+        ruby
+        python-with-packages
+        latex-with-packages
+    ];
+    uncategorized-dev-apps = with pkgs; [
+        openscad-unstable
+    ];
 in
 {
-    environment.systemPackages = (
-        with pkgs;
-        [
-            gh
-            git
-
-            jq # json parsing
-            nodejs
-            wget
-            vscode
-            ruby
-
-            openscad-unstable
-
-            pythonEnv
-            tex
-        ] ++ app_groups
-    );
+    environment.systemPackages = builtins.concatLists [
+        c-dev
+        game-dev
+        uncategorized-dev-apps
+        dev-general
+    ];
 
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [

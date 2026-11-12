@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-    wm_apps = with pkgs; [
+    wm-apps = with pkgs; [
         app2unit # uwsm
         hyprpolkitagent
         libnotify
@@ -10,41 +10,45 @@ let
         cliphist
         wl-clipboard
     ];
-    sys_admin_apps = with pkgs; [
+    sys-admin-apps = with pkgs; [
         brightnessctl
         kdePackages.filelight
         wev
     ];
-    audio_stuff = with pkgs; [
+    audio-stuff = with pkgs; [
         pamixer
         pavucontrol
         pulseaudio # provides pactl
     ];
-    compat_tools = with pkgs; [
+    compat-tools = with pkgs; [
         wine-wayland
         labwc # a very useful utility
     ];
-    terminal_tools = with pkgs; [
+    terminal-tools = with pkgs; [
         bat
         fzf
         killall
         tty-clock
         unzip
     ];
-    app_groups = terminal_tools ++ wm_apps ++ sys_admin_apps ++ audio_stuff ++ compat_tools;
-in
-{
-
-    environment.systemPackages = with pkgs; [
-
+    misc-apps = with pkgs; [
         deluge # torrent client
         file-roller
         kitty
         nwg-icon-picker
         vlc
         imv # image viewer
-    ] ++ app_groups;
-
+    ];
+in
+{
+    environment.systemPackages = builtins.concatLists [
+        misc-apps
+        terminal-tools
+        wm-apps
+        sys-admin-apps
+        audio-stuff
+        compat-tools
+    ];
     programs = {
         niri = {
             enable = true;

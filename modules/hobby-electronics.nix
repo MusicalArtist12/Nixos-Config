@@ -13,11 +13,6 @@
 
     '';
 
-    environment.systemPackages = (
-        with pkgs;
-        [
-            chirp
-        ]
-    );
+    environment.systemPackages = [ pkgs.chirp ];
 
 }
