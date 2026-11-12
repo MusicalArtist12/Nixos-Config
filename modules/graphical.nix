@@ -176,7 +176,7 @@ in
     boot = {
         plymouth = {
             enable = true;
-            logo = ../../res/lix-snowflake.png;
+            logo = ../res/lix-snowflake.png;
         };
     };
 
