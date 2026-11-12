@@ -1,7 +1,4 @@
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 let
     pythonEnv = pkgs.python3.withPackages (
         p: with p; [

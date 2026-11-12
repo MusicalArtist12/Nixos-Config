@@ -1,8 +1,4 @@
-{
-    pkgs,
-    ...
-}:
-{
+{ ... }: {
     # Set your time zone.
     time.timeZone = "America/Los_Angeles";
 
@@ -26,20 +22,4 @@
         layout = "us";
         variant = "";
     };
-
-    environment.systemPackages = with pkgs; [
-        bat
-        fzf
-        killall
-        tty-clock
-        unzip
-    ];
-    boot = {
-        plymouth = {
-            enable = true;
-            logo = ../../res/lix-snowflake.png;
-        };
-    };
-    services.upower.enable = true;
-
 }

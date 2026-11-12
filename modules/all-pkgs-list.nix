@@ -1,9 +1,4 @@
-{
-    config,
-    pkgs,
-    ...
-}:
-{
+{ config, pkgs, ... }: {
     environment.etc."current-system-packages".text =
         let
             packages = builtins.map (p: "${p.name}") config.environment.systemPackages;

@@ -1,8 +1,4 @@
-{
-    pkgs,
-    ...
-}:
-{
+{ pkgs, ... }: {
 
     home.file.getWorkspace = {
         source = ./bin/getWorkspace.sh;

@@ -1,7 +1,4 @@
-{
-    ...
-}:
-{
+{ ... }: {
     home.file = {
         system-power = {
             recursive = true;

@@ -1,9 +1,4 @@
-{
-    pkgs,
-    ...
-}:
-{
-
+{ pkgs, ... }: {
     hardware.rtl-sdr.enable = true;
 
     services.udev.extraRules = ''

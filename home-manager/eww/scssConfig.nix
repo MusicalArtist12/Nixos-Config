@@ -1,8 +1,5 @@
 # TODO: this can be converted to use theme.nix
-{
-    ...
-}:
-{
+{ ... }: {
     programs.eww.scssConfig = ''
 
         * {

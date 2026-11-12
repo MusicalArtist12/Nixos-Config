@@ -1,12 +1,4 @@
-{
-    config,
-    lib,
-    pkgs,
-    modulesPath,
-    ...
-}:
-
-{
+{ config, lib, pkgs, modulesPath, ... }: {
     imports = [
         (modulesPath + "/installer/scan/not-detected.nix")
     ];
@@ -179,5 +171,7 @@
 
     services.udev.extraRules = lib.mkAfter ''
         SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0666"
-        	'';
+    '';
+
+    services.upower.enable = true;
 }

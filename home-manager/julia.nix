@@ -1,11 +1,5 @@
 # { config, pkgs, catppuccin, inputs, lib, pkgs-stable, ... }:
-{
-    config,
-    pkgs,
-    inputs,
-
-    ...
-}:
+{ config, pkgs, inputs, ... }:
 let
     theme = (import ./theme.nix);
 

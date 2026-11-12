@@ -61,7 +61,7 @@
                         ./modules/all-pkgs-list.nix
                         ./modules/graphical.nix
                         ./modules/hobby-electronics.nix
-                        ./modules/main.nix
+                        ./modules/locale.nix
                         ./modules/admin.nix
                         ./modules/dev.nix
                         home-manager.nixosModules.home-manager

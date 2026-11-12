@@ -1,7 +1,4 @@
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 let
     theme = (import ../theme.nix);
     accent = theme.mauve_hex;

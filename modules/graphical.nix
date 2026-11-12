@@ -1,7 +1,4 @@
-{
-    pkgs,
-    ...
-}:
+{ pkgs, ... }:
 let
     wm_apps = with pkgs; [
         app2unit # uwsm
@@ -27,9 +24,17 @@ let
         wine-wayland
         labwc # a very useful utility
     ];
-    app_groups = wm_apps ++ sys_admin_apps ++ audio_stuff ++ compat_tools;
+    terminal_tools = with pkgs; [
+        bat
+        fzf
+        killall
+        tty-clock
+        unzip
+    ];
+    app_groups = terminal_tools ++ wm_apps ++ sys_admin_apps ++ audio_stuff ++ compat_tools;
 in
 {
+
     environment.systemPackages = with pkgs; [
 
         deluge # torrent client
@@ -163,5 +168,12 @@ in
 
     security.rtkit.enable = true;
     security.polkit.enable = true;
+
+    boot = {
+        plymouth = {
+            enable = true;
+            logo = ../../res/lix-snowflake.png;
+        };
+    };
 
 }

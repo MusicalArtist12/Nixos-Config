@@ -1,9 +1,4 @@
-{
-    pkgs,
-
-    ...
-}:
-{
+{ pkgs, ... }: {
     programs.vim = {
         enable = true;
         plugins = [

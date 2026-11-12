@@ -1,9 +1,4 @@
-{
-    inputs,
-    pkgs,
-    ...
-}:
-{
+{ inputs, pkgs, ... }: {
     nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
     system.stateVersion = "25.05"; # no touchy - at all

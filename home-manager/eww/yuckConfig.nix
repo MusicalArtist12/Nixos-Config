@@ -1,9 +1,5 @@
-{
-    ...
-}:
-{
+{ ... }: {
     programs.eww.yuckConfig = ''
-
         (deflisten sway_workspace_info :initial "{}"
           `bash ~/.local/bin/getWorkspace.sh`)
 
