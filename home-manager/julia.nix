@@ -62,7 +62,7 @@ in
     };
 
     home.file.celeste-background = {
-        source = ./celeste.png;
+        source = ../res/celeste.png;
         target = "Pictures/Backgrounds/celeste.png";
     };
 
